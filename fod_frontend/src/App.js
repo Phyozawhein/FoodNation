@@ -8,9 +8,8 @@ function App() {
   return (
     <AuthProvider>
     <div className="App">
-        <Container className="d-felx align-items-center">
+
           <SignUp/>
-        </Container>
     </div>
     </AuthProvider>
   );
