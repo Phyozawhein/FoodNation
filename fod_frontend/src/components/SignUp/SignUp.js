@@ -2,7 +2,9 @@ import React, {useRef, useState} from 'react'
 import {Card, Form, Button, Alert} from 'react-bootstrap';
 import {useAuth} from '../../context/AuthContext';
 import Fire from '../../firebase.config';
-import classes from './SignUp.module.css'
+import classes from './SignUp.module.css';
+import {Link} from 'react-router-dom';
+
 export default function SignUp() {
 
     const emailRef =useRef();
@@ -73,8 +75,8 @@ export default function SignUp() {
                 </Form>
                 </Card.Body>
             </Card>
-            <div className= "w-100 text-center mt-2">
-                Already have an account ? Login
+            <div className= "w-100 text-center mt-2 color-white">
+                Already have an account ? <Link to="/login">Login</Link>
             </div>
         </>
     )
