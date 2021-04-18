@@ -1,23 +1,13 @@
 
 body{
-  background: url('./assets/background.png') no-repeat center center;
+  background: url('./assets/background.png') no-repeat center center fixed ;
   width:100%;
-  height:auto;
+  height:100%;
+
 
 }
-/* .appHeader{
-  width:100%;
-  height:auto;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  
-}
 
-main{
-  display:flex;
-  justify-content: center;
-  align-items: center;
+.navbar{
+  margin: 35px 0px;
 }
- */
 
