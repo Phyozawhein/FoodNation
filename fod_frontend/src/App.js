@@ -8,8 +8,8 @@ import Navbar from './layouts/navigation/Navbar';
 import PrivateRoute from './PrivateRoute';
 import Dashboard from './components/Dashboard/Dashboard';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import classes from './App.module.css';
 import Profile from './components/Profile/Profile';
+import classes from './App.module.css';
 
 function App() {
   return (
