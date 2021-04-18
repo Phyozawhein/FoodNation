@@ -5,7 +5,9 @@ import {Container} from 'react-bootstrap';
 import Login from './components/Login/Login'
 import { AuthProvider } from './context/AuthContext';
 import Dashboard from './components/Dashboard/Dashboard';
+import PrivateRoute from './PrivateRoute';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+
 function App() {
   return (
     <div className="App">
@@ -14,7 +16,7 @@ function App() {
         <Switch>
             <Route  path="/signup" component={SignUp}/>
             <Route path="/login" component={Login}/>
-            <Route exact path ="/" component={Dashboard}/>
+            <PrivateRoute exact path ="/" component={Dashboard}/>
             
         </Switch>
       </AuthProvider>
