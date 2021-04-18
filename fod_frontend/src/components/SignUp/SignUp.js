@@ -4,6 +4,7 @@ import {useAuth} from '../../context/AuthContext';
 import Fire from '../../firebase.config';
 import classes from './SignUp.module.css';
 import {Link} from 'react-router-dom';
+import firebase from 'firebase';
 
 export default function SignUp() {
 
@@ -49,6 +50,14 @@ export default function SignUp() {
                 
             }).catch(error=> setError(error.message));
             setLoading(false)
+
+            var user = firebase.auth().currentUser;
+
+            user.sendEmailVerification().then(function() {
+            // Email sent.
+            }).catch(function(error) {
+            // An error happened.
+            });
         }
         catch(err){
 
