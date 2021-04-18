@@ -35,6 +35,9 @@ var firebaseConfig = firebase.initializeApp({
       getTime = () =>{
         return firebase.firestore.Timestamp.now();
     }
+      login = (username, password)=>{
+        return firebase.auth().signInWithEmailAndPassword(username, password)
+    }
   }
   
   Fire.db = new Fire();

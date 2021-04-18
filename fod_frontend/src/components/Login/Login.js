@@ -22,20 +22,24 @@ export default function Login() {
 
         try{
             setLoading(true)
-            
             firebase.auth().signInWithEmailAndPassword(emailRef.current.value, passwordRef.current.value)
-            .then((userCredential) => {
-              // Signed in
-              let user = userCredential.user;
-              // ...
-              console.log("Logged in as ", user);
-              history.push("/");
-            })
+            .then((user) => {
+             // Signed in 
+             //here you call history push (or a callback defined somone else)
+             // doc state that here we know that credentials was accepted
+             // while await means simply that the async code ended
+             // Then is better since you aren't blocking anything and it is more clean (most importantly people who maintain your code will have no issue)
+             // you will have no issue if firebase update something in thier lib ...
+             // history need to be defined before or passed as param
+             history.push('/profile')
+             // ...
+             })
             .catch((error) => {
-              let errorCode = error.code;
-              let errorMessage = error.message;
-              setError(error.message)
-            });
+              // nothing is required from you here (but you can for example show "forget password link)
+             var errorCode = error.code;
+               var errorMessage = error.message;
+             });
+
 
         }
         catch(err){
