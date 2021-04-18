@@ -14,6 +14,40 @@ export default function Login() {
     const [error,setError]=useState('');
     const [loading,setLoading]=useState(false);
     let db = Fire.db;
+
+
+    async function  handleSubmit(e){
+        e.preventDefault();
+
+        if(passwordRef.current.value !== passwordConfirmRef.current.value){
+            return setError('Passwords do not match')
+        }
+        try{
+            setLoading(true)
+            await signup(emailRef.current.value, passwordRef.current.value);
+            // need to add a measure to prevent duplicate account (using email address)
+
+
+            db.getCollection('Users').doc().set({
+                email: emailRef.current.value,
+                password: passwordRef.current.value
+                
+            }).then(response=>{
+                console.log("Success");
+                
+            }).catch(error=> setError(error.message));
+            setLoading(false)
+        }
+        catch(err){
+
+            setError('');
+            setError(err.message);
+            setLoading(false);
+        }
+        setLoading(false);
+    }   
+
+    
     return (
         <>
         <Card className={`${classes.container} ${classes.font}`}>
