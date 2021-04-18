@@ -211,11 +211,7 @@ export default function SignUp() {
             </Container>
         </>
     )
-<<<<<<< HEAD
 }
 
 
 
-=======
-}
->>>>>>> a8e1770539bd0a4fd1a1895b6039c7925b5ccbdb

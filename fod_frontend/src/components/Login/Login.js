@@ -26,9 +26,9 @@ export default function Login() {
             firebase.auth().signInWithEmailAndPassword(emailRef.current.value, passwordRef.current.value)
             .then((userCredential) => {
               // Signed in
-              var user = userCredential.user;
+              let user = userCredential.user;
               // ...
-              console.log("Logged in");
+              console.log("Logged in as ", user);
               history.push("/");
             })
             .catch((error) => {
