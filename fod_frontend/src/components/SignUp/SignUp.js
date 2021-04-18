@@ -5,6 +5,7 @@ import Fire from '../../firebase.config';
 import classes from './SignUp.module.css';
 import {Link} from 'react-router-dom';
 import {ReactComponent as Logo} from '../../assets/FN-Logo.svg';
+import firebase from 'firebase';
 
 export default function SignUp() {
 
@@ -49,6 +50,14 @@ export default function SignUp() {
                 
             }).catch(error=> setError(error.message));
             setLoading(false)
+
+            var user = firebase.auth().currentUser;
+
+            user.sendEmailVerification().then(function() {
+            // Email sent.
+            }).catch(function(error) {
+            // An error happened.
+            });
         }
         catch(err){
 
@@ -202,7 +211,11 @@ export default function SignUp() {
             </Container>
         </>
     )
+<<<<<<< HEAD
 }
 
 
 
+=======
+}
+>>>>>>> a8e1770539bd0a4fd1a1895b6039c7925b5ccbdb
