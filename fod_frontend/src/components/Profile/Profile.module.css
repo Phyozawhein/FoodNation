@@ -1,8 +1,126 @@
 .container{
-    background-color: #BC0000 !important;
+    background-color:rgba(196, 196, 196, 0.27) !important;
+    width: 100%;
+    padding: .06rem;
+    border-radius: 1rem;
+    overflow-x: hidden;
 }
 
 .font{
     color:white;
     font-family: 'Sora', sans-serif !important;
+}
+
+.accountimage{
+    width: 10.5rem;
+    height: 10.5rem;
+    border-radius: 50%;
+}
+
+.profilebutton{
+    background: #BC0000 !important;
+    border-radius: .5rem !important;
+    border: none !important;
+    margin-top: 1rem;
+    font-weight: bolder !important;
+    font-family: 'Sora', sans-serif !important;
+}
+
+.profilebutton:hover{
+    background: #b43535 !important;
+    border-radius: .5rem !important;
+    border: none !important;
+    margin-top: 1rem;
+    font-weight: bolder;
+    font-family: 'Sora', sans-serif !important;
+}
+
+.info{
+    width: 100%;
+    position: relative;
+}
+
+.infolabel{
+    font-size: .9rem;
+    color:white;
+    margin: 1rem;
+    font-family: 'Sora', sans-serif !important;
+    border-bottom: 1.8px solid rgba(255, 255, 255, 0.692);
+}
+
+.infotext{
+    font-size: .75rem;
+    color:white;
+    margin: 1rem;
+    font-family: 'Sora', sans-serif !important;
+}
+
+
+.favbox{
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+
+.favimg{
+    width: 5.5rem;
+    height: 5.5rem;
+    background-size: cover;
+}
+
+.postsection{
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.postings{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 80%;
+    margin: .5rem;
+    margin-bottom: .00rem;
+    border-bottom: 1.8px solid rgba(255, 255, 255, 0.692);
+}
+
+.postbutton{
+    background: #BC0000 !important;
+    border-radius: .5rem !important;
+    border: none !important;
+    font-weight: bolder !important;
+    font-family: 'Sora', sans-serif !important;
+}
+
+.postbutton:hover{
+    background: #b43535 !important;
+    border-radius: .5rem !important;
+    border: none !important;
+    font-weight: bolder;
+    font-family: 'Sora', sans-serif !important;
+}
+
+
+/*Scrollbar*/
+
+::-webkit-scrollbar{
+  width: 10px;
+}
+
+::-webkit-scrollbar-track{
+  background: rgba(255, 255, 255, 0.308);
+  box-shadow: inset 0 0 5px rgb(187, 187, 187); 
+  border-radius: 10px;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+}
+
+::-webkit-scrollbar-thumb{
+  background: #c41616 ;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background: #ff0000;
+  border-radius: 10px;
 }
