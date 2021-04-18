@@ -1,20 +1,34 @@
 import React, {useRef, useState} from 'react'
-import {Container, Card, Row, Form, Button, Alert} from 'react-bootstrap';
+import {Card, Form, Button, Alert} from 'react-bootstrap';
 import {useAuth} from '../../context/AuthContext';
 import Fire from '../../firebase.config';
 import classes from './SignUp.module.css';
-import {ReactComponent as Logo} from '../../assets/FN-Logo.svg';
-
+import {Link} from 'react-router-dom';
 
 export default function SignUp() {
 
+    const userNameRef = useRef();
     const emailRef =useRef();
+    const phoneNumberRef= useRef();
     const passwordRef= useRef();
     const passwordConfirmRef = useRef();
-    const {signup, currentUser} = useAuth();
+    const CIDRef = useRef(); // charity identification reference
+    const fNameRef =useRef(); // first Name
+    const lNameRef = useRef(); // last Name
+    const oNameRef = useRef(); //organization Name
+    const rNameRef = useRef(); // restaurant Name
+    const {signup} = useAuth();
     const [error,setError]=useState('');
     const [loading,setLoading]=useState(false);
+    const [optionPage, setOptionPage]=useState((<div></div>));
+
+    
+
     let db = Fire.db;
+
+
+    
+
     async function  handleSubmit(e){
         e.preventDefault();
 
@@ -25,7 +39,6 @@ export default function SignUp() {
             setLoading(true)
             await signup(emailRef.current.value, passwordRef.current.value);
             // need to add a measure to prevent duplicate account (using email address)
-
 
             db.getCollection('Users').doc().set({
                 email: emailRef.current.value,
@@ -46,24 +59,78 @@ export default function SignUp() {
         setLoading(false);
     }   
 
+    const UserPage= (
+        <Form.Row>
+            <Form.Group id="email">
+                <Form.Label>
+                    Username
+                </Form.Label>
+                <Form.Control type="text" ref={userNameRef} required/>
+            </Form.Group>
+            <Form.Group id="email">
+                <Form.Label>
+                    First Name
+                </Form.Label>
+                <Form.Control type="text" ref={fNameRef} required/>
+            </Form.Group>
+            <Form.Group id="email">
+                <Form.Label>
+                    Last Name
+                </Form.Label>
+                <Form.Control type="text" ref={lNameRef} required/>
+            </Form.Group>
+        </Form.Row>
+    )
+
+    const CharityPage=(
+    <Form.Row>
+        <Form.Group id="cid">
+            <Form.Label>
+                Charity Identity Number (CIN)
+            </Form.Label>
+            <Form.Control type="text" ref={CIDRef} required/>
+        </Form.Group>
+        <Form.Group id="ogranizationName">
+            <Form.Label>
+                Organization Name
+            </Form.Label>
+            <Form.Control type="text" ref={oNameRef} required/>
+        </Form.Group>
+    </Form.Row>
+    )
+
+    const RestaurantPage =(
+        <Form.Row>
+        <Form.Group id="restaurantName">
+            <Form.Label>
+                Restaurant Name
+            </Form.Label>
+            <Form.Control type="text" ref={rNameRef} required/>
+        </Form.Group>
+    </Form.Row>
+
+    )
+
+    const updateOption=(e)=>{
+        let option = parseInt(e.target.value)
+        switch(option){
+            case 1: setOptionPage(UserPage); break;
+            case 2: setOptionPage(CharityPage);break;
+            case 3: setOptionPage(RestaurantPage);break;
+            default:setOptionPage(UserPage);break;
+        }
+    }
+
+
     return (
         <>
-        <Container className="d-flex align-items-center justify-content-center" style={{minHeight: "100vh"}}>
-            <div className="w-100" style={{maxWidth: "400px"}}>
             <Card className={`${classes.container} ${classes.font}`}>
                 <Card.Body>
-                <Row className="d-flex align-items-center justify-content-center">
-                    <Logo className={classes.logo}/>
-                </Row>
+                <h2 className="text-center mb-4">Sign Up</h2>
                 {error &&<Alert variant="danger">{error}</Alert>}
                 
-                <Form onSubmit={handleSubmit} >
-                    <Form.Group id="email">
-                        <Form.Label>
-                            Email
-                        </Form.Label>
-                        <Form.Control type="email" ref={emailRef} required/>
-                    </Form.Group>
+                <Form onSubmit={handleSubmit} > 
+                     {optionPage}                 
                     <Form.Group id="password">
                         <Form.Label>
                             Password
@@ -76,16 +143,57 @@ export default function SignUp() {
                         </Form.Label>
                         <Form.Control type="password" ref={passwordConfirmRef} required/>
                     </Form.Group>
-                    <Button type="submit" className={`${classes.submitbutton} w-100`} disabled={loading}>Sign Up</Button>
+                    <Form.Row>
+                        <Form.Group id="email">
+                            <Form.Label>
+                                Email
+                            </Form.Label>
+                            <Form.Control type="email" ref={emailRef} required/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Phone</Form.Label>
+                            <Form.Control type="text" ref={phoneNumberRef} required />
+                        </Form.Group>
+                    </Form.Row>
+                    <Form.Group>
+                  
+                        <Form.Check
+                            inline
+                            type="radio"
+                            label="User" 
+                            id="options"
+                            value="1"
+                            name="option"
+                            onClick={updateOption}
+                            />
+                        <Form.Check
+                            inline
+                            type="radio"
+                            label="Charity" 
+                            id="options"
+                            value="2"
+                            name="option"
+                            onClick={updateOption}                         
+                            />
+                        <Form.Check
+                            inline
+                            type="radio"
+                            label="Restaurant" 
+                            id="options"
+                            value="3"
+                            name="option"
+                            onClick={updateOption}
+                            />
+                     
+                    </Form.Group>
+
+                    <Button type="submit" className={`w-100 ${classes.submitbutton}`} disabled={loading}>Sign up</Button>
                 </Form>
                 </Card.Body>
             </Card>
-            
-            <div className= {`${classes.font} w-100 text-center mt-2`}>
-                Already have an account ? Login
+            <div className= "w-100 text-center mt-2 color-white">
+                Already have an account ? <Link to="/login">Login</Link>
             </div>
-            </div>
-        </Container>
         </>
     )
 }
