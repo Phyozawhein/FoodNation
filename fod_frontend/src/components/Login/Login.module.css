@@ -3,3 +3,14 @@
     color: white;
 }
 
+.submitbutton{
+    background: #BC0000 !important;
+    border: 3px solid white !important;
+    border-radius: 3px !important;
+}
+
+.submitbutton:hover{
+    background: white !important;
+    color:#BC0000 !important;
+    border: 3px solid white !important;
+}

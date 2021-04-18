@@ -5,6 +5,7 @@ import Fire from '../../firebase.config';
 import classes from './SignUp.module.css';
 import {Link} from 'react-router-dom';
 import {ReactComponent as Logo} from '../../assets/FN-Logo.svg';
+import firebase from 'firebase';
 
 export default function SignUp() {
 
@@ -39,14 +40,24 @@ export default function SignUp() {
             // need to add a measure to prevent duplicate account (using email address)
 
             db.getCollection('Users').doc().set({
+                
                 email: emailRef.current.value,
-                password: passwordRef.current.value
+                password: passwordRef.current.value,
+
                 
             }).then(response=>{
                 console.log("Success");
                 
             }).catch(error=> setError(error.message));
             setLoading(false)
+
+            var user = firebase.auth().currentUser;
+
+            user.sendEmailVerification().then(function() {
+            // Email sent.
+            }).catch(function(error) {
+            // An error happened.
+            });
         }
         catch(err){
 
@@ -204,45 +215,3 @@ export default function SignUp() {
 
 
 
-//     return (
-//         <>
-//         <Container className="d-flex align-items-center justify-content-center" style={{minHeight: "100vh"}}>
-//             <div className="w-100" style={{maxWidth: "400px"}}>
-//             <Card className={`${classes.container} ${classes.font}`}>
-//                 <Card.Body>
-//                 <Row className="d-flex align-items-center justify-content-center">
-//                     <Logo className={classes.logo}/>
-//                 </Row>
-//                 {error &&<Alert variant="danger">{error}</Alert>}
-                
-//                 <Form onSubmit={handleSubmit} >
-//                     <Form.Group id="email">
-//                         <Form.Label>
-//                             Email
-//                         </Form.Label>
-//                         <Form.Control type="email" ref={emailRef} required/>
-//                     </Form.Group>
-//                     <Form.Group id="password">
-//                         <Form.Label>
-//                             Password
-//                         </Form.Label>
-//                         <Form.Control type="password" ref={passwordRef} required/>
-//                     </Form.Group>
-//                     <Form.Group id="password-confirm">
-//                         <Form.Label>
-//                             Password Confirmation
-//                         </Form.Label>
-//                         <Form.Control type="password" ref={passwordConfirmRef} required/>
-//                     </Form.Group>
-//                     <Button type="submit" className={`${classes.submitbutton} w-100`} disabled={loading}>Sign Up</Button>
-//                 </Form>
-//                 </Card.Body>
-//             </Card>
-//             <div className= {`${classes.font} w-100 text-center mt-2`}>
-//                 Already have an account ? Login
-//             </div>
-//             </div>
-//         </Container>
-//         </>
-//     )
-// }
