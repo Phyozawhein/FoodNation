@@ -4,18 +4,20 @@ import SignUp from './components/SignUp/SignUp'
 import {Container} from 'react-bootstrap';
 import Login from './components/Login/Login'
 import { AuthProvider } from './context/AuthContext';
-import Dashboard from './components/Dashboard/Dashboard';
+import Navbar from './layouts/navigation/Navbar';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import { useState } from 'react';
 function App() {
   return (
     <div className="App">
     <Router>
       <AuthProvider>
+        <div >
+          <Navbar/>
+        </div>
         <Switch>
             <Route  path="/signup" component={SignUp}/>
-            <Route path="/login" component={Login}/>
-            <Route exact path ="/" component={Dashboard}/>
-            
+            <Route path="/login" component={Login}/>            
         </Switch>
       </AuthProvider>
     </Router>
