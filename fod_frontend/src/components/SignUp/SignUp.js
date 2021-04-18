@@ -25,10 +25,7 @@ export default function SignUp() {
     
 
     let db = Fire.db;
-
-
     
-
     async function  handleSubmit(e){
         e.preventDefault();
 
