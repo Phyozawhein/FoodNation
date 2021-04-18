@@ -5,11 +5,12 @@ import {useAuth} from '../../context/AuthContext';
 import Fire from '../../firebase.config';
 import classes from './Login.module.css';
 import {Link} from 'react-router-dom';
+import firebase from 'firebase';
+
 export default function Login() {
     
     const emailRef =useRef();
     const passwordRef= useRef();
-    const passwordConfirmRef = useRef();
     const {signup, currentUser} = useAuth();
     const [error,setError]=useState('');
     const [loading,setLoading]=useState(false);
@@ -18,25 +19,21 @@ export default function Login() {
 
     async function  handleSubmit(e){
         e.preventDefault();
-
-        if(passwordRef.current.value !== passwordConfirmRef.current.value){
-            return setError('Passwords do not match')
         }
+        
         try{
             setLoading(true)
-            await signup(emailRef.current.value, passwordRef.current.value);
-            // need to add a measure to prevent duplicate account (using email address)
-
-
-            db.getCollection('Users').doc().set({
-                email: emailRef.current.value,
-                password: passwordRef.current.value
-                
-            }).then(response=>{
-                console.log("Success");
-                
-            }).catch(error=> setError(error.message));
-            setLoading(false)
+            
+            firebase.auth().signInWithEmailAndPassword(emailRef, passwordRef)
+            .then((userCredential) => {
+                // Signed in
+                var user = userCredential.user;
+                // ...
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+  });
         }
         catch(err){
 
@@ -45,14 +42,14 @@ export default function Login() {
             setLoading(false);
         }
         setLoading(false);
-    }   
+       
 
     
     return (
         <>
         <Card className={`${classes.container} ${classes.font}`}>
             <Card.Body>
-            <h2 className="text-center mb-4">Sign Up</h2>
+            <h2 className="text-center mb-4">Log In</h2>
             {error &&<Alert variant="danger">{error}</Alert>}
             
             <Form onSubmit={handleSubmit} >
@@ -68,18 +65,15 @@ export default function Login() {
                     </Form.Label>
                     <Form.Control type="password" ref={passwordRef} required/>
                 </Form.Group>
-                <Form.Group id="password-confirm">
-                    <Form.Label>
-                        Password Confirmation
-                    </Form.Label>
-                    <Form.Control type="password" ref={passwordConfirmRef} required/>
-                </Form.Group>
-                <Button type="submit" className="w-100" disabled={loading}>Sign up</Button>
+
+                <Button type="submit" className="w-100" disabled={loading}>Log in</Button>
             </Form>
             </Card.Body>
         </Card>
-        <div className= "w-100 text-center mt-2 color-white">
-            Already have an account ? <Link to="/login">Login</Link>
+        <div className= "w-100 text-center mt-2">
+           <b style={{color:"white"}}>
+            Don't have an account ? <Link to="/signup">Signup</Link>
+            </b>
         </div>
     </>
     )
