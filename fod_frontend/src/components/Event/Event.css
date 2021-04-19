@@ -30,13 +30,18 @@ position: absolute;
 left: 30%;
 right: 30%;
 top: 20%;
-bottom: 20%;
+bottom: 15%;
 
 background: rgba(196, 196, 196, 0.27);
 border-radius: 58px;
 }
 
-
+.date{
+    margin-left:20px;
+    border-color: black;
+    border-radius: 20px;
+    text-align: center;
+}
 
 
 

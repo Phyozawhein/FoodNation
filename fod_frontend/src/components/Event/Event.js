@@ -7,7 +7,11 @@ const Event = ()  =>{
         <div >
         <div className="rectangle">
             <form>
-                <div><h1 className="headline">Schedule an Event</h1></div>
+                <div>
+                    <h1 className="headline">
+                        Schedule an Event
+                    </h1>
+                </div>
                 
                 <div >
                     <label className="label"> 
@@ -20,9 +24,7 @@ const Event = ()  =>{
                       />
                       <br/>
                     </label>
-                    
-                    
-                    <label className="label"> 
+                     <label className="label"> 
                           Address
                          <br/>
                          <input className = "input"
@@ -31,14 +33,9 @@ const Event = ()  =>{
                           placeholder = 'Address'
                           />
                           <br/>
-                        </label>
-                    
-    
-               
-                </div>
-               
-                    
-                    <label className="label"> 
+                    </label>
+                    </div>
+                         <label className="label"> 
                           Item Lists
                          <br/>
                          <input className = "input1"
@@ -49,15 +46,22 @@ const Event = ()  =>{
                           <br/>
                           <br/>
                           <br/>
+                          <label>Choose a Date</label>
+                         
+                          <input type="datetime-local"  className="date" name="Date"/>
+                          <br/>
                           <br/>
                         </label>
-                        <Button type="submit" className="submitbutton">Sign up</Button>
-                       
-            </form>
-            
-        </div>
-
-        </div>
+                        <br/>
+                        <Button 
+                            type="submit"
+                            className="submitbutton">
+                            Sign up
+                        </Button>
+                            
+                    </form>
+                </div>
+            </div>
     )
 }
 
