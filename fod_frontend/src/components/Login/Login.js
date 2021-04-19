@@ -24,7 +24,7 @@ export default function Login() {
             setLoading(true)
             firebase.auth().signInWithEmailAndPassword(emailRef.current.value, passwordRef.current.value).then((userCredentials) => {
                setLoading(false);
-               history.push("/profile");
+               history.push("/");
             
              }).catch((error) => {
                 setError('');

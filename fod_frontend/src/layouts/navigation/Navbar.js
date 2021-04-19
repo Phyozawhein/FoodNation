@@ -28,7 +28,7 @@ export default function Navbar() {
             </NavLink>
           </li>
           <li className={classes.navlink} >
-            <NavLink to='/'  activeClassName={classes.active} exact>
+            <NavLink to='/location'  activeClassName={classes.active} exact>
             Find Help
             </NavLink>
           </li>

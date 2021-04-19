@@ -54,7 +54,7 @@ export default function () {
                                     <Form.Control />
                                 </Form.Group>
 
-                                <Button type="submit" className="w-100" >Direction</Button>
+                                <Button type="submit" className={`w-100 ${classes.searchButton}`} >Direction</Button>
                             </Form>
 
                         </div>
