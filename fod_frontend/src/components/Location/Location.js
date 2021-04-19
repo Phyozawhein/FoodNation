@@ -19,7 +19,7 @@ export default function () {
             <Row className="justify-content-center">
                 <Col sm={12} md={4}>
                     <Row>
-                        <h2 className={`${classes.head_name} d-flex`}>My Location</h2>
+                        <h2 className={`${classes.head_name} d-flex`}>Search Queries</h2>
                     </Row>
                     <Row>
                         <div className={`${classes.container_child} ${classes.font}`}>
@@ -60,7 +60,7 @@ export default function () {
                         </div>
 
                     </Row>
-                    <Row> <h3 className={`${classes.head_name}`}>Charity Location</h3></Row>
+                    <Row> <h3 className={`${classes.head_name}`}>Search Results</h3></Row>
                     <Row>
                 
                         <div className={`${classes.container_child} ${classes.font}`}>
