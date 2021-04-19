@@ -6,6 +6,7 @@ import { AuthProvider } from './context/AuthContext';
 import Navbar from './layouts/navigation/Navbar';
 import PrivateRoute from './PrivateRoute';
 import Dashboard from './components/Dashboard/Dashboard';
+import Location from './components/Location/Location';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Profile from './components/Profile/Profile';
 import classes from './App.module.css';
@@ -27,6 +28,7 @@ function App() {
               <Route path="/login" component={Login} />
               <Route exact path="/" component={Dashboard} />
               <PrivateRoute exact path ="/profile" component={Profile} />
+              <Route path="/location" component={Location}/>
           </Switch>
           </div>
 
