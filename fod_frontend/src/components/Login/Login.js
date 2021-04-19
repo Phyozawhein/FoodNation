@@ -20,31 +20,19 @@ export default function Login() {
     async function  handleSubmit(e){
         e.preventDefault();
 
-        try{
+      
             setLoading(true)
+            firebase.auth().signInWithEmailAndPassword(emailRef.current.value, passwordRef.current.value).then((userCredentials) => {
+               setLoading(false);
+               history.push("/");
             
-            firebase.auth().signInWithEmailAndPassword(emailRef.current.value, passwordRef.current.value)
-            .then((userCredential) => {
-              // Signed in
-              let user = userCredential.user;
-              // ...
-              console.log("Logged in as ", user);
-              history.push("/");
-            })
-            .catch((error) => {
-              let errorCode = error.code;
-              let errorMessage = error.message;
-              setError(error.message)
-            });
+             }).catch((error) => {
+                setError('');
+                setError(error.message);
+                setLoading(false);
 
-        }
-        catch(err){
-
-            setError('');
-            setError(err.message);
-            setLoading(false);
-        }
-        setLoading(false);
+        })
+        
     }   
 
     return (
@@ -73,6 +61,7 @@ export default function Login() {
                     </Form.Group>                  
 
                     <Button type="submit" className={`w-100 ${classes.submitbutton}`} disabled={loading}>Log in</Button>
+                   
                 </Form>
                 </Card.Body>
             </Card>

@@ -1,9 +1,9 @@
-import React, {useRef, useState} from 'react'
-import {Container, InputGroup, FormControl, Card, Col, Row, Form, Button, Alert} from 'react-bootstrap';
-import {useAuth} from '../../context/AuthContext';
-import Fire from '../../firebase.config';
+import React from 'react'
+import {Container, InputGroup, FormControl, Col, Row, Button} from 'react-bootstrap';
+// import {useAuth} from '../../context/AuthContext';
+// import Fire from '../../firebase.config';
 import classes from './Profile.module.css';
-import {ReactComponent as Logo} from '../../assets/FN-Logo.svg';
+// import {ReactComponent as Logo} from '../../assets/FN-Logo.svg';
 import Test from '../../assets/gang.jpg';
 
 
@@ -18,7 +18,7 @@ export default function Profile() {
             <Row>
                 <Col xs={12} md={3}>
                     <Row className="d-flex align-items-center justify-content-center">
-                        <img class={`${classes.accountimage}`} src={Test}></img> {/* <== replace src*/}
+                        <img class={`${classes.accountimage}` }  alt="pic" src={Test}></img> {/* <== replace src*/}
                     </Row>
                     <div className="d-flex align-items-center justify-content-center">
                         <h4 className={`${classes.font} m-1`}>Name</h4>
@@ -52,6 +52,7 @@ export default function Profile() {
                             >    
                             {/*Change href to dynamic*/}
                                 <img
+                                    alt="profile-pic"
                                     class={`m-3 rounded-circle d-inline-block ${classes.favimg}`}
                                     src={Test}
                                 />
