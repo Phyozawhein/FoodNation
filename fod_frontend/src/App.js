@@ -7,6 +7,7 @@ import { AuthProvider } from './context/AuthContext';
 import Dashboard from './components/Dashboard/Dashboard';
 import PrivateRoute from './PrivateRoute';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import CharityDetails from './components/CharityDetails/CharityDetails';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Switch>
             <Route  path="/signup" component={SignUp}/>
             <Route path="/login" component={Login}/>
-            <PrivateRoute exact path ="/" component={Dashboard}/>
+            <Route path="/charity/:id" children={<CharityDetails />}/>
+            <Route exact path ="/" component={Dashboard}/>
             
         </Switch>
       </AuthProvider>

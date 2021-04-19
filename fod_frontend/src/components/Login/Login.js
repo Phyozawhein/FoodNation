@@ -29,7 +29,7 @@ export default function Login() {
               var user = userCredential.user;
               // ...
               console.log("Logged in");
-              history.push("/");
+              history.push("/charitydetails");
             })
             .catch((error) => {
               let errorCode = error.code;
