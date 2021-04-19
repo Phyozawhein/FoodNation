@@ -20,35 +20,19 @@ export default function Login() {
     async function  handleSubmit(e){
         e.preventDefault();
 
-        try{
+      
             setLoading(true)
-            firebase.auth().signInWithEmailAndPassword(emailRef.current.value, passwordRef.current.value)
-            .then((user) => {
-             // Signed in 
-             //here you call history push (or a callback defined somone else)
-             // doc state that here we know that credentials was accepted
-             // while await means simply that the async code ended
-             // Then is better since you aren't blocking anything and it is more clean (most importantly people who maintain your code will have no issue)
-             // you will have no issue if firebase update something in thier lib ...
-             // history need to be defined before or passed as param
-             history.push('/profile')
-             // ...
-             })
-            .catch((error) => {
-              // nothing is required from you here (but you can for example show "forget password link)
-             var errorCode = error.code;
-               var errorMessage = error.message;
-             });
+            firebase.auth().signInWithEmailAndPassword(emailRef.current.value, passwordRef.current.value).then((userCredentials) => {
+               setLoading(false);
+               history.push("/profile");
+            
+             }).catch((error) => {
+                setError('');
+                setError(error.message);
+                setLoading(false);
 
-
-        }
-        catch(err){
-
-            setError('');
-            setError(err.message);
-            setLoading(false);
-        }
-        setLoading(false);
+        })
+        
     }   
 
     return (
@@ -77,6 +61,7 @@ export default function Login() {
                     </Form.Group>                  
 
                     <Button type="submit" className={`w-100 ${classes.submitbutton}`} disabled={loading}>Log in</Button>
+                   
                 </Form>
                 </Card.Body>
             </Card>

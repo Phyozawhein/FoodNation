@@ -42,11 +42,11 @@ export default function Navbar() {
         </div>
         <li className={classes.navlink}>
           <NavLink to="/" >
-          <img src={logo} className={classes.logo} />
+          <img src={logo} className={classes.logo} alt="logo-pic" />
           </NavLink>
         </li>
         <div className={classes.rightBar}>
-          {  currentUser !== null ? <> <li className={classes.navlink}> <NavLink to="/login"  onClick={handleLogout}> Log out </NavLink> </li></>: <><li className={classes.navlink}> <NavLink to='/signup'  activeClassName={classes.active} exact> Sign Up </NavLink> </li><li className={classes.navlink}> <NavLink to='/login'> Login </NavLink>  </li></>}
+          {  currentUser !== null ? <> <li className={classes.navlink}> <NavLink to="/login"  onClick={handleLogout}> Log out </NavLink> </li></>: <><li className={classes.navlink}> <NavLink to='/signup'  activeClassName={classes.active} exact> Sign Up </NavLink> </li><li className={classes.navlink}> <NavLink to='/login' activeClassName={classes.active} exact> Login </NavLink>  </li></>}
 
           <li className={classes.navlink}><NavLink to='/'   activeClassName={classes.active} exact >Contact Us</NavLink></li>
         </div>
