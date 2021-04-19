@@ -7,7 +7,7 @@ font-size: 40px;
 /* line-height: 121px; */
 margin-top: 15px;
 }
-.submitbutton{
+.postbutton{
     background: #BC0000 !important;
     border-radius: .5rem !important;
     border: none !important;
@@ -18,7 +18,7 @@ margin-top: 15px;
     margin-left:40px;
 }
 
-.submitbutton:hover{
+.postbutton:hover{
     background: #b43535 !important;
     border-radius: .5rem !important;
     border: none !important;

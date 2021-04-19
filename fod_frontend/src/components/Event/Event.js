@@ -54,9 +54,9 @@ const Event = ()  =>{
                         </label>
                         <br/>
                         <Button 
-                            type="submit"
-                            className="submitbutton">
-                            Sign up
+                            type="post"
+                            className="postbutton">
+                            Post
                         </Button>
                             
                     </form>
