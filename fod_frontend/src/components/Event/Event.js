@@ -2,7 +2,7 @@ import React from 'react'
 import './Event.css';
 import {Button, Alert} from 'react-bootstrap';
 
-const Event = ()  =>{
+const Event = () =>{
     return (
         <div >
         <div className="rectangle">
@@ -54,7 +54,7 @@ const Event = ()  =>{
                         </label>
                         <br/>
                         <Button 
-                            type="post"
+                            type="submit"
                             className="postbutton">
                             Post
                         </Button>
