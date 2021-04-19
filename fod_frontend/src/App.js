@@ -2,6 +2,7 @@
 import './App.module.css';
 import SignUp from './components/SignUp/SignUp'
 import Login from './components/Login/Login'
+import Event from './components/Event/Event'
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './layouts/navigation/Navbar';
 import PrivateRoute from './PrivateRoute';
@@ -16,6 +17,7 @@ function App() {
 
   return (
     <div className="App">
+<<<<<<< HEAD
     <AuthProvider>
       <Router>
       
@@ -34,6 +36,20 @@ function App() {
 
       </Router>
     </AuthProvider>
+=======
+    <Router>
+      <AuthProvider>
+        <Switch>
+            <Route path="/signup" component={SignUp}/>
+            <Route path="/login" component={Login}/>
+            <Route exact path ="/" component={Dashboard}/>
+            <Route path= "/event" component = {Event} />
+          
+            
+        </Switch>
+      </AuthProvider>
+    </Router>
+>>>>>>> d53ac51f20c288ef4ee564ec1f5d8e10cd4f80da
     </div>
   );
 }

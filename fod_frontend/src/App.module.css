@@ -1,10 +1,17 @@
 
 body{
+<<<<<<< HEAD
   background: url('./assets/background.png') no-repeat center center fixed ;
   background-size: cover;
   width:100%;
   height:100%;
 
+=======
+  background: url('./assets/background.png') no-repeat ;
+  width:100%;
+  height:auto;
+  background-size: cover;
+>>>>>>> d53ac51f20c288ef4ee564ec1f5d8e10cd4f80da
 
 }
 

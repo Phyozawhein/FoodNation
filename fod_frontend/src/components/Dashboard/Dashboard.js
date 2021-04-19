@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import "./style.scss";
 
@@ -68,6 +69,16 @@ function Desktop3(props) {
         <div className="overlap-group1">
           <img className="image-6" src={image6} />
           <img className="image-11 smart-layers-pointers" src={image11} />
+=======
+import React from 'react'
+import Event from '../Event/Event'
+
+
+export default function Dashboard() {
+    return (
+        <div>
+           
+>>>>>>> d53ac51f20c288ef4ee564ec1f5d8e10cd4f80da
         </div>
       <img className="rectangle-25 smart-layers-pointers" src={rectangle25} />
       <img className="image-13 smart-layers-pointers" src={image13} />
