@@ -32,11 +32,13 @@ export default function Navbar() {
             Find Help
             </NavLink>
           </li>
+          { currentUser ?
           <li className={classes.navlink}> 
-            <NavLink to='/'  activeClassName={classes.active} exact> 
+            <NavLink to='/profile'  activeClassName={classes.active} exact> 
               Profile
             </NavLink>
           </li>
+          : null }
         </div>
         <li className={classes.navlink}>
           <NavLink to="/" >
@@ -44,7 +46,7 @@ export default function Navbar() {
           </NavLink>
         </li>
         <div className={classes.rightBar}>
-          {  currentUser !== null ? <> <li className={classes.navlink}> <NavLink to=""  onClick={handleLogout}> Log out </NavLink> </li></>: <><li className={classes.navlink}> <NavLink to='/signup'  activeClassName={classes.active} exact> Sign Up </NavLink> </li><li className={classes.navlink}> <NavLink to='/login' exact  activeClassName={classes.active}  > Login </NavLink>  </li></>}
+          {  currentUser !== null ? <> <li className={classes.navlink}> <NavLink to="/login"  onClick={handleLogout}> Log out </NavLink> </li></>: <><li className={classes.navlink}> <NavLink to='/signup'  activeClassName={classes.active} exact> Sign Up </NavLink> </li><li className={classes.navlink}> <NavLink to='/login'> Login </NavLink>  </li></>}
 
           <li className={classes.navlink}><NavLink to='/'   activeClassName={classes.active} exact >Contact Us</NavLink></li>
         </div>
