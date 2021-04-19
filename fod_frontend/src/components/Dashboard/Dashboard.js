@@ -10,6 +10,7 @@ function Dashboard() {
 
 export default Dashboard;
 
+<<<<<<< HEAD
 function Desktop3(props) {
   const {
     desktop3,
@@ -68,6 +69,11 @@ function Desktop3(props) {
         <div className="overlap-group1">
           <img className="image-6" src={image6} />
           <img className="image-11 smart-layers-pointers" src={image11} />
+=======
+    return (
+        <div>
+            <a href="" onClick={handleLogout}>Logout</a>
+>>>>>>> e8103228de24bcae646444b84dfa3b102d646e89
         </div>
       <img className="rectangle-25 smart-layers-pointers" src={rectangle25} />
       <img className="image-13 smart-layers-pointers" src={image13} />

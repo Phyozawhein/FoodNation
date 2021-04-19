@@ -11,7 +11,7 @@ import Location from './components/Location/Location';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Profile from './components/Profile/Profile';
 import classes from './App.module.css';
-
+import CharityDetails from './components/CharityDetails/CharityDetails';
 
 function App() {
 
@@ -30,6 +30,7 @@ function App() {
               <Route exact path="/" component={Dashboard} />
               <PrivateRoute exact path ="/profile" component={Profile} />
               <Route path="/location" component={Location}/>
+              <Route path="/charity/:id" children={<CharityDetails />}/>
           </Switch>
           </div>
 
