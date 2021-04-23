@@ -12,6 +12,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Profile from './components/Profile/Profile';
 import classes from './App.module.css';
 import CharityDetails from './components/CharityDetails/CharityDetails';
+import Contact from './components/Contact/Contact';
 
 function App() {
 
@@ -31,6 +32,9 @@ function App() {
               <PrivateRoute exact path ="/profile" component={Profile}/>
               <Route path="/location" component={Location}/>
               <Route path="/charity/:id" children={<CharityDetails />}/>
+              <PrivateRoute exact path ="/charity-event" component={Event}/>
+              <Route plath = "/contact-us" component={Contact}/>
+              
           </Switch>
           </div>
 
