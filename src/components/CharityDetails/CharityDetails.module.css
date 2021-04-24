@@ -1,23 +1,23 @@
-.tinyImg{
-    width: 10%;
-    height: 10%;
-    margin-left: 42%;
-    margin-top: 10%;
+.tinyImg {
+  width: 10%;
+  height: 10%;
+  margin-left: 42%;
+  margin-top: 10%;
 }
 
-.buttons{
-    background: #BC0000 !important;
-    border-radius: .5rem !important;
-    border: none !important;
-    font-weight: bolder !important;
-    font-family: 'Sora', sans-serif !important;
-    min-width: 15rem;
-    min-height: 4rem;
+.buttons {
+  background: #bc0000 !important;
+  border-radius: 0.5rem !important;
+  border: none !important;
+  font-weight: bolder !important;
+  font-family: 'Sora', sans-serif !important;
+  min-width: 15rem;
+  min-height: 4rem;
 }
-.buttons:hover{
-background: #b43535 !important;
-    border-radius: .5rem !important;
-    border: none !important;
-    font-weight: bolder;
-    font-family: 'Sora', sans-serif !important;
+.buttons:hover {
+  background: #b43535 !important;
+  border-radius: 0.5rem !important;
+  border: none !important;
+  font-weight: bolder;
+  font-family: 'Sora', sans-serif !important;
 }

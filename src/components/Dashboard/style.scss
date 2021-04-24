@@ -504,7 +504,7 @@
   top: 182px;
   width: 19px;
 }
-@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+@import url('https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css');
 * {
   box-sizing: border-box;
 }
@@ -523,8 +523,8 @@
   font-weight: 400;
 }
 :root {
-  --font-family-roboto-regular: "Roboto-Regular", Helvetica;
-  --font-family-sora-regular: "Sora-Regular", Helvetica;
+  --font-family-roboto-regular: 'Roboto-Regular', Helvetica;
+  --font-family-sora-regular: 'Sora-Regular', Helvetica;
   --font-size-s: 24px;
   --font-size-xxl: 60px;
   --white: rgba(255, 255, 255, 1);
