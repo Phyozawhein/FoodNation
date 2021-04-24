@@ -136,7 +136,8 @@ export default function SignUp() {
             case 3: setOptionPage(RestaurantPage);
                     setUserType('restaurant');
                     break;
-            default:setOptionPage(UserPage);break;
+            default:setOptionPage(UserPage);
+                    break;
         }
     }
 
