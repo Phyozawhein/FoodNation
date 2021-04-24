@@ -1,8 +1,9 @@
 import React from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import classes from './Navbar.module.css';
 import logo from '../../assets/FN-Logo.svg';
-import { NavLink, useHistory } from 'react-router-dom';
+
 export default function Navbar() {
   const { currentUser, logout } = useAuth();
   const history = useHistory();

@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import classes from './App.module.css';
 import SignUp from './components/SignUp/SignUp';
@@ -27,7 +28,10 @@ function App() {
               <Route exact path="/" component={Dashboard} />
               <PrivateRoute exact path="/profile" component={Profile} />
               <Route path="/location" component={Location} />
-              <Route path="/charity/:id" children={<CharityDetails />} />
+              <Route path="/charity/:id">
+                <CharityDetails />
+              </Route>
+              <PrivateRoute path="/charity-event" component={Event} />
             </Switch>
           </div>
         </Router>

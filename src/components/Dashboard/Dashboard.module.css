@@ -1,0 +1,21 @@
+.cardContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 70px;
+}
+
+.charityCard {
+  width: 364px;
+  height: 256px;
+  border: 10px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 50px;
+}
+.charityCard img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50px;
+}
