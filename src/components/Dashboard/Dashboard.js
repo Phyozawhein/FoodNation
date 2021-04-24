@@ -24,12 +24,12 @@ export default function Dashboard() {
   return (
     <Container className={classes.cardContainer}>
       <CardColumns>
-        {charities.map((charity) => (
-          <Link to={`/charity/${charity.id}`}>
-            <Card className={classes.charityCard}>
+        {charities.map((charity, id) => (
+          <Card className={classes.charityCard} id={id}>
+            <Link to={`/charity/${charity.id}`}>
               <Card.Img src={charity.imgUrl} />
-            </Card>
-          </Link>
+            </Link>
+          </Card>
         ))}
       </CardColumns>
     </Container>

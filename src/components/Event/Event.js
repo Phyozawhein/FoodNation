@@ -1,12 +1,12 @@
 import './Event.css';
 import React, { useState, useRef, useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext';
-import Fire from '../../firebase.config';
 import { Button, Form, Alert } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import Fire from '../../firebase.config';
 
 function Event() {
-  let db = Fire.db;
+  const { db } = Fire;
   const user = useAuth().currentUser.email;
   const OrgName = useRef();
   const Address = useRef();
@@ -16,7 +16,7 @@ function Event() {
   const [success, setSuccess] = useState('');
   const [view, setView] = useState(false);
   const history = useHistory();
-  const [optionPage, setOptionPage] = useState(<div></div>);
+  const [optionPage, setOptionPage] = useState(<div />);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -46,7 +46,7 @@ function Event() {
       .where('email', '==', user)
       .get()
       .then((snapShotQuery) => {
-        let typeCheck = snapShotQuery.docs.filter((doc) => doc.data().type === 'charity').length;
+        const typeCheck = snapShotQuery.docs.filter((doc) => doc.data().type === 'charity').length;
         console.log(typeCheck);
         if (typeCheck === 1) {
           setView(true);
