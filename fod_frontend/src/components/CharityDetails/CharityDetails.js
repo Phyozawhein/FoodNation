@@ -9,10 +9,11 @@ function CharityDetails() {
 
     // let announcements=[]
     // let description  =""
-    const {currentUser}= useAuth();
 
     let {id} = useParams();
     let db = Fire.db
+    const user = useAuth().currentUser.email
+    
     const [announcements,setAnnouncement]= useState([]);
     const [description,setDescription] = useState("");
     const [imageUrl,setImageUrl] = useState("");
@@ -20,23 +21,23 @@ function CharityDetails() {
 
     useEffect(()=>{
 
-    db.getCollection("CharityDetails").where("id", "==", id)
-    .get()
-    .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            let announcements= doc.data().Announcement
-            let description = doc.data().description
-            let imageUrl = doc.data().imgUrl
-            let date = announcements.Date.toDate().toLocaleString('en-US', { timeZone: "America/New_York" }).toString()
-
-            setAnnouncement(announcements);
-            setDescription(description);
-            setImageUrl(imageUrl);
-            setDate(date);    
-
-        });
-    })
+        db.getCollection("CharityDetails").where("id", "==", id)
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                let announcements= doc.data().Announcement
+                let description = doc.data().description
+                let imageUrl = doc.data().imgUrl
+                let date = announcements.Date.toDate().toLocaleString('en-US', { timeZone: "America/New_York" }).toString()
+    
+                setAnnouncement(announcements);
+                setDescription(description);
+                setImageUrl(imageUrl);
+                setDate(date);    
+    
+            });
+        })
     .catch((error) => {
         console.log("Error getting documents: ", error);
     });

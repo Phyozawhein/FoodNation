@@ -31,6 +31,7 @@ function App() {
               <PrivateRoute exact path ="/profile" component={Profile}/>
               <Route path="/location" component={Location}/>
               <Route path="/charity/:id" children={<CharityDetails />}/>
+              <PrivateRoute path ="/charity-event" component={Event} />
           </Switch>
           </div>
 

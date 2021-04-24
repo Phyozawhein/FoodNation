@@ -21,6 +21,7 @@ export default function SignUp() {
     const rNameRef = useRef(); // restaurant Name
     const {signup} = useAuth();
     const [error,setError]=useState('');
+    const [userType,setUserType]=useState('');
     const [loading,setLoading]=useState(false);
     const [optionPage, setOptionPage]=useState((<div></div>));
 
@@ -43,7 +44,7 @@ export default function SignUp() {
                 
                 email: emailRef.current.value,
                 password: passwordRef.current.value,
-
+                type: userType,
                 
             }).then(response=>{
                 console.log("Success");
@@ -87,6 +88,7 @@ export default function SignUp() {
                     Last Name
                 </Form.Label>
                 <Form.Control type="text" ref={lNameRef} required/>
+           
             </Form.Group>
         </>
     )
@@ -104,6 +106,7 @@ export default function SignUp() {
                 Organization Name
             </Form.Label>
             <Form.Control type="text" ref={oNameRef} required/>
+        
         </Form.Group>
     </>
     )
@@ -115,6 +118,7 @@ export default function SignUp() {
                 Restaurant Name
             </Form.Label>
             <Form.Control type="text" ref={rNameRef} required/>
+        
         </Form.Group>
     </>
 
@@ -123,9 +127,15 @@ export default function SignUp() {
     const updateOption=(e)=>{
         let option = parseInt(e.target.value)
         switch(option){
-            case 1: setOptionPage(UserPage); break;
-            case 2: setOptionPage(CharityPage);break;
-            case 3: setOptionPage(RestaurantPage);break;
+            case 1: setOptionPage(UserPage);
+                    setUserType('regular');
+                    break;
+            case 2: setOptionPage(CharityPage);
+                    setUserType('charity');
+                    break;
+            case 3: setOptionPage(RestaurantPage);
+                    setUserType('restaurant');
+                    break;
             default:setOptionPage(UserPage);break;
         }
     }
