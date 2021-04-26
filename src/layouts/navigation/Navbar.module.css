@@ -1,0 +1,52 @@
+.navbarContainer {
+  width: 100%;
+  height: 50px;
+
+  z-index: 1;
+
+  background: url('../../assets/navbg.png') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.navbarContainer ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 65%;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding: 0px;
+}
+
+.logo {
+  width: 100px;
+}
+
+.leftBar,
+.rightBar {
+  display: flex;
+  justify-content: space-around;
+  width: 40%;
+}
+
+.navlink a {
+  text-decoration: none;
+  color: white;
+}
+
+.navlink a:hover,
+a:active,
+a.active {
+  text-decoration: none;
+  color: orange;
+}
+
+/* .active-link{
+    text-decoration:none;
+    color:orange; 
+} */
