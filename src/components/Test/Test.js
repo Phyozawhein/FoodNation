@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Container, InputGroup, FormControl, Col, Row, Button } from 'react-bootstrap';
+import { Container, Col, Row, Button } from 'react-bootstrap';
 // import {useAuth} from '../../context/AuthContext';
-import Fire from '../../firebase.config';
-import { storage } from '../../firebase.config';
+import Fire, { storage } from '../../firebase.config';
 import classes from './Test.module.css';
 // import {ReactComponent as Logo} from '../../assets/FN-Logo.svg';
-import testImg from '../../assets/gang.jpg';
 
 export default function Test() {
   const [image, setImage] = useState(null);
@@ -32,7 +30,7 @@ export default function Test() {
           .child('pzh@gmail.com')
           .getDownloadURL()
           .then((url) => {
-            db.getCollection('Users').doc('g9wSFUvCzEMT5Hekx44I').update({
+            db.getCollection('Users').doc('fo1wShquklf4tq9pJ9HE').update({
               profile_picture: url,
             });
 

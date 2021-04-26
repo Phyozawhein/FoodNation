@@ -10,7 +10,8 @@ import PrivateRoute from './PrivateRoute';
 import Dashboard from './components/Dashboard/Dashboard';
 import Location from './components/Location/Location';
 import Profile from './components/Profile/Profile';
-
+import Contact from './components/Contact/Contact';
+import Test from './components/Test/Test';
 import CharityDetails from './components/CharityDetails/CharityDetails';
 
 function App() {
@@ -28,9 +29,9 @@ function App() {
               <Route exact path="/" component={Dashboard} />
               <PrivateRoute exact path="/profile" component={Profile} />
               <Route path="/location" component={Location} />
-              <Route path="/charity/:id">
-                <CharityDetails />
-              </Route>
+              <Route path="/charity/:id" component={CharityDetails} />
+              <Route path="/contact" component={Contact} />
+              <Route path="/test" component={Test} />
               <PrivateRoute path="/charity-event" component={Event} />
             </Switch>
           </div>

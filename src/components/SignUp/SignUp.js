@@ -160,7 +160,7 @@ export default function SignUp() {
                   <Form.Check inline type="radio" label="Restaurant" id="options" value="3" name="option" onClick={updateOption} />
                 </Form.Group>
 
-                <Button type="submit" className={`w-100 ${classes.submitbutton}`} disabled={loading}>
+                <Button type="submit" className={classes.submitbutton}>
                   Sign up
                 </Button>
               </Form>

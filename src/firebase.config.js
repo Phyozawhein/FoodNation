@@ -42,5 +42,7 @@ class Fire {
 
 Fire.db = new Fire();
 export const auth = firebaseConfig.auth();
-export default Fire;
+
+const storage = firebase.storage();
+export { Fire as default, storage };
 // export const TestsFire = firebase.initializeApp(firebaseConfig);

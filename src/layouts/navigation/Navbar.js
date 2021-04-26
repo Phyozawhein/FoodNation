@@ -75,7 +75,7 @@ export default function Navbar() {
           )}
 
           <li className={classes.navlink}>
-            <NavLink to="/" activeClassName={classes.active} exact>
+            <NavLink to="/contact" activeClassName={classes.active} exact>
               Contact Us
             </NavLink>
           </li>
