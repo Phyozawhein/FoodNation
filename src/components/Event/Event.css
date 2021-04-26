@@ -43,7 +43,11 @@ border-radius: 58px;
     text-align: center;
 }
 
-
+.cantView{
+    color: white;
+    margin-left: 40%;
+    margin-top: 10%;
+}
 
 .label{
 margin-top:0px;

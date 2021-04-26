@@ -3,7 +3,6 @@ import React, {useState, useRef,useEffect} from 'react'
 import {useAuth} from '../../context/AuthContext';
 import Fire from '../../firebase.config';
 import {Button,Form, Alert} from 'react-bootstrap';
-import {Link, useHistory} from 'react-router-dom';
 
 function Event () {
 
@@ -16,8 +15,6 @@ function Event () {
     const [error,setError]=useState('');
     const [success,setSuccess]=useState('');
     const [view,setView]=useState(false);
-    const history = useHistory()
-    const [optionPage, setOptionPage]=useState((<div></div>));
 
     async function handleSubmit(e){
         e.preventDefault();
@@ -52,7 +49,7 @@ function Event () {
         .then((snapShotQuery) => {
 
             let typeCheck = snapShotQuery.docs.filter(doc => doc.data().type === "charity").length;
-            console.log(typeCheck);
+            
             if (typeCheck === 1) {
                 setView(true);
             }
@@ -62,9 +59,7 @@ function Event () {
 
     const viewPage = (
         <div className="rectangle">
-        {error &&<Alert variant="danger">{error}</Alert>}
-
-
+        
         <div>
             <h1 className="headline">
                 Schedule an Event
@@ -94,7 +89,7 @@ function Event () {
                 Item Lists
                 <br/>
             </Form.Label>
-            <Form.Control className = "input1" type="text-area" ref={ItemLists} required/>
+            <Form.Control className = "input1" type="textarea" ref={ItemLists} required/>
         </Form.Group>
                 <br/>
                 <br/>
@@ -119,17 +114,10 @@ function Event () {
 
     const cantViewPage = (
         <div>
-            <h1>Not authorized to view this page</h1>
+            <h1 className="cantView">Not authorized to view this page</h1>
         </div>
     )
 
-    // const updateOption=()=>{
-        
-    //         if (view) {setOptionPage(viewPage);}
-
-    //         if (!view) {setOptionPage(cantViewPage);}
-    // }
-        console.log(user)
     return (
         <div>
         
