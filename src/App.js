@@ -12,6 +12,8 @@ import Profile from './components/Profile/Profile';
 
 import CharityDetails from './components/CharityDetails/CharityDetails';
 import Contact from './components/Contact/Contact';
+import Description from './components/Description/Description';
+import RecentEvent from './components/RecentEvent/RecentEvent';
 
 function App() {
   return (
@@ -26,20 +28,13 @@ function App() {
               <Route path="/signup" component={SignUp} />
               <Route path="/login" component={Login} />
               <Route exact path="/" component={Dashboard} />
-<<<<<<< HEAD:fod_frontend/src/App.js
-              <PrivateRoute exact path ="/profile" component={Profile}/>
-              <Route path="/location" component={Location}/>
-              <Route path="/charity/:id" children={<CharityDetails />}/>
-              <PrivateRoute exact path ="/charity-event" component={Event}/>
-              <Route plath = "/contact-us" component={Contact}/>
-              
-          </Switch>
-=======
               <PrivateRoute exact path="/profile" component={Profile} />
+              <Route path="/contact" component={Contact}/>
               <Route path="/location" component={Location} />
               <Route path="/charity/:id" children={<CharityDetails />} />
+              <Route path = "/description/:id" children={<Description/>}/>
+              <Route path ="/recentevent/:id" children = {<RecentEvent/>}/>
             </Switch>
->>>>>>> e585f8c09c3a6c97a5cec2884ba537468d9e35b0:src/App.js
           </div>
         </Router>
       </AuthProvider>
