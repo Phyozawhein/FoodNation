@@ -14,6 +14,7 @@ import CharityDetails from './components/CharityDetails/CharityDetails';
 import Contact from './components/Contact/Contact';
 import Description from './components/Description/Description';
 import RecentEvent from './components/RecentEvent/RecentEvent';
+import RecentReviews from './components/RecentReviews/RecentReviews'
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
               <Route path="/charity/:id" children={<CharityDetails />} />
               <Route path = "/description/:id" children={<Description/>}/>
               <Route path ="/recentevent/:id" children = {<RecentEvent/>}/>
+              <Route path ="/recentreview/:id" children = {<RecentReviews/>}/>
             </Switch>
           </div>
         </Router>
