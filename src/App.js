@@ -12,6 +12,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Profile from './components/Profile/Profile';
 import classes from './App.module.css';
 import CharityDetails from './components/CharityDetails/CharityDetails';
+import Donation from './components/Donation/Donation';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
               <Route path="/location" component={Location}/>
               <Route path="/charity/:id" children={<CharityDetails />}/>
               <PrivateRoute path ="/charity-event" component={Event} />
+              <PrivateRoute path ="/restaurant-donation" component={Donation} />
           </Switch>
           </div>
 

@@ -110,7 +110,7 @@ function CharityDetails() {
     },[])
 
     return (
-        <div>
+        <div className={styles.colormarlam}>
             <img className={styles.tinyImg} src={imageUrl} />
             <br/>
             <p style={{color:"white",fontSize:40, marginLeft:"16%",maxWidth: "70%"}}>
@@ -124,7 +124,7 @@ function CharityDetails() {
             <Row>
                 <Col>
                     <p style={{color:"white",fontSize:40, marginLeft:"32%",maxWidth: "70%"}}>
-                    Venue: {address}
+                    Address: {address}
                     </p>
                 </Col>
                 <Col>
