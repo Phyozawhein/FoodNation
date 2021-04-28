@@ -3,13 +3,14 @@ import classes from './Contact.module.scss';
 
 import firebase from 'firebase';
 import Fire, { db } from '../../firebase.config';
-import { Form, Container, Button } from 'react-bootstrap';
+import { Form, Container, Button,Alert } from 'react-bootstrap';
 
 const Contact = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+  const [success,setSuccess]=useState('');
 
   const { db } = Fire;
 
@@ -23,7 +24,7 @@ const Contact = () => {
         message,
       })
       .then(() => {
-        alert('Message has been submitted.');
+        setSuccess("Message has been submitted");
       })
       .catch((error) => {
         alert(error.message);
@@ -37,7 +38,9 @@ const Contact = () => {
   return (
     <div>
       <h1 className={classes.headline}>CONTACT US 📞</h1>
-      <Container className={classes.Container}>
+      <div className= {classes.alert}>{success &&<Alert variant="success">{success}</Alert>}</div>
+      
+      <Container onSubmit={handleSubmit} className={classes.Container}>
         <Form className={classes.form}>
           <Form.Group className={classes.group}>
             <Form.Label>Name:*</Form.Label>

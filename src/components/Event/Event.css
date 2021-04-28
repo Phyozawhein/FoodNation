@@ -41,31 +41,37 @@
     border-color: black;
     border-radius: 20px;
     text-align: center;
-  }
-  
-  .label {
-    margin-top: 0px;
-    width: 558px;
-    height: 39px;
-    margin-left: 35px;
-  
-    font-family: Sora;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 50px;
-  
-    color: #ffffff;
-  }
-  .input {
-    position: absolute;
-    width: 650px;
-    height: 34px;
-  
-    background: #ffffff;
-    border-radius: 20px;
-  }
-  ::placeholder {
+}
+
+.cantView{
+    color: white;
+    margin-left: 40%;
+    margin-top: 10%;
+}
+
+.label{
+margin-top:0px;
+width: 558px;
+height: 39px;
+margin-left :35px;
+
+font-family: Sora;
+font-style: normal;
+font-weight: normal;
+font-size: 20px;
+line-height: 50px;
+
+color: #FFFFFF;
+}
+.input{
+position: absolute;
+width: 650px;
+height: 34px;
+
+background: #FFFFFF;
+border-radius: 20px;
+}
+::placeholder{
     text-align: center;
   }
   .input1 {

@@ -7,7 +7,10 @@
     color: white;
     width: 40% !important;
   }
-  
+  .alert{
+    width: 40%;
+    margin-left: 30%;
+  }
   @media (max-width: 600px) {
     .headline {
       font-family: Sora;

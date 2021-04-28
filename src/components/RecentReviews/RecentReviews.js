@@ -10,12 +10,6 @@ const RecentReviews = ()  =>{
     const { id } = useParams();
     const { db } = Fire; 
     const [reviews, setReviews] = useState([]);
-    // const [date, setDate] = useState('');
-    // const [rating, setRating] = useState('');
-    // const [review, setReview] = useState('');
-    // const [writer, setWriter] = useState('');
-
-
     
     useEffect(() => {
         db.getCollection('CharityDetails')
@@ -24,16 +18,8 @@ const RecentReviews = ()  =>{
         .then((querySnapshot) => {
             querySnapshot.forEach((doc)=>{
                 const reviews = doc.data().reviews;
-                // let fordate = new Date(.date);
-                // fordate = fordate.toLocaleString('en-US', { timeZone: 'America/New_York' });
-                // const review = doc.data().review;
-                // const rating = doc.data().rating;
-                // const writer = doc.data().writer;
-                // setDate(fordate);
                  setReviews(reviews.reverse());
-                // setReview(review);
-                // setRating(rating);
-                // setWriter(writer);
+               
             });
 
         })
@@ -43,12 +29,12 @@ const RecentReviews = ()  =>{
     }, []);
    
         
-//// reviews = [ review1 , review2 , review3]
-//// review1 = { write, review , date, rating}
+
 return(
-    <div className ={classes.container}>
+    <div >
     {
             reviews.map(review =>(
+                <div className ={classes.container}>
                 <div key={review.id}>
                 <br />
                 <p style={{ color: 'white', fontSize: 40, marginLeft: '16%', maxWidth: '70%' }}>Writer: {review.writer}</p>
@@ -61,7 +47,8 @@ return(
                 <br />
                 <p style={{ color: 'white', fontSize: 40, marginLeft: '16%', maxWidth: '70%' }}>Review: {review.review}</p>
                 <br />
-    
+                </div>
+               
             </div>
             )
             )
