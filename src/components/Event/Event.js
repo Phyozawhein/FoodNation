@@ -1,4 +1,4 @@
-import './Event.css';
+import styles from './Event.module.scss';
 import React, {useState, useRef,useEffect} from 'react'
 import {useAuth} from '../../context/AuthContext';
 import Fire from '../../firebase.config';
@@ -8,13 +8,16 @@ function Event () {
 
     let db = Fire.db
     const user = useAuth().currentUser.email
-    const OrgName = useRef()
     const Address = useRef()
     const ItemLists=useRef()
     const date     =useRef()
     const [error,setError]=useState('');
     const [success,setSuccess]=useState('');
     const [view,setView]=useState(false);
+    const [array,setArray]=useState([]);
+    const [id, setId]=useState('');
+    const [orgName, setOrgName]=useState('');
+
 
     async function handleSubmit(e){
         e.preventDefault();
@@ -23,11 +26,11 @@ function Event () {
             
             db.getCollection('Events').doc().set({
                     
-                orgName: OrgName.current.value,
+                orgName: orgName,
                 address: Address.current.value,
                 itemLists:ItemLists.current.value,
                 date: date.current.value,
-                id: OrgName.current.value.toString().toLowerCase().replaceAll(" ","-"),
+                id: id,
                 
             }).then(response=>{
                 setSuccess("Event successfully created");
@@ -55,13 +58,33 @@ function Event () {
             }
 
         }).catch(error => setError(error.message))
+
+        let array =[]
+        db.getCollection("CharityDetails").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+               
+                array.push(doc.data().orgName);
+            }
+            );
+                setArray(array);
+        });
+
     },[])
 
+    function updateId() {
+        let zone = document.getElementById("idselect")
+        
+        if (zone && zone.value !=null){
+            setOrgName(zone.value);                      
+            setId(zone.value.toString().toLowerCase().replaceAll(" ","-"));
+        }
+    }
+
     const viewPage = (
-        <div className="rectangle">
+        <div className={styles.rectangle}>
         
         <div>
-            <h1 className="headline">
+            <h1 className={styles.headline}>
                 Schedule an Event
             </h1>
         </div>
@@ -69,15 +92,24 @@ function Event () {
 
     <Form onSubmit={handleSubmit}>
         <Form.Group id="orgName">
-            <Form.Label className="label">
-                Organization Name
-                <br/>
-            </Form.Label>
-            <Form.Control className = "input" type="text" ref={OrgName} required/>
-        </Form.Group>
+            <Form.Label className={styles.label}>
+                    Organization Name
+                    <br/>
+                </Form.Label>
+
+                <select id="idselect" class="form-select" className={styles.label1} onChange={updateId}>
+                    <option selected>Choose a Charity</option>
+                    
+                    {array.map(item=> ( 
+                    <option value={item}>
+                         {item}
+                    </option>))}
+                
+                </select>
+            </Form.Group>
                 <br/>
         <Form.Group id="address">
-            <Form.Label className="label">
+            <Form.Label className={styles.label}>
                 Address
                 <br/>
             </Form.Label>
@@ -85,7 +117,7 @@ function Event () {
         </Form.Group>
                 <br/>
         <Form.Group id="itemLists">
-            <Form.Label className="label">
+            <Form.Label className={styles.label}>
                 Item Lists
                 <br/>
             </Form.Label>
@@ -95,7 +127,7 @@ function Event () {
                 <br/>
                 
         <Form.Group id="date">
-            <Form.Label className="label">
+            <Form.Label className={styles.label}>
                 Choose a Date
                 <br/>
                 <br/>
@@ -103,7 +135,7 @@ function Event () {
             <Form.Control className="date" type="datetime-local" ref={date} required/>
         </Form.Group>
         <br/>
-        <Button type="post" className="postbutton">
+        <Button type="post" className={styles.postbutton}>
             Post
         </Button>
     </Form>
@@ -114,7 +146,7 @@ function Event () {
 
     const cantViewPage = (
         <div>
-            <h1 className="cantView">Not authorized to view this page</h1>
+            <h1 className={styles.cantView}>Not authorized to view this page</h1>
         </div>
     )
 
