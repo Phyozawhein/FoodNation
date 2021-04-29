@@ -13,6 +13,7 @@ import Profile from './components/Profile/Profile';
 import Contact from './components/Contact/Contact';
 import Test from './components/Test/Test';
 import CharityDetails from './components/CharityDetails/CharityDetails';
+import Donation from './components/Donation/Donation';
 
 function App() {
   return (
@@ -29,10 +30,10 @@ function App() {
               <Route exact path="/" component={Dashboard} />
               <PrivateRoute exact path="/profile" component={Profile} />
               <Route path="/location" component={Location} />
-              <Route path="/charity/:id" component={CharityDetails} />
-              <Route path="/contact" component={Contact} />
-              <Route path="/test" component={Test} />
+              <Route path="/charity/:id" children={<CharityDetails />} />
               <PrivateRoute path="/charity-event" component={Event} />
+              <PrivateRoute path="/restaurant-donation" component={Donation} />
+              <Route path="/test" component={Test} />
             </Switch>
           </div>
         </Router>
