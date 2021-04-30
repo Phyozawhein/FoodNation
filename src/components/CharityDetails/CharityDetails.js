@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import styles from './CharityDetails.module.css';
 import Fire from '../../firebase.config';
+import { useParams } from 'react-router-dom';
 
 function CharityDetails() {
   // let announcements=[]
   // let description  =""
-  const { currentUser } = useAuth();
 
   let { id } = useParams();
   let db = Fire.db;
