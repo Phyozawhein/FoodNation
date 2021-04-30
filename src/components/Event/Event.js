@@ -1,11 +1,11 @@
-import styles from './Event.module.css';
 import React, { useState, useRef, useEffect } from 'react';
+import { Button, Form, Alert } from 'react-bootstrap';
+import styles from './Event.module.css';
 import { useAuth } from '../../context/AuthContext';
 import Fire from '../../firebase.config';
-import { Button, Form, Alert } from 'react-bootstrap';
 
 function Event() {
-  let db = Fire.db;
+  const { db } = Fire;
   const user = useAuth().currentUser.email;
   const Address = useRef();
   const ItemLists = useRef();
@@ -24,11 +24,11 @@ function Event() {
       db.getCollection('Events')
         .doc()
         .set({
-          orgName: orgName,
+          orgName,
           address: Address.current.value,
           itemLists: ItemLists.current.value,
           date: date.current.value,
-          id: id,
+          id,
         })
         .then((response) => {
           setSuccess('Event successfully created');
@@ -59,7 +59,7 @@ function Event() {
       .where('email', '==', user)
       .get()
       .then((snapShotQuery) => {
-        let typeCheck = snapShotQuery.docs.filter((doc) => doc.data().type === 'charity').length;
+        const typeCheck = snapShotQuery.docs.filter((doc) => doc.data().type === 'charity').length;
 
         if (typeCheck === 1) {
           setView(true);
@@ -67,7 +67,7 @@ function Event() {
       })
       .catch((error) => setError(error.message));
 
-    let array = [];
+    const array = [];
     db.getCollection('CharityDetails')
       .get()
       .then((querySnapshot) => {
@@ -79,7 +79,7 @@ function Event() {
   }, []);
 
   function updateId() {
-    let zone = document.getElementById('idselect');
+    const zone = document.getElementById('idselect');
 
     if (zone && zone.value != null) {
       setOrgName(zone.value);
@@ -101,7 +101,7 @@ function Event() {
             <br />
           </Form.Label>
 
-          <select id="idselect" class="form-select" className={styles.label1} onChange={updateId}>
+          <select id="idselect" className="form-select" className={styles.label1} onChange={updateId}>
             <option selected>Choose a Charity</option>
 
             {array.map((item) => (

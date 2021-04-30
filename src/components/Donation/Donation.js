@@ -5,7 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import Fire from '../../firebase.config';
 
 function Donation() {
-  let db = Fire.db;
+  const { db } = Fire;
   const user = useAuth().currentUser.email;
   const ResName = useRef();
   const Address = useRef();
@@ -26,7 +26,7 @@ function Donation() {
         .doc()
         .set({
           resName: ResName.current.value,
-          orgName: orgName,
+          orgName,
           address: Address.current.value,
           itemLists: ItemLists.current.value,
           date: date.current.value,
@@ -52,7 +52,7 @@ function Donation() {
       .where('email', '==', user)
       .get()
       .then((snapShotQuery) => {
-        let typeCheck = snapShotQuery.docs.filter((doc) => doc.data().type === 'restaurant').length;
+        const typeCheck = snapShotQuery.docs.filter((doc) => doc.data().type === 'restaurant').length;
 
         if (typeCheck === 1) {
           setView(true);
@@ -63,7 +63,7 @@ function Donation() {
         setError(error.message);
       });
 
-    let array = [];
+    const array = [];
     db.getCollection('CharityDetails')
       .get()
       .then((querySnapshot) => {
@@ -75,7 +75,7 @@ function Donation() {
   }, []);
 
   function updateId() {
-    let zone = document.getElementById('idselect');
+    const zone = document.getElementById('idselect');
 
     if (zone && zone.value != null) {
       setOrgName(zone.value); // FIX ME
@@ -105,7 +105,7 @@ function Donation() {
             <br />
           </Form.Label>
 
-          <select id="idselect" class="form-select" className={styles.label1} onChange={updateId}>
+          <select id="idselect" className="form-select" className={styles.label1} onChange={updateId}>
             <option selected>Choose a Charity</option>
 
             {array.map((item) => (

@@ -8,8 +8,8 @@ function CharityDetails() {
   // let description  =""
   const { currentUser } = useAuth();
 
-  let { id } = useParams();
-  let db = Fire.db;
+  const { id } = useParams();
+  const { db } = Fire;
 
   const [address, setAddress] = useState([]);
   const [itemLists, setItemLists] = useState('');
@@ -48,7 +48,7 @@ function CharityDetails() {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          const description = doc.data().description;
+          const { description } = doc.data();
           const imageUrl = doc.data().imgUrl;
 
           setImageUrl(imageUrl);
@@ -69,15 +69,15 @@ function CharityDetails() {
           let eventDate = new Date(doc.data().date);
 
           if (dates.compare(eventDate, todayDate) == 1) {
-            let itemLists = doc.data().itemLists;
-            let address = doc.data().address;
+            const { itemLists } = doc.data();
+            const { address } = doc.data();
             eventDate = eventDate.toLocaleString('en-US', { timeZone: 'America/New_York' });
             setAddress(address);
             setItemLists(itemLists);
             setDate(eventDate);
           } else {
-            let itemLists = 'No upcoming event yet. Please be patient';
-            let address = '...';
+            const itemLists = 'No upcoming event yet. Please be patient';
+            const address = '...';
             eventDate = '...';
             setAddress(address);
             setItemLists(itemLists);

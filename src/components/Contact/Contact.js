@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
+import firebase from 'firebase';
+import { Form, Container, Button } from 'react-bootstrap';
 import classes from './Contact.module.css';
 
-import firebase from 'firebase';
 import Fire, { db } from '../../firebase.config';
-import { Form, Container, Button } from 'react-bootstrap';
 
 const Contact = () => {
   const [name, setName] = useState('');
@@ -33,7 +33,7 @@ const Contact = () => {
     setSubject('');
     setMessage('');
   };
-  //style={{ minHeight: '100vh' }} className={`${classes.Container} d-flex align-items-center justify-content-center`}
+  // style={{ minHeight: '100vh' }} className={`${classes.Container} d-flex align-items-center justify-content-center`}
   return (
     <div>
       <h1 className={classes.headline}>CONTACT US 📞</h1>
