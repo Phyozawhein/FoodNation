@@ -3,7 +3,6 @@ version: 2.1
 orbs:
   heroku: circleci/heroku@0.0.10
 
-
 jobs:
   build:
     docker:
@@ -15,9 +14,9 @@ jobs:
       - run:
           name: Install Dependencies
           command: npm install
-      - run:
-          name: Run tests
-          command: npm run test
+      # - run:
+      #     name: Run tests
+      #     command: npm run test
 
 workflows:
   heroku_deploy:
