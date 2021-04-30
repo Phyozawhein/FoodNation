@@ -43,7 +43,12 @@
   text-align: center;
 }
 
-.label {
+.input {
+  position: absolute;
+  width: 650px;
+  height: 34px;
+}
+.label1 {
   margin-top: 0px;
   width: 558px;
   height: 39px;
@@ -59,8 +64,6 @@
   font-weight: normal;
   font-size: 20px;
   line-height: 50px;
-
-  color: #ffffff;
 }
 .label1 {
   margin-top: 0px;

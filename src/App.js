@@ -33,6 +33,7 @@ function App() {
               <Route path="/charity/:id" children={<CharityDetails />} />
               <PrivateRoute path="/charity-event" component={Event} />
               <PrivateRoute path="/restaurant-donation" component={Donation} />
+              <Route path="/contact" component={Contact} />
               <Route path="/test" component={Test} />
             </Switch>
           </div>
