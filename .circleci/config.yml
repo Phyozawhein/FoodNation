@@ -14,9 +14,9 @@ jobs:
       - run:
           name: Install Dependencies
           command: npm install
-      - run:
-          name: Run tests
-          command: npm run test
+      # - run:
+      #     name: Run tests
+      #     command: npm run test
 
 workflows:
   heroku_deploy:
