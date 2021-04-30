@@ -1,5 +1,4 @@
-
- heroku: circleci/heroku@0.0.10
+heroku: circleci/heroku@0.0.10
 
 jobs:
   build:
