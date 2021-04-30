@@ -36,6 +36,24 @@
   border-radius: 58px;
 }
 
+.date {
+  margin-left: 20px;
+  border-color: black;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.input {
+  position: absolute;
+  width: 650px;
+  height: 34px;
+}
+.label1 {
+  margin-top: 0px;
+  width: 558px;
+  height: 39px;
+  margin-left: 35px;
+}
 .cantView {
   color: white;
   margin-left: 40%;
@@ -46,13 +64,6 @@
   font-weight: normal;
   font-size: 20px;
   line-height: 50px;
-
-  color: #ffffff;
-}
-.input {
-  position: absolute;
-  width: 650px;
-  height: 34px;
 }
 .label1 {
   margin-top: 0px;

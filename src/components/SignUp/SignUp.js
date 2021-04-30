@@ -134,7 +134,7 @@ export default function SignUp() {
               </Row>
               {error && <Alert variant="danger">{error}</Alert>}
 
-              <Form onSubmit={handleSubmit}>
+              <Form onSubmit={handleSubmit} className={classes.loginForm}>
                 {optionPage}
                 <Form.Group id="password">
                   <Form.Label>Password</Form.Label>

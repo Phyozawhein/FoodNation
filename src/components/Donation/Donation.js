@@ -105,7 +105,11 @@ function Donation() {
             <br />
           </Form.Label>
 
+<<<<<<< HEAD
+          <select id="idselect" className="form-select" className={styles.label1} onChange={updateId}>
+=======
           <select id="idselect" class="form-select" className={styles.label1} onChange={updateId}>
+>>>>>>> 52901070636dcbd3c6aa133a273c0d809ab0a7a5
             <option selected>Choose a Charity</option>
 
             {array.map((item) => (
