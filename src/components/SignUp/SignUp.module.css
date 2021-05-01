@@ -1,0 +1,37 @@
+.container {
+  background-color: #bc0000 !important;
+}
+
+.font {
+  color: white;
+  font-family: 'Sora', sans-serif !important;
+}
+
+.logo {
+  max-width: 100px;
+  max-height: 100px;
+  display: flex;
+  align-items: center;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.submitbutton {
+  background: #bc0000 !important;
+  box-sizing: border-box;
+  border: 3px solid white !important;
+  border-radius: 3px !important;
+}
+
+.submitbutton:hover {
+  background: white !important;
+  color: #bc0000 !important;
+  border: 3px solid white !important;
+}
+
+.contact {
+  margin: 10px 5px;
+}
