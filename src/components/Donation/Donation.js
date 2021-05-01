@@ -33,6 +33,7 @@ function Donation () {
                 date: date.current.value,
                 orgid: id,
                 resid: ResName.current.value.toString().toLowerCase().replaceAll(" ","-"),
+                status: "open"
                 
             }).then(response=>{
                 setSuccess("Donation appointment created");
@@ -124,7 +125,8 @@ function Donation () {
                     {array.map(item=> ( 
                     <option value={item}>
                          {item}
-                    </option>))}
+                    </option>
+                    ))}
                 
                 </select>
             </Form.Group>

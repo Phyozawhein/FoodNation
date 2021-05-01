@@ -13,6 +13,7 @@ import Profile from './components/Profile/Profile';
 import classes from './App.module.css';
 import CharityDetails from './components/CharityDetails/CharityDetails';
 import Donation from './components/Donation/Donation';
+import AppointmentList from './components/AppointmentList/AppointmentList';
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
               <Route path="/charity/:id" children={<CharityDetails />}/>
               <PrivateRoute path ="/charity-event" component={Event} />
               <PrivateRoute path ="/restaurant-donation" component={Donation} />
+              <PrivateRoute path ="/appointments" component={AppointmentList} />
           </Switch>
           </div>
 

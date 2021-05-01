@@ -1,4 +1,4 @@
-import styles from './Event.module.scss';
+import styles from './Event.module.css';
 import React, {useState, useRef,useEffect} from 'react'
 import {useAuth} from '../../context/AuthContext';
 import Fire from '../../firebase.config';

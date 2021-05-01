@@ -23,8 +23,8 @@ export default function SignUp() {
     const [error,setError]=useState('');
     const [userType,setUserType]=useState('');
     const [loading,setLoading]=useState(false);
+    const [success,setSuccess]=useState('');
     const [optionPage, setOptionPage]=useState((<div></div>));
-
     
 
     let db = Fire.db;
@@ -47,7 +47,7 @@ export default function SignUp() {
                 type: userType,
                 
             }).then(response=>{
-                console.log("Success");
+                setSuccess("Account created");
                 
             }).catch(error=> setError(error.message));
             setLoading(false)
@@ -152,6 +152,7 @@ export default function SignUp() {
                    <Logo className={classes.logo}/>
                 </Row>
                 {error &&<Alert variant="danger">{error}</Alert>}
+                {success &&<Alert variant="success">{success}</Alert>}
                 
                 <Form onSubmit={handleSubmit} > 
                      {optionPage}                 
