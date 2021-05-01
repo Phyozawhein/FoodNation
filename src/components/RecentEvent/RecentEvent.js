@@ -3,7 +3,7 @@ import  { useState, useEffect } from 'react';
 import Fire from '../../firebase.config';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import classes from './recentevent.module.scss';
+import classes from './recentevent.module.css';
 
 const recentevent = () => {
     const { currentUser } = useAuth();

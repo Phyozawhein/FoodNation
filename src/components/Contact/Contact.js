@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import classes from './Contact.module.scss';
+import classes from './Contact.module.css';
 
 import firebase from 'firebase';
 import Fire, { db } from '../../firebase.config';

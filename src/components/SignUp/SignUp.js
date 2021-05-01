@@ -24,6 +24,7 @@ export default function SignUp() {
     const [userType,setUserType]=useState('');
     const [loading,setLoading]=useState(false);
     const [optionPage, setOptionPage]=useState((<div></div>));
+    const [success,setSuccess]=useState('');
 
     
 
@@ -46,8 +47,8 @@ export default function SignUp() {
                 password: passwordRef.current.value,
                 type: userType,
                 
-            }).then(response=>{
-                console.log("Success");
+            }).then(()=>{
+                setSuccess("Account Created");
                 
             }).catch(error=> setError(error.message));
             setLoading(false)
@@ -151,6 +152,7 @@ export default function SignUp() {
                 <Row className="d-flex align-items-center justify-content-center">
                    <Logo className={classes.logo}/>
                 </Row>
+                <div className= {classes.alert}>{success &&<Alert variant="success">{success}</Alert>}</div>
                 {error &&<Alert variant="danger">{error}</Alert>}
                 
                 <Form onSubmit={handleSubmit} > 
