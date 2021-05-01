@@ -39,7 +39,7 @@ const SearchBar = () => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="light" onClick={handleShow}>
         Search
       </Button>
 
@@ -49,8 +49,14 @@ const SearchBar = () => {
         </Modal.Header>
         <Modal.Body>
           {matches.map((match) => {
+            let url;
+            if (currentUser) {
+              url = `/profile/${match.id}`;
+            } else {
+              url = `/${match.type}/${match.id}`;
+            }
             return (
-              <Link to="/">
+              <Link to={url}>
                 <Card key={match.email}>
                   <Card.Body className={classes.results}>
                     <Card.Img src={match.imgUrl} />
