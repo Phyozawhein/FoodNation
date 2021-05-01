@@ -1,33 +1,32 @@
-
-import './App.module.css';
-import SignUp from './components/SignUp/SignUp'
-import Login from './components/Login/Login'
-import Event from './components/Event/Event'
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import classes from './App.module.css';
+import SignUp from './components/SignUp/SignUp';
+import Login from './components/Login/Login';
+import Event from './components/Event/Event';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './layouts/navigation/Navbar';
 import PrivateRoute from './PrivateRoute';
 import Dashboard from './components/Dashboard/Dashboard';
 import Location from './components/Location/Location';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Profile from './components/Profile/Profile';
-import classes from './App.module.css';
+import Contact from './components/Contact/Contact';
+import Test from './components/Test/Test';
 import CharityDetails from './components/CharityDetails/CharityDetails';
 import Donation from './components/Donation/Donation';
 import AppointmentList from './components/AppointmentList/AppointmentList';
 
 function App() {
-
   return (
     <div className="App">
-    <AuthProvider>
-      <Router>
-      
+      <AuthProvider>
+        <Router>
           <div className={classes.navbar}>
-            <Navbar/>
+            <Navbar />
           </div>
           <div>
-          <Switch>
-              <Route  path="/signup" component={SignUp}/>
+            <Switch>
+              <Route path="/signup" component={SignUp} />
               <Route path="/login" component={Login} />
               <Route exact path="/" component={Dashboard} />
               <PrivateRoute exact path ="/profile" component={Profile}/>
@@ -36,11 +35,11 @@ function App() {
               <PrivateRoute path ="/charity-event" component={Event} />
               <PrivateRoute path ="/restaurant-donation" component={Donation} />
               <PrivateRoute path ="/appointments" component={AppointmentList} />
-          </Switch>
+              <Route path="/contact" component={Contact} />
+            </Switch>
           </div>
-
-      </Router>
-    </AuthProvider>
+        </Router>
+      </AuthProvider>
     </div>
   );
 }

@@ -1,16 +1,16 @@
-.container{
-    background-color: #BC0000 !important;
-    color: white;
+.container {
+  background-color: #bc0000 !important;
+  color: white;
 }
 
-.submitbutton{
-    background: #BC0000 !important;
-    border: 3px solid white !important;
-    border-radius: 3px !important;
+.submitbutton {
+  background: #bc0000 !important;
+  border: 3px solid white !important;
+  border-radius: 3px !important;
 }
 
-.submitbutton:hover{
-    background: white !important;
-    color:#BC0000 !important;
-    border: 3px solid white !important;
+.submitbutton:hover {
+  background: white !important;
+  color: #bc0000 !important;
+  border: 3px solid white !important;
 }

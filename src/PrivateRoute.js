@@ -1,19 +1,20 @@
-import React from 'react'
-import {Redirect, Route} from 'react-router-dom'
-import {useAuth} from "./context/AuthContext"
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
+import { Redirect, Route } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
 
-function PrivateRoute({component: Component, ...rest}) {
-    const {currentUser} = useAuth();
-    
-    return (
-        <Route
-            {...rest}
-            render = {props => {
-               return currentUser ? <Component {...props} /> : <Redirect to ="/login" />
-            }}
-        >
-        </Route>
-    )
+function PrivateRoute({ component: Component, ...rest }) {
+  const { currentUser } = useAuth();
+  console.log(currentUser);
+  return (
+    <Route
+      {...rest}
+      render={(props) => {
+        return currentUser ? <Component {...props} /> : <Redirect to="/login" />;
+      }}
+    />
+  );
 }
 
-export default PrivateRoute
+export default PrivateRoute;

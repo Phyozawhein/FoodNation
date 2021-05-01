@@ -1,13 +1,10 @@
-
-body{
-  background: url('./assets/background.png') no-repeat ;
-  width:100%;
-  height:100%;
+body {
+  background: url('./assets/background.png') no-repeat center fixed;
+  width: 100%;
+  height: 100%;
   background-size: cover;
-
 }
 
-.navbar{
+.navbar {
   margin: 35px 0px;
 }
-
