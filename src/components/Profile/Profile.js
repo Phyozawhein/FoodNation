@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, InputGroup, FormControl, Col, Row, Button } from "react-bootstrap";
+import { useParams } from "react-router";
 import { useAuth } from "../../context/AuthContext";
 import Fire from "../../firebase.config";
 import classes from "./Profile.module.css";
@@ -8,7 +9,7 @@ import classes from "./Profile.module.css";
 export default function Profile() {
   const { db } = Fire;
   const { currentUser } = useAuth();
-
+  const { id } = useParams();
   const [imgUrl, setImgUrl] = useState("");
 
   const handleUpload = () => {
@@ -37,20 +38,25 @@ export default function Profile() {
   };
 
   useEffect(() => {
-    console.log(currentUser.email);
+    let query = "id";
+    let queryID = id;
+    if (id === undefined) {
+      // if the url does not have id parameter then it will pull logged in user's detail
+      query = "email";
+      queryID = currentUser.email;
+    }
     db.getCollection("Users")
-      .doc(currentUser.email)
+      .where(query, "==", queryID)
       .get()
-      .then((doc) => {
-        if (doc.exists) {
-          // assigns state values here
-          setImgUrl(doc.data().imgUrl);
-        }
+      .then((querySnapShot) => {
+        const res = querySnapShot.docs.find((doc) => doc.data().id === id).data(); // "res" will have all the details of the user with the id parameter we fetched from url
+        console.log(res);
+        setImgUrl(res.imgUrl);
       })
       .catch((error) => console.log(error.message));
     // return () => {
-    //   cleanup
-    // }
+    //   cleanup;
+    // };
   }, []);
 
   return (
