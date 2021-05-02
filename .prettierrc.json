@@ -1,5 +1,6 @@
 {
   "printWidth": 999,
   "trailingComma": "es5",
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "singleQuote": false
 }

@@ -3,7 +3,7 @@ import { Card, CardColumns, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import classes from "./Dashboard.module.css";
 import Fire from "../../firebase.config";
-
+import SearchBar from "../../layouts/search/SearchBar";
 export default function Dashboard() {
   const { db } = Fire;
   const [charities, setCharity] = useState([]);
@@ -23,6 +23,7 @@ export default function Dashboard() {
 
   return (
     <Container className={classes.cardContainer}>
+      <SearchBar />
       <CardColumns>
         {charities.map((charity, id) => (
           <Card className={classes.charityCard} key={id}>
