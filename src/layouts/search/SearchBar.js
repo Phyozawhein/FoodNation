@@ -9,7 +9,6 @@ const SearchBar = () => {
   const { currentUser } = useAuth();
   const { db } = Fire;
   const [show, setShow] = useState(false);
-  const [search, setSearch] = useState("");
   const [matches, setMatches] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -50,10 +49,10 @@ const SearchBar = () => {
         <Modal.Body>
           {matches.map((match) => {
             let url;
-            if (currentUser) {
-              url = `/profile/${match.id}`;
+            if (match.type !== "charity" && !currentUser) {
+              url = `charity/${match.id}`;
             } else {
-              url = `/${match.type}/${match.id}`;
+              url = `profile/${match.id}`;
             }
             return (
               <Link to={url}>
@@ -61,7 +60,6 @@ const SearchBar = () => {
                   <Card.Body className={classes.results}>
                     <Card.Img src={match.imgUrl} />
                     <Card.Text>{match.username}</Card.Text>
-                    <Card.Text>{match.profile_picture}</Card.Text>
                   </Card.Body>
                 </Card>
               </Link>
