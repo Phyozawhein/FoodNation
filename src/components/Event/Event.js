@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Button, Form, Alert } from 'react-bootstrap';
-import styles from './Event.module.css';
-import { useAuth } from '../../context/AuthContext';
-import Fire from '../../firebase.config';
+import React, { useState, useRef, useEffect } from "react";
+import { Button, Form, Alert } from "react-bootstrap";
+import styles from "./Event.module.css";
+import { useAuth } from "../../context/AuthContext";
+import Fire from "../../firebase.config";
 
 function Event() {
   const { db } = Fire;
@@ -10,18 +10,17 @@ function Event() {
   const Address = useRef();
   const ItemLists = useRef();
   const date = useRef();
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [view, setView] = useState(false);
-  const [array, setArray] = useState([]);
-  const [id, setId] = useState('');
-  const [orgName, setOrgName] = useState('');
+  const [id, setId] = useState("");
+  const [orgName, setOrgName] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
-      db.getCollection('Events')
+      db.getCollection("Events")
         .doc()
         .set({
           orgName,
@@ -31,59 +30,36 @@ function Event() {
           id,
         })
         .then((response) => {
-          setSuccess('Event successfully created');
+          setSuccess("Event successfully created");
         })
         .catch((error) => setError(error.message));
     } catch (err) {
-      setError('');
+      setError("");
       setError(err.message);
     }
   }
 
   useEffect(() => {
-    db.getCollection('Users')
-      .where('email', '==', user)
+    db.getCollection("Users")
+      .where("email", "==", user)
       .get()
       .then((snapShotQuery) => {
-        const typeCheck = snapShotQuery.docs.filter((doc) => doc.data().type === 'charity').length;
-        console.log(typeCheck);
-        if (typeCheck === 1) {
+        const typeCheck = snapShotQuery.docs.find((doc) => doc.data().type === "charity");
+        if (typeCheck) {
           setView(true);
+          setOrgName(typeCheck.data().username);
+          setId(typeCheck.data().id);
         }
       })
       .catch((error) => setError(error.message));
-  }, []);
-
-  useEffect(() => {
-    db.getCollection('Users')
-      .where('email', '==', user)
-      .get()
-      .then((snapShotQuery) => {
-        const typeCheck = snapShotQuery.docs.filter((doc) => doc.data().type === 'charity').length;
-
-        if (typeCheck === 1) {
-          setView(true);
-        }
-      })
-      .catch((error) => setError(error.message));
-
-    const array = [];
-    db.getCollection('CharityDetails')
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          array.push(doc.data().orgName);
-        });
-        setArray(array);
-      });
   }, []);
 
   function updateId() {
-    const zone = document.getElementById('idselect');
+    const zone = document.getElementById("idselect");
 
     if (zone && zone.value != null) {
       setOrgName(zone.value);
-      setId(zone.value.toString().toLowerCase().replaceAll(' ', '-'));
+      setId(zone.value.toString().toLowerCase().replaceAll(" ", "-"));
     }
   }
 
@@ -95,20 +71,6 @@ function Event() {
       {success && <Alert variant="success">{success}</Alert>}
 
       <Form onSubmit={handleSubmit}>
-        <Form.Group id="orgName">
-          <Form.Label className={styles.label}>
-            Organization Name
-            <br />
-          </Form.Label>
-
-          <select id="idselect" className="form-select" className={styles.label1} onChange={updateId}>
-            <option selected>Choose a Charity</option>
-
-            {array.map((item) => (
-              <option value={item}>{item}</option>
-            ))}
-          </select>
-        </Form.Group>
         <br />
         <Form.Group id="address">
           <Form.Label className={styles.label}>
