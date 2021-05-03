@@ -11,6 +11,7 @@ export default function Profile() {
   const { currentUser } = useAuth();
   const { id } = useParams();
   const [imgUrl, setImgUrl] = useState("");
+  const [image, setImg] = useState(null);
 
   const handleUpload = () => {
     const uploadTask = storage.ref(`profiles/${currentUser.email}`).put(image);
@@ -40,6 +41,7 @@ export default function Profile() {
   useEffect(() => {
     let query = "id";
     let queryID = id;
+    console.log(queryID);
     if (id === undefined) {
       // if the url does not have id parameter then it will pull logged in user's detail
       query = "email";
@@ -57,7 +59,7 @@ export default function Profile() {
     // return () => {
     //   cleanup;
     // };
-  }, []);
+  }, [id]);
 
   return (
     <>
