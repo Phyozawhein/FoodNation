@@ -19,6 +19,7 @@ function Donation () {
     const [id, setId]=useState('');
     const [orgName, setOrgName]=useState('');
 
+
     async function handleSubmit(e){
         e.preventDefault();
    
@@ -52,8 +53,7 @@ function Donation () {
             setError(err.message);
         }
     }
-  }
-
+  
   useEffect(() => {
     db.getCollection('Users')
       .where('email', '==', user)
@@ -71,11 +71,11 @@ function Donation () {
       });
 
     let array = [];
-    db.getCollection('CharityDetails')
+    db.getCollection('Users')
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          array.push(doc.data().orgName);
+          array.push(doc.data().username);
         });
         setArray(array);
       });
@@ -157,89 +157,11 @@ function Donation () {
 
   const cantViewPage = (
     <div>
-      <h1 className="cantView">Not authorized to view this page</h1>
+      <h1 className={styles.cantView}>Not authorized to view this page</h1>
     </div>
   );
 
-    const viewPage = (
-        <div className={styles.rectangle}>
-            
-            <div>
-                <h1 className={styles.headline}>
-                    Schedule a Donation
-                </h1>
-            </div>
-        {success &&<Alert variant="success">{success}</Alert>}
 
-        <Form onSubmit={handleSubmit}>
-
-            <Form.Group id="resName">
-                <Form.Label className={styles.label}>
-                    Restaurant Name
-                    <br/>
-                </Form.Label>
-                <Form.Control className = "input" type="text" ref={ResName} required/>
-            </Form.Group>
-                    <br/>
-            <Form.Group id="orgName">
-            <Form.Label className={styles.label}>
-                    Organization Name
-                    <br/>
-                </Form.Label>
-
-                <select id="idselect" class="form-select" className={styles.label1} onChange={updateId}>
-                    <option selected>Choose a Charity</option>
-                    
-                    {array.map(item=> ( 
-                    <option value={item}>
-                         {item}
-                    </option>
-                    ))}
-                
-                </select>
-            </Form.Group>
-                    <br/>
-            <Form.Group id="address">
-                <Form.Label className={styles.label}>
-                    Address
-                    <br/>
-                </Form.Label>
-                <Form.Control className = "input" type="text" ref={Address} required/>
-            </Form.Group>
-                    <br/>
-            <Form.Group id="itemLists">
-                <Form.Label className={styles.label}>
-                    Item Lists
-                    <br/>
-                </Form.Label>
-                <Form.Control className = "input1" type="textarea" ref={ItemLists} required/>
-            </Form.Group>
-                    <br/>
-                    <br/>
-                    
-            <Form.Group id="date">
-                <Form.Label className={styles.label}>
-                    Choose a Date
-                    <br/>
-                    <br/>
-                </Form.Label>
-                <Form.Control className="date" type="datetime-local" ref={date} required/>
-            </Form.Group>
-            <br/>
-            <Button type="post" className={styles.postbutton}>
-                Post
-            </Button>
-        </Form>
-
-    
-        </div>    
-            )
-
-    const cantViewPage = (
-        <div>
-            <h1 className="cantView">Not authorized to view this page</h1>
-        </div>
-    )
 
     return (
         <div>
@@ -248,7 +170,6 @@ function Donation () {
  
         { view === true ?  viewPage   :  cantViewPage }
 
-      {view === true ? viewPage : cantViewPage}
     </div>
   );
 }

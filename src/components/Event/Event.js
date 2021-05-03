@@ -46,20 +46,6 @@ function Event() {
       .get()
       .then((snapShotQuery) => {
         const typeCheck = snapShotQuery.docs.filter((doc) => doc.data().type === 'charity').length;
-        console.log(typeCheck);
-        if (typeCheck === 1) {
-          setView(true);
-        }
-      })
-      .catch((error) => setError(error.message));
-  }, []);
-
-  useEffect(() => {
-    db.getCollection('Users')
-      .where('email', '==', user)
-      .get()
-      .then((snapShotQuery) => {
-        const typeCheck = snapShotQuery.docs.filter((doc) => doc.data().type === 'charity').length;
 
         if (typeCheck === 1) {
           setView(true);
@@ -80,7 +66,7 @@ function Event() {
 
   function updateId() {
     const zone = document.getElementById('idselect');
-
+    
     if (zone && zone.value != null) {
       setOrgName(zone.value);
       setId(zone.value.toString().toLowerCase().replaceAll(' ', '-'));
