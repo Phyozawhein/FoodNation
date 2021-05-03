@@ -11,6 +11,7 @@ export default function Profile() {
   const { currentUser } = useAuth();
   const { id } = useParams();
   const [imgUrl, setImgUrl] = useState("");
+  const [userName, setuserName] = useState("");
 
   const handleUpload = () => {
     const uploadTask = storage.ref(`profiles/${currentUser.email}`).put(image);
@@ -52,6 +53,7 @@ export default function Profile() {
         const res = querySnapShot.docs.find((doc) => doc.data().id === id).data(); // "res" will have all the details of the user with the id parameter we fetched from url
         console.log(res);
         setImgUrl(res.imgUrl);
+        setuserName(res.username);
       })
       .catch((error) => console.log(error.message));
     // return () => {
@@ -68,7 +70,7 @@ export default function Profile() {
               <img className={`${classes.accountimage}`} alt="pic" src={imgUrl} /> {/* <== replace src */}
             </Row>
             <div className="d-flex align-items-center justify-content-center">
-              <h4 className={`${classes.font} m-1`}>Name</h4>
+              <h4 className={`${classes.font} m-1`}>{userName}</h4>
             </div>
             <div>
               <h6 className={`${classes.font} ml-2 mt-2`}>About Info</h6>
