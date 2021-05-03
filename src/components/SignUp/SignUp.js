@@ -48,6 +48,7 @@ export default function SignUp() {
           password: password,
           imgUrl: "https://firebasestorage.googleapis.com/v0/b/food-nation-d70ea.appspot.com/o/profiles%2Fdefault.jpg?alt=media&token=2545aed8-026a-497c-a82f-97abeaf7925f",
           type: userType,
+          phone: phoneNumber.trim()
         })
         .then((response) => {
           console.log("Success");
