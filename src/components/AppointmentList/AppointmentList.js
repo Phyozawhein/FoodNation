@@ -18,25 +18,22 @@ function AppointmentList() {
     const [status,setStatus]= useState('');
     const [statusArray, setStatusArray]=useState([]);
     const [error,setError]=useState('');
-    
+    const [copyarray, setCopyArray]=useState([]);
+
     useEffect(() => {
 
-                db.getCollection("Users").where("email", "==", user). get().then((querySnapshot) => {
+                db.getCollection("Users").doc(user).get().then((doc) => {
                    let id;
-                    if(!querySnapshot.empty){
-                        
-                        querySnapshot.forEach((doc) => {
+                    if(doc.exists){
 
                             id = doc.data().id;
                             
                            setId(id);
               
-                    })
                 }
                     
                   return id;
                 }).then((id)=>{
-
 
 
                 db.getCollection("Donation").where("orgid", "==", id).get().
@@ -47,15 +44,16 @@ function AppointmentList() {
 
                     }
                     );
-                    setStatusArray(array);
                     
+                   setStatusArray(array);
+
                     setView(true);    
                 })
 
                 }).catch(error => setError(error.message))
 
         
-    },[statusArray])
+    },[copyarray])
 
     function updateStatus(e) {
         e.preventDefault();
@@ -63,18 +61,21 @@ function AppointmentList() {
         let zone = document.getElementById('statusSelect');
         if ((date && orgName && resName) !=null) {
             
-            if (status !== "") {
-                
+            if (status !== "" || status !=="Change Status") {
                
-
-                    console.log("Hi")
                     db.getCollection("Donation")
                     .doc(docid)
                     .update({
                         status : status
                     })
                     .then(()=> {
-                        console.log("Successful, ",docid);
+                        db.getCollection("Donation").doc(docid)
+                        .onSnapshot((doc)=>{
+
+                            console.log(doc.data());
+                            setCopyArray([doc.id,doc.data()]);
+                            console.log("Updated");
+                        })
                         })
                     .catch((error) => setError(error.message));
                 
