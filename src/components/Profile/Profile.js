@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Fire from "../../firebase.config";
 import classes from "./Profile.module.css";
-// import {ReactComponent as Logo} from '../../assets/FN-Logo.svg';
+import sha256 from "js-sha256";
 
 export default function Profile() {
   const { db } = Fire;
@@ -39,20 +39,18 @@ export default function Profile() {
   };
 
   useEffect(() => {
-    let query = "id";
     let queryID = id;
-    console.log(queryID);
     if (id === undefined) {
       // if the url does not have id parameter then it will pull logged in user's detail
-      query = "email";
-      queryID = currentUser.email;
+      queryID = sha256(currentUser.email);
     }
     console.log(id);
     db.getCollection("Users")
-      .where(query, "==", queryID)
+      .where("id", "==", queryID)
       .get()
       .then((querySnapShot) => {
-        const res = querySnapShot.docs.find((doc) => doc.data().id === id).data(); // "res" will have all the details of the user with the id parameter we fetched from url
+        console.log(querySnapShot.docs);
+        const res = querySnapShot.docs.find((doc) => doc.data().id === queryID).data(); // "res" will have all the details of the user with the id parameter we fetched from url
         console.log(res);
         setImgUrl(res.imgUrl);
       })
