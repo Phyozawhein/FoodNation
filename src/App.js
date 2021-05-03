@@ -14,6 +14,7 @@ import Contact from "./components/Contact/Contact";
 import CharityDetails from "./components/CharityDetails/CharityDetails";
 import Donation from "./components/Donation/Donation";
 import SearchBar from "./layouts/search/SearchBar";
+import AppointmentList from "./components/AppointmentList/AppointmentList";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
               <PrivateRoute path="/restaurant-donation" component={Donation} />
               <Route path="/contact" component={Contact} />
               <Route path="/search" component={SearchBar} />
+              <PrivateRoute path ="/appointments" component={AppointmentList} />
             </Switch>
           </div>
         </Router>

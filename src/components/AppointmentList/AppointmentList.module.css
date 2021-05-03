@@ -1,0 +1,122 @@
+.headline{
+    text-align:center ;
+    color: #ffffff;   
+    font-family: Sora;
+    font-weight: bold;
+    font-size: 40px;
+    /* line-height: 121px; */
+    margin-top: 15px;
+    }
+    .postbutton{
+        background: #BC0000 !important;
+        border-radius: .5rem !important;
+        border: none !important;
+        font-weight: bolder !important;
+        font-family: 'Sora', sans-serif !important;
+        width: 85%;
+        
+        margin-left:40px;
+    }
+    
+    .postbutton:hover{
+        background: #b43535 !important;
+        border-radius: .5rem !important;
+        border: none !important;
+        font-weight: bolder;
+        font-family: 'Sora', sans-serif !important;
+    }
+    .rectangle{
+   
+    
+    right: 30%;
+    top: 20%;
+    bottom: 15%;
+    border-radius: 58px;
+    }
+
+    .container {
+        background-color: rgba(196, 196, 196, 0.27) !important;
+        padding: 1rem;
+        border-radius: 1rem;
+        overflow-x: hidden;
+        font-family: 'Sora';
+        color: rgb(255, 255, 255);
+        width:50% !important;
+        margin-left: 20%;
+        margin-top: 8%;
+        font-size: 30px;
+      }
+    .date{
+        margin-left:20px;
+        border-color: black;
+        border-radius: 20px;
+        text-align: center;
+    }
+    
+    .cantView{
+        color: white;
+        margin-left: 40%;
+        margin-top: 10%;
+    }
+    
+    .label{
+    margin-top:0px;
+    width: 558px;
+    height: 39px;
+    margin-left :35px;
+    
+    font-family: Sora;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 50px;
+    
+    color: #FFFFFF;
+    }
+    .label1{
+        margin-top:0px;
+        width: 200px;
+        height: 39px;
+        margin-left :35px;
+        
+        font-family: Sora;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 50px;
+        }
+        
+    .input{
+    position: absolute;
+    width: 650px;
+    height: 34px;
+    
+    background: #FFFFFF;
+    border-radius: 20px;
+    }
+    ::placeholder{
+        text-align: center;
+    }
+    .input1{
+        position: absolute;
+        width: 650px;
+        height: 100px;
+        
+        background: #FFFFFF;
+        border-radius: 20px;
+        }
+
+ .open{
+    font-weight: bold;
+     font-size: 100px;
+     color: #ffffff;
+     margin-left: 25%;
+     margin-top: 5%;
+ }
+ .completed{
+     font-weight: bold;
+    font-size: 100px;
+    color: #ffffff;
+    margin-left: 30%;
+    margin-top: 5%;
+} 

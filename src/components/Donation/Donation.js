@@ -2,51 +2,58 @@ import styles from './Donation.module.css';
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import Fire from '../../firebase.config';
-import { Button, Form, Alert } from 'react-bootstrap';
+import {Button,Form, Alert} from 'react-bootstrap';
 
-function Donation() {
-  let db = Fire.db;
-  const user = useAuth().currentUser.email;
-  const ResName = useRef();
-  const Address = useRef();
-  const ItemLists = useRef();
-  const date = useRef();
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [view, setView] = useState(false);
-  const [array, setArray] = useState([]);
-  const [id, setId] = useState('');
-  const [orgName, setOrgName] = useState('');
+function Donation () {
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+    let db = Fire.db
+    const user = useAuth().currentUser.email
+    const ResName   = useRef()
+    const Address   = useRef()
+    const ItemLists = useRef()
+    const date      = useRef()
+    const [error,setError]=useState('');
+    const [success,setSuccess]=useState('');
+    const [view,setView]=useState(false);
+    const [array,setArray]=useState([]);
+    const [id, setId]=useState('');
+    const [orgName, setOrgName]=useState('');
 
-    try {
-      db.getCollection('Donation')
-        .doc()
-        .set({
-          resName: ResName.current.value,
-          orgName: orgName,
-          address: Address.current.value,
-          itemLists: ItemLists.current.value,
-          date: date.current.value,
-          orgid: id,
-          resid: ResName.current.value.toString().toLowerCase().replaceAll(' ', '-'),
-        })
-        .then((response) => {
-          setSuccess('Donation appointment created');
-        })
-        .catch((error) => {
-          console.log(error);
-          setError(error.message);
-        });
-    } catch (err) {
-      console.log(err);
-      setError('');
-      setError(err.message);
+
+    async function handleSubmit(e){
+        e.preventDefault();
+   
+        try{
+            
+            db.getCollection('Donation').doc().set({
+                
+                resName: ResName.current.value,
+                orgName: orgName,                         
+                address: Address.current.value,
+                itemLists:ItemLists.current.value,
+                date: date.current.value,
+                orgid: id,
+                resid: ResName.current.value.toString().toLowerCase().replaceAll(" ","-"),
+                status: "open"
+                
+            }).then(response=>{
+                setSuccess("Donation appointment created");
+                
+                
+            }).catch(error=>{
+
+                console.log(error);
+                 setError(error.message)
+            } 
+                 );
+        }
+        catch(err){
+            console.log(err);
+            setError('');
+            setError(err.message);
+        }
     }
-  }
-
+  
   useEffect(() => {
     db.getCollection('Users')
       .where('email', '==', user)
@@ -64,11 +71,11 @@ function Donation() {
       });
 
     let array = [];
-    db.getCollection('CharityDetails')
+    db.getCollection('Users')
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          array.push(doc.data().orgName);
+          array.push(doc.data().username);
         });
         setArray(array);
       });
@@ -150,15 +157,19 @@ function Donation() {
 
   const cantViewPage = (
     <div>
-      <h1 className="cantView">Not authorized to view this page</h1>
+      <h1 className={styles.cantView}>Not authorized to view this page</h1>
     </div>
   );
 
-  return (
-    <div>
-      {error && <Alert variant="danger">{error}</Alert>}
 
-      {view === true ? viewPage : cantViewPage}
+
+    return (
+        <div>
+             
+        {error &&<Alert variant="danger">{error}</Alert>}
+ 
+        { view === true ?  viewPage   :  cantViewPage }
+
     </div>
   );
 }
