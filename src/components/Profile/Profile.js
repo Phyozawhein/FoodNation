@@ -21,6 +21,7 @@ export default function Profile() {
   const [lName, setLName] = useState(""); // last Name
   const [show, setShow] = useState(false);
 
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -84,6 +85,43 @@ export default function Profile() {
 
   return (
     <>
+    <Modal size='lg' contentClassName={classes.custommodal} show={show} onHide={handleClose} animation={false}>
+        <Modal.Header className={`${classes.custommodaltitle} ${classes.custommodalheader}`} closeButton>
+          <Modal.Title id="example-modal-sizes-title-lg">
+            Edit Profile
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body >
+          <Form onSubmit={handleSubmit} className={classes.EditForm}>
+                <Form.Group >
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control type="username" onChange={(e) => setUserName(e.target.value)} required />
+                </Form.Group>
+                <Form.Group >
+                  <Form.Label>First</Form.Label>
+                  <Form.Control type="first" onChange={(e) => setFName(e.target.value)} required />
+                </Form.Group>
+                <Form.Group >
+                  <Form.Label>Last</Form.Label>
+                  <Form.Control type="last" onChange={(e) => setLName(e.target.value)} required />
+                </Form.Group>
+                <Form.Row>
+                  <Form.Group className={classes.EditFormRow}>
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control type="email" onChange={(e) => setEmail(e.target.value)} required />
+                  </Form.Group>
+                  <Form.Group className={classes.EditFormRow}>
+                    <Form.Label>Phone</Form.Label>
+                    <Form.Control type="text" onChange={(e) => setPhoneNumber(e.target.value)} required />
+                  </Form.Group>
+                </Form.Row>
+
+                <Button className={`w-100 ${classes.profilebutton}`} type="submit">
+                  Save
+                </Button>
+              </Form>
+        </Modal.Body>
+      </Modal>
       <Container className="flex ml-4 align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
         <Row>
           <Col xs={12} md={3}>
@@ -104,8 +142,8 @@ export default function Profile() {
               <p className={`${classes.infotext}`}>{email}</p>
               <p className={`${classes.infolabel}`}>Phone</p>
               <p className={`${classes.infotext}`}>{phoneNumber.substr(0,3) + '-' + phoneNumber.substr(3,3) + '-' + phoneNumber.substr(6)}</p>
-              <p className={`${classes.infolabel}`}>About Us</p>
-              <p className={`${classes.infotext}`}>I'mma hyuck you up, and fill you up with my charitable meat! </p>
+              {/* <p className={`${classes.infolabel}`}>About Us</p>
+              <p className={`${classes.infotext}`}>I'mma hyuck you up, and fill you up with my charitable meat! </p> */}
             </div>
             <Button className={`w-100 ${classes.profilebutton}`} onClick={handleShow}>Edit Profile</Button>
           </Col>
@@ -154,36 +192,7 @@ export default function Profile() {
         </Row>
       </Container>
 
-      <Modal show={show} onHide={handleClose} animation={false}>
-        <Modal.Header closeButton>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit} className={classes.loginForm}>
-                <Form.Group id="password">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" onChange={(e) => setPassword(e.target.value)} required />
-                </Form.Group>
-                <Form.Group id="password-confirm">
-                  <Form.Label>Password Confirmation</Form.Label>
-                  <Form.Control type="password" onChange={(e) => setPasswordConfirm(e.target.value)} required />
-                </Form.Group>
-                <Form.Row>
-                  <Form.Group className={classes.contact}>
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" onChange={(e) => setEmail(e.target.value)} required />
-                  </Form.Group>
-                  <Form.Group className={classes.contact}>
-                    <Form.Label>Phone</Form.Label>
-                    <Form.Control type="text" onChange={(e) => setPhoneNumber(e.target.value)} required />
-                  </Form.Group>
-                </Form.Row>
-
-                <Button type="submit" className={classes.submitbutton}>
-                  Sign up
-                </Button>
-              </Form>
-        </Modal.Body>
-      </Modal>
+      
     </>
   );
 }
