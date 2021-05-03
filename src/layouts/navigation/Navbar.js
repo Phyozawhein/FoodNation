@@ -1,8 +1,8 @@
-import React from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import classes from './Navbar.module.css';
-import logo from '../../assets/FN-Logo.svg';
+import React from "react";
+import { NavLink, useHistory } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import classes from "./Navbar.module.css";
+import logo from "../../assets/FN-Logo.svg";
 
 export default function Navbar() {
   const { currentUser, logout } = useAuth();
@@ -11,9 +11,9 @@ export default function Navbar() {
   async function handleLogout() {
     try {
       logout();
-      history.push('/login');
+      history.push("/login");
     } catch {
-      console.log('Failed to log out');
+      console.log("Failed to log out");
     }
   }
   return (
@@ -46,30 +46,30 @@ export default function Navbar() {
         <div className={classes.rightBar}>
           {currentUser !== null ? (
             <>
-              {' '}
+              {" "}
               <li className={classes.navlink}>
-                {' '}
+                {" "}
                 <NavLink to="/login" onClick={handleLogout}>
-                  {' '}
-                  Log out{' '}
-                </NavLink>{' '}
+                  {" "}
+                  Log out{" "}
+                </NavLink>{" "}
               </li>
             </>
           ) : (
             <>
               <li className={classes.navlink}>
-                {' '}
+                {" "}
                 <NavLink to="/signup" activeClassName={classes.active} exact>
-                  {' '}
-                  Sign Up{' '}
-                </NavLink>{' '}
+                  {" "}
+                  Sign Up{" "}
+                </NavLink>{" "}
               </li>
               <li className={classes.navlink}>
-                {' '}
+                {" "}
                 <NavLink to="/login" activeClassName={classes.active} exact>
-                  {' '}
-                  Login{' '}
-                </NavLink>{' '}
+                  {" "}
+                  Login{" "}
+                </NavLink>{" "}
               </li>
             </>
           )}

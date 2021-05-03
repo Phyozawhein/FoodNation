@@ -17,7 +17,7 @@ export default function Test() {
   };
 
   const handleUpload = () => {
-    const uploadTask = storage.ref(`images/pzh@gmail.com`).put(image);
+    const uploadTask = storage.ref(`profiles/pzh@gmail.com`).put(image);
     uploadTask.on(
       'state_changed',
       (snapshot) => {},
@@ -26,12 +26,12 @@ export default function Test() {
       },
       () => {
         storage
-          .ref('images')
+          .ref('profiles')
           .child('pzh@gmail.com')
           .getDownloadURL()
           .then((url) => {
-            db.getCollection('Users').doc('fo1wShquklf4tq9pJ9HE').update({
-              profile_picture: url,
+            db.getCollection('Users').doc('pzh@gmail.com').update({
+              imgUrl: url,
             });
 
             setImgUrl(url);
@@ -43,14 +43,15 @@ export default function Test() {
 
   useEffect(() => {
     db.getCollection('Users')
-      .doc('g9wSFUvCzEMT5Hekx44I')
+      .doc('pzh@gmail.com')
       .get()
       .then((doc) => {
         console.log(doc.data());
         // if(doc.exist){
         //     setImgUrl(doc.data().profile_picture);
         // }
-        setImgUrl(doc.data().profile_picture);
+
+        setImgUrl(doc.data().imgUrl);
       });
   }, [imgUrl]);
 

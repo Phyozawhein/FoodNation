@@ -44,7 +44,9 @@ export default function SignUp() {
           username: userName.trim(),
           firstName: fName.trim(),
           lastName: lName.trim(),
-          email: email.toLowerCase(),
+          email: email.toLowerCase().trim(),
+          phone: phoneNumber.trim(),
+          address: address.trim(),
           password: password,
           imgUrl: "https://firebasestorage.googleapis.com/v0/b/food-nation-d70ea.appspot.com/o/profiles%2Fdefault.jpg?alt=media&token=2545aed8-026a-497c-a82f-97abeaf7925f",
           type: userType,
@@ -100,7 +102,7 @@ export default function SignUp() {
       </Form.Group>
       <Form.Group id="ogranizationName">
         <Form.Label>Organization Name</Form.Label>
-        <Form.Control type="text"  onChange={(e) => setUserName(e.target.value)} required />
+        <Form.Control type="text" onChange={(e) => setUserName(e.target.value)} required />
       </Form.Group>
     </>
   );
@@ -109,7 +111,7 @@ export default function SignUp() {
     <>
       <Form.Group id="restaurantName">
         <Form.Label>Restaurant Name</Form.Label>
-        <Form.Control type="text"  onChange={(e) => setUserName(e.target.value)} required />
+        <Form.Control type="text" onChange={(e) => setUserName(e.target.value)} required />
       </Form.Group>
     </>
   );
@@ -151,20 +153,20 @@ export default function SignUp() {
                 {optionPage}
                 <Form.Group id="password">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                  <Form.Control type="password" onChange={(e) => setPassword(e.target.value)} required />
                 </Form.Group>
                 <Form.Group id="password-confirm">
                   <Form.Label>Password Confirmation</Form.Label>
-                  <Form.Control type="password" value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} required />
+                  <Form.Control type="password" onChange={(e) => setPasswordConfirm(e.target.value)} required />
                 </Form.Group>
                 <Form.Row>
                   <Form.Group className={classes.contact}>
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <Form.Control type="email" onChange={(e) => setEmail(e.target.value)} required />
                   </Form.Group>
                   <Form.Group className={classes.contact}>
                     <Form.Label>Phone</Form.Label>
-                    <Form.Control type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required />
+                    <Form.Control type="text" onChange={(e) => setPhoneNumber(e.target.value)} required />
                   </Form.Group>
                 </Form.Row>
                 <Form.Group>

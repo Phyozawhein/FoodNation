@@ -1,19 +1,71 @@
-import React from 'react';
-import { Container, InputGroup, FormControl, Col, Row, Button } from 'react-bootstrap';
-// import {useAuth} from '../../context/AuthContext';
-// import Fire from '../../firebase.config';
-import classes from './Profile.module.css';
-// import {ReactComponent as Logo} from '../../assets/FN-Logo.svg';
-import Test from '../../assets/gang.jpg';
+import React, { useState, useEffect } from "react";
+import { Container, InputGroup, FormControl, Col, Row, Button } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import Fire from "../../firebase.config";
+import classes from "./Profile.module.css";
+import sha256 from "js-sha256";
 
 export default function Profile() {
+  const { db } = Fire;
+  const { currentUser } = useAuth();
+  const { id } = useParams();
+  const [imgUrl, setImgUrl] = useState("");
+  const [image, setImg] = useState(null);
+
+  const handleUpload = () => {
+    const uploadTask = storage.ref(`profiles/${currentUser.email}`).put(image);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {},
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("profiles")
+          .child(currentUser.email)
+          .getDownloadURL()
+          .then((url) => {
+            db.getCollection("Users").doc(currentUser.email).update({
+              imgUrl: url,
+            });
+
+            setImgUrl(url);
+          })
+          .catch((error) => console.log(error.message));
+      }
+    );
+  };
+
+  useEffect(() => {
+    let queryID = id;
+    if (id === undefined) {
+      // if the url does not have id parameter then it will pull logged in user's detail
+      queryID = sha256(currentUser.email);
+    }
+    db.getCollection("Users")
+      .where("id", "==", queryID)
+      .get()
+      .then((querySnapShot) => {
+        console.log(querySnapShot.docs);
+        const res = querySnapShot.docs.find((doc) => doc.data().id === queryID).data(); // "res" will have all the details of the user with the id parameter we fetched from url
+        console.log(res);
+        setImgUrl(res.imgUrl);
+      })
+      .catch((error) => console.log(error.message));
+    // return () => {
+    //   cleanup;
+    // };
+  }, [id]);
+
   return (
     <>
-      <Container className="flex ml-4 align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
+      <Container className="flex ml-4 align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
         <Row>
           <Col xs={12} md={3}>
             <Row className="d-flex align-items-center justify-content-center">
-              <img className={`${classes.accountimage}`} alt="pic" src={Test} /> {/* <== replace src */}
+              <img className={`${classes.accountimage}`} alt="pic" src={imgUrl} /> {/* <== replace src */}
             </Row>
             <div className="d-flex align-items-center justify-content-center">
               <h4 className={`${classes.font} m-1`}>Name</h4>
@@ -37,32 +89,32 @@ export default function Profile() {
           <Col className="ml-3" xs={12} md={7}>
             <Row>
               <div className="w-100 align-items-center justify-content-center">
-                <h6 className={`${classes.font} m-3 mb-2`} style={{ textAlign: 'center' }}>
+                <h6 className={`${classes.font} m-3 mb-2`} style={{ textAlign: "center" }}>
                   Favorite blah blah
-                </h6>{' '}
+                </h6>{" "}
                 {/* Replace with dynamic */}
               </div>
               <div className={`${classes.container} ${classes.font}`}>
                 {/* Insert carousel */}
                 <a className={`m-3 align-items-center m-2 ${classes.favbox}`} href="/profile">
                   {/* Change href to dynamic */}
-                  <img alt="profile-pic" className={`m-3 rounded-circle d-inline-block ${classes.favimg}`} src={Test} />
+                  <img alt="profile-pic" className={`m-3 rounded-circle d-inline-block ${classes.favimg}`} src={imgUrl} />
                 </a>
               </div>
             </Row>
             <Row>
               <div className="w-100 align-items-center justify-content-center">
-                <h6 className={`${classes.font} m-3 mt-4`} style={{ textAlign: 'center' }}>
+                <h6 className={`${classes.font} m-3 mt-4`} style={{ textAlign: "center" }}>
                   Recent blah blah
-                </h6>{' '}
+                </h6>{" "}
                 {/* Replace with dynamic */}
               </div>
-              <div className={`${classes.container} ${classes.font}`} style={{ minHeight: '55vh' }}>
+              <div className={`${classes.container} ${classes.font}`} style={{ minHeight: "55vh" }}>
                 <div className={`${classes.postings} ${classes.font}`} />
 
                 <div className={`${classes.postsection} ${classes.font} align-items-center justify-content-center`}>
                   <Row>
-                    <InputGroup className="mt-3 pr-4 pl-4" style={{ minWidth: '50%' }}>
+                    <InputGroup className="mt-3 pr-4 pl-4" style={{ minWidth: "50%" }}>
                       <FormControl placeholder="Post Something..." aria-label="Post Something..." aria-describedby="basic-addon2" />
                       <InputGroup.Append>
                         <Button className={`${classes.postbutton}`}>Post</Button>
