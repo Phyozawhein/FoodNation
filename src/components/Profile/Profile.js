@@ -10,6 +10,7 @@ import sha256 from "js-sha256";
 export default function Profile() {
   const { db } = Fire;
   const { currentUser } = useAuth();
+  const [user, setUser] = useState([]);
   const { id } = useParams();
   const [imgUrl, setImgUrl] = useState("");
   const [image, setImg] = useState(null);
@@ -20,13 +21,63 @@ export default function Profile() {
   const [fName, setFName] = useState(""); // first Name
   const [lName, setLName] = useState(""); // last Name
   const [show, setShow] = useState(false);
+  const [form, setForm] = useState({});
+  const [errors, setErrors] = useState({})
+
+  //Handle inputs for edit profile field
+  const setField = (field, value) => {
+    setForm({
+      ...form,
+      [field]: value
+    })
+  }
+
+  //Form Errors
+  const findFormErrors = () => {
+    const { username, first, last, email, phone } = form
+    const newErrors = {}
+    let validator = false
+    let validator2 = false
+    // Username errors
+    if ( !username || username === '' ) newErrors.username = 'Username cannot be blank!'
+    else if ( username.length > 30 ) newErrors.username = 'Username is too long! Cannot Exceed 30 Characters.'
+    // First Name errors
+    if ( !first || first === '' ) newErrors.first = 'First Name cannot be blank!'
+    else if ( first.length > 30 ) newErrors.first = 'First Name is too long! Cannot Exceed 30 Characters.'
+    // Last Name errors
+    if ( !last || last === '' ) newErrors.last = 'Last Name cannot be blank!'
+    else if ( last.length > 30 ) newErrors.last = 'Last Name is too long! Cannot Exceed 30 Characters.'
+    // Email errors
+    for(let i = 0; i < email.length; i++){
+      if(email[i] === '.' || email[i] === '@'){
+        validator = true
+      }
+    }
+    if ( !email || email === '' ) newErrors.email = 'Email cannot be blank!'
+    else if ( email.length > 30 ) newErrors.email = 'Email is too long! Cannot Exceed 30 Characters.'
+    else if(!validator && !validator2) newErrors.email = 'Email is invalid.'
+    // Phone errors
+    if ( phone.length != 10 ) newErrors.phone = 'Must be 10 characters long'
+
+    return newErrors
+  }
 
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   async function handleSubmit(e) {
-    console.log("DEEZ NUTZ");
+    e.preventDefault()
+    // Check Errors
+    const newErrors = findFormErrors()
+    // Conditional logic:
+    if ( Object.keys(newErrors).length > 0 ) {
+      // Errors
+      setErrors(newErrors)
+    } else {
+      // Profile Edit Confirmation
+      alert('Saved!')
+    }
   }
 
 
@@ -69,6 +120,8 @@ export default function Profile() {
         console.log(querySnapShot.docs);
         const res = querySnapShot.docs.find((doc) => doc.data().id === queryID).data(); // "res" will have all the details of the user with the id parameter we fetched from url
         console.log(res);
+        setUser(res);
+        console.log(user);
         setImgUrl(res.imgUrl);
         setUserName(res.username);
         setEmail(res.email);
@@ -95,24 +148,39 @@ export default function Profile() {
           <Form onSubmit={handleSubmit} className={classes.EditForm}>
                 <Form.Group >
                   <Form.Label>Username</Form.Label>
-                  <Form.Control type="username" onChange={(e) => setUserName(e.target.value)} required />
+                  <Form.Control type="username" onChange={e => setField('username', e.target.value)} required  isInvalid={ !!errors.name }/>
+                <Form.Control.Feedback type='invalid'>
+                    { errors.username }
+                </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group >
-                  <Form.Label>First</Form.Label>
-                  <Form.Control type="first" onChange={(e) => setFName(e.target.value)} required />
+                  <Form.Label>First Name</Form.Label>
+                  <Form.Control type="first" onChange={e => setField('first', e.target.value)} required isInvalid={ !!errors.first }/>
+                <Form.Control.Feedback type='invalid'>
+                    { errors.first }
+                </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group >
-                  <Form.Label>Last</Form.Label>
-                  <Form.Control type="last" onChange={(e) => setLName(e.target.value)} required />
+                  <Form.Label>Last Name</Form.Label>
+                  <Form.Control type="last" onChange={e => setField('last', e.target.value)} required isInvalid={ !!errors.last }/>
+                <Form.Control.Feedback type='invalid'>
+                    { errors.last }
+                </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Row>
                   <Form.Group className={classes.EditFormRow}>
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" onChange={(e) => setEmail(e.target.value)} required />
+                    <Form.Control type="email" onChange={e => setField('email', e.target.value)} required isInvalid={ !!errors.email }/>
+                    <Form.Control.Feedback type='invalid'>
+                        { errors.email }
+                    </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group className={classes.EditFormRow}>
                     <Form.Label>Phone</Form.Label>
-                    <Form.Control type="text" onChange={(e) => setPhoneNumber(e.target.value)} required />
+                    <Form.Control type="phone" onInput={e => setField('phone', e.target.value)} required isInvalid={ !!errors.phone }/>
+                    <Form.Control.Feedback type='invalid'>
+                        { errors.phone }
+                    </Form.Control.Feedback>
                   </Form.Group>
                 </Form.Row>
 
@@ -129,7 +197,7 @@ export default function Profile() {
               <img className={`${classes.accountimage}`} alt="pic" src={imgUrl} /> {/* <== replace src */}
             </Row>
             <div className="d-flex align-items-center justify-content-center">
-              <h4 className={`${classes.font} m-1`}>{userName}</h4>
+              <h4 className={`${classes.font} m-1`}>{user.username}</h4>
             </div>
             <div>
               <h6 className={`${classes.font} ml-2 mt-2`}>About Info</h6>
@@ -139,7 +207,7 @@ export default function Profile() {
               <p className={`${classes.infolabel}`}>Address</p> {/* Change me for dynamic text */}
               <p className={`${classes.infotext}`}>420 69st Scranton, New York 16996 </p>
               <p className={`${classes.infolabel}`}>Email</p>
-              <p className={`${classes.infotext}`}>{email}</p>
+              <p className={`${classes.infotext}`}>{user.email}</p>
               <p className={`${classes.infolabel}`}>Phone</p>
               <p className={`${classes.infotext}`}>{phoneNumber.substr(0,3) + '-' + phoneNumber.substr(3,3) + '-' + phoneNumber.substr(6)}</p>
               {/* <p className={`${classes.infolabel}`}>About Us</p>
