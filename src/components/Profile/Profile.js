@@ -62,7 +62,6 @@ export default function Profile() {
     return newErrors
   }
 
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -80,9 +79,8 @@ export default function Profile() {
     }
   }
 
-
   const handleUpload = () => {
-    const uploadTask = storage.ref(`profiles/${currentUser.email}`).put(image);
+    const uploadTask = storage.ref(`profiles/${email}`).put(image);
     uploadTask.on(
       "state_changed",
       (snapshot) => {},
@@ -119,9 +117,12 @@ export default function Profile() {
       .then((querySnapShot) => {
         console.log(querySnapShot.docs);
         const res = querySnapShot.docs.find((doc) => doc.data().id === queryID).data(); // "res" will have all the details of the user with the id parameter we fetched from url
+<<<<<<< HEAD
         console.log(res);
         setUser(res);
         console.log(user);
+=======
+>>>>>>> aba3c3e784fe5ddacfea3c67574b59cd1b99386f
         setImgUrl(res.imgUrl);
         setUserName(res.username);
         setEmail(res.email);
@@ -138,14 +139,13 @@ export default function Profile() {
 
   return (
     <>
-    <Modal size='lg' contentClassName={classes.custommodal} show={show} onHide={handleClose} animation={false}>
+      <Modal size="lg" contentClassName={classes.custommodal} show={show} onHide={handleClose} animation={false}>
         <Modal.Header className={`${classes.custommodaltitle} ${classes.custommodalheader}`} closeButton>
-          <Modal.Title id="example-modal-sizes-title-lg">
-            Edit Profile
-          </Modal.Title>
+          <Modal.Title id="example-modal-sizes-title-lg">Edit Profile</Modal.Title>
         </Modal.Header>
-        <Modal.Body >
+        <Modal.Body>
           <Form onSubmit={handleSubmit} className={classes.EditForm}>
+<<<<<<< HEAD
                 <Form.Group >
                   <Form.Label>Username</Form.Label>
                   <Form.Control type="username" onChange={e => setField('username', e.target.value)} required  isInvalid={ !!errors.name }/>
@@ -183,11 +183,35 @@ export default function Profile() {
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Form.Row>
+=======
+            <Form.Group>
+              <Form.Label>Username</Form.Label>
+              <Form.Control type="username" onChange={(e) => setUserName(e.target.value)} required />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>First</Form.Label>
+              <Form.Control type="first" onChange={(e) => setFName(e.target.value)} required />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Last</Form.Label>
+              <Form.Control type="last" onChange={(e) => setLName(e.target.value)} required />
+            </Form.Group>
+            <Form.Row>
+              <Form.Group className={classes.EditFormRow}>
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" onChange={(e) => setEmail(e.target.value)} required />
+              </Form.Group>
+              <Form.Group className={classes.EditFormRow}>
+                <Form.Label>Phone</Form.Label>
+                <Form.Control type="text" onChange={(e) => setPhoneNumber(e.target.value)} required />
+              </Form.Group>
+            </Form.Row>
+>>>>>>> aba3c3e784fe5ddacfea3c67574b59cd1b99386f
 
-                <Button className={`w-100 ${classes.profilebutton}`} type="submit">
-                  Save
-                </Button>
-              </Form>
+            <Button className={`w-100 ${classes.profilebutton}`} type="submit">
+              Save
+            </Button>
+          </Form>
         </Modal.Body>
       </Modal>
       <Container className="flex ml-4 align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
@@ -209,11 +233,13 @@ export default function Profile() {
               <p className={`${classes.infolabel}`}>Email</p>
               <p className={`${classes.infotext}`}>{user.email}</p>
               <p className={`${classes.infolabel}`}>Phone</p>
-              <p className={`${classes.infotext}`}>{phoneNumber.substr(0,3) + '-' + phoneNumber.substr(3,3) + '-' + phoneNumber.substr(6)}</p>
+              <p className={`${classes.infotext}`}>{phoneNumber.substr(0, 3) + "-" + phoneNumber.substr(3, 3) + "-" + phoneNumber.substr(6)}</p>
               {/* <p className={`${classes.infolabel}`}>About Us</p>
               <p className={`${classes.infotext}`}>I'mma hyuck you up, and fill you up with my charitable meat! </p> */}
             </div>
-            <Button className={`w-100 ${classes.profilebutton}`} onClick={handleShow}>Edit Profile</Button>
+            <Button className={`w-100 ${classes.profilebutton}`} onClick={handleShow}>
+              Edit Profile
+            </Button>
           </Col>
           <Col className="ml-3" xs={12} md={7}>
             <Row>
@@ -253,14 +279,12 @@ export default function Profile() {
                   </Row>
                   
                 </div>*/}
-                <ProfileTabsUser/>
+                <ProfileTabsUser />
               </div>
             </Row>
           </Col>
         </Row>
       </Container>
-
-      
     </>
   );
 }

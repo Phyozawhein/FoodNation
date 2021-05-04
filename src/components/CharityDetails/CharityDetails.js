@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Row, Col, Button } from 'react-bootstrap';
-import styles from './CharityDetails.module.css';
-import Fire from '../../firebase.config';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Row, Col, Button } from "react-bootstrap";
+import styles from "./CharityDetails.module.css";
+import Fire from "../../firebase.config";
+import { useParams } from "react-router-dom";
 
 function CharityDetails() {
   // let announcements=[]
@@ -12,10 +12,10 @@ function CharityDetails() {
   const { db } = Fire;
 
   const [address, setAddress] = useState([]);
-  const [itemLists, setItemLists] = useState('');
-  const [description, setDescription] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
-  const [date, setDate] = useState('');
+  const [itemLists, setItemLists] = useState("");
+  const [description, setDescription] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [date, setDate] = useState("");
 
   const dates = {
     convert(d) {
@@ -28,7 +28,7 @@ function CharityDetails() {
       //                  "YYYY/MM/DD", "MM/DD/YYYY", "Jan 31 2009" etc.
       //  an object     : Interpreted as an object with year, month and date
       //                  attributes.  **NOTE** month is 0-11.
-      return d.constructor === Date ? d : d.constructor === Array ? new Date(d[0], d[1], d[2]) : d.constructor === Number ? new Date(d) : d.constructor === String ? new Date(d) : typeof d === 'object' ? new Date(d.year, d.month, d.date) : NaN;
+      return d.constructor === Date ? d : d.constructor === Array ? new Date(d[0], d[1], d[2]) : d.constructor === Number ? new Date(d) : d.constructor === String ? new Date(d) : typeof d === "object" ? new Date(d.year, d.month, d.date) : NaN;
     },
     compare(a, b) {
       // Compare two dates (could be of any type supported by the convert
@@ -43,8 +43,8 @@ function CharityDetails() {
   };
 
   useEffect(() => {
-    db.getCollection('CharityDetails')
-      .where('id', '==', id)
+    db.getCollection("Users")
+      .where("id", "==", id)
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -56,13 +56,13 @@ function CharityDetails() {
         });
       })
       .catch((error) => {
-        console.log('Error getting documents: ', error);
+        console.log("Error getting documents: ", error);
       });
 
     // starting of inner data fetching
     const todayDate = new Date();
-    db.getCollection('Events')
-      .where('id', '==', id)
+    db.getCollection("Events")
+      .where("id", "==", id)
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -71,14 +71,14 @@ function CharityDetails() {
           if (dates.compare(eventDate, todayDate) == 1) {
             const { itemLists } = doc.data();
             const { address } = doc.data();
-            eventDate = eventDate.toLocaleString('en-US', { timeZone: 'America/New_York' });
+            eventDate = eventDate.toLocaleString("en-US", { timeZone: "America/New_York" });
             setAddress(address);
             setItemLists(itemLists);
             setDate(eventDate);
           } else {
-            const itemLists = 'No upcoming event yet. Please be patient';
-            const address = '...';
-            eventDate = '...';
+            const itemLists = "No upcoming event yet. Please be patient";
+            const address = "...";
+            eventDate = "...";
             setAddress(address);
             setItemLists(itemLists);
             setDate(eventDate);
@@ -86,7 +86,7 @@ function CharityDetails() {
         });
       })
       .catch((error) => {
-        console.log('Error getting documents: ', error);
+        console.log("Error getting documents: ", error);
       });
     // end of inner data fetching
   }, []);
@@ -95,13 +95,13 @@ function CharityDetails() {
     <div className={styles.colormarlam}>
       <img className={styles.tinyImg} src={imageUrl} alt="" />
       <br />
-      <p style={{ color: 'white', fontSize: 40, marginLeft: '16%', maxWidth: '70%' }}>Description: {description}</p>
+      <p style={{ color: "white", fontSize: 40, marginLeft: "16%", maxWidth: "70%" }}>Description: {description}</p>
       <br />
-      <p style={{ color: 'white', fontSize: 40, marginLeft: '16%', maxWidth: '70%' }}>Event Details: {itemLists}</p>
+      <p style={{ color: "white", fontSize: 40, marginLeft: "16%", maxWidth: "70%" }}>Event Details: {itemLists}</p>
       <br />
       <Row>
         <Col>
-          <p style={{ color: 'white', fontSize: 40, marginLeft: '32%', maxWidth: '70%' }}>Address: {address}</p>
+          <p style={{ color: "white", fontSize: 40, marginLeft: "32%", maxWidth: "70%" }}>Address: {address}</p>
         </Col>
         <Col>
           <Button className={styles.buttons}>Directions</Button>
@@ -109,9 +109,9 @@ function CharityDetails() {
       </Row>
 
       <br />
-      <p style={{ color: 'white', fontSize: 40, marginLeft: '16%', maxWidth: '70%' }}>Date: {date}</p>
+      <p style={{ color: "white", fontSize: 40, marginLeft: "16%", maxWidth: "70%" }}>Date: {date}</p>
     </div>
   );
 }
 
-export default CharityDetails;
+export default CharityDetails
