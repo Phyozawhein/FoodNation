@@ -16,6 +16,7 @@ function CharityDetails() {
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [date, setDate] = useState("");
+  const [error,setError]=useState('');
 
   const dates = {
     convert(d) {
@@ -62,28 +63,59 @@ function CharityDetails() {
     // starting of inner data fetching
     const todayDate = new Date();
     db.getCollection("Events")
-      .where("id", "==", id)
-      .get()
-      .then((querySnapshot) => {
+    .where("id", "==", id)
+    .get()
+    .then((querySnapshot) => {
+      let array = [];
+      let flag = false;
+      let count = 0;
+      let dateArray = [];
+      let lowest = new Date(2070,12,12);
+      let docid ;
         querySnapshot.forEach((doc) => {
-          let eventDate = new Date(doc.data().date);
 
-          if (dates.compare(eventDate, todayDate) == 1) {
-            const { itemLists } = doc.data();
-            const { address } = doc.data();
-            eventDate = eventDate.toLocaleString("en-US", { timeZone: "America/New_York" });
-            setAddress(address);
-            setItemLists(itemLists);
-            setDate(eventDate);
-          } else {
-            const itemLists = "No upcoming event yet. Please be patient";
-            const address = "...";
-            eventDate = "...";
-            setAddress(address);
-            setItemLists(itemLists);
-            setDate(eventDate);
-          }
+          array.push([doc.id,doc.data()]);
+
         });
+
+        array.map(item => {
+          dateArray.push([item[0],item[1].date]);
+
+        })
+
+        dateArray.map(item => {
+          
+          let newDate = new Date(item[1]);
+          
+          count = count + 1;
+          if ((dates.compare( lowest, newDate) == 1) && ((dates.compare( newDate, todayDate) == 1)||(dates.compare( newDate, todayDate) == 0))){
+            lowest = item[1];
+            docid = item[0];
+            flag=true;
+          }
+        })
+        
+        if (flag==false && count !=0) {
+          const itemLists = "No upcoming event yet. Please be patient";
+          const address = "...";
+          const eventDate = "...";
+          setAddress(address);
+          setItemLists(itemLists);
+          setDate(eventDate);
+          
+        }
+
+        db.getCollection("Events").doc(docid).get()
+        .then((doc)=> {
+          
+          setAddress(doc.data().address);
+          setItemLists(doc.data().itemLists);
+          let eventDate = new Date(doc.data().date);
+          eventDate = eventDate.toLocaleString("en-US", { timeZone: "America/New_York" });
+          setDate(eventDate);
+        })
+        .catch((error) => setError(error.message));
+
       })
       .catch((error) => {
         console.log("Error getting documents: ", error);
