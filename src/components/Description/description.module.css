@@ -1,0 +1,11 @@
+.container {
+    background-color: rgba(196, 196, 196, 0.27) !important;
+    padding: 1rem;
+    border-radius: 1rem;
+    overflow-x: hidden;
+    font-family: 'Sora';
+    color: rgb(255, 255, 255);
+    width: 70% !important;
+    margin-left: 20%;
+    margin-top: 8%;
+  }

@@ -146,4 +146,4 @@ function CharityDetails() {
   );
 }
 
-export default CharityDetails;
+export default CharityDetails
