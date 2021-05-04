@@ -107,14 +107,8 @@ function Event() {
   );
 
   let cantViewPage = (
-    <div>
+    <div className={styles.cantView}>
       <h1>Not authorized to view this page</h1>
-    </div>
-  );
-
-  cantViewPage = (
-    <div>
-      <h1 className={styles.cantView}>Not authorized to view this page</h1>
     </div>
   );
 
@@ -124,7 +118,6 @@ function Event() {
 
       {view === true ? viewPage : cantViewPage}
 
-      {view === true ? viewPage : cantViewPage}
     </div>
   );
 }
