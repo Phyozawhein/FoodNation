@@ -34,39 +34,37 @@ export default function Login() {
   }
 
   return (
-    <>
-      <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
-        <div className="w-100" style={{ maxWidth: '500px' }}>
-          <Card className={`${classes.container} ${classes.font}`}>
-            <Card.Body>
-              <Row className="d-flex align-items-center justify-content-center">
-                <Logo className={classes.logo} />
-              </Row>
-              {error && <Alert variant="danger">{error}</Alert>}
+    <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
+      <div className="w-100" style={{ maxWidth: '500px' }}>
+        <Card className={`${classes.container} ${classes.font}`}>
+          <Card.Body>
+            <Row className="d-flex align-items-center justify-content-center">
+              <Logo className={classes.logo} />
+            </Row>
+            {error && <Alert variant="danger">{error}</Alert>}
 
-              <Form onSubmit={handleSubmit}>
-                <Form.Group className={classes.contact}>
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control type="email" ref={emailRef} required />
-                </Form.Group>
-                <Form.Group id="password">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" ref={passwordRef} required />
-                </Form.Group>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className={classes.contact}>
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" ref={emailRef} required />
+              </Form.Group>
+              <Form.Group id="password">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" ref={passwordRef} required />
+              </Form.Group>
 
-                <Button type="submit" className={`w-100 ${classes.submitbutton}`} disabled={loading}>
-                  Log in
-                </Button>
-              </Form>
-            </Card.Body>
-          </Card>
-          <div className={`${classes.font} w-100 text-center mt-2`}>
-            <b style={{ color: 'white' }}>
-              Don't have an account ? <Link to="/signup">Signup</Link>
-            </b>
-          </div>
+              <Button type="submit" className={`w-100 ${classes.submitbutton}`} disabled={loading}>
+                Log in
+              </Button>
+            </Form>
+          </Card.Body>
+        </Card>
+        <div className={`${classes.font} w-100 text-center mt-2`}>
+          <b style={{ color: 'white' }}>
+            Don't have an account ? <Link to="/signup">Signup</Link>
+          </b>
         </div>
-      </Container>
-    </>
+      </div>
+    </Container>
   );
 }

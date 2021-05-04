@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardColumns, Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import classes from './Dashboard.module.css';
-import Fire from '../../firebase.config';
-
+import React, { useState, useEffect } from "react";
+import { Card, CardColumns, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import classes from "./Dashboard.module.css";
+import Fire from "../../firebase.config";
+import SearchBar from "../../layouts/search/SearchBar";
 export default function Dashboard() {
   const { db } = Fire;
   const [charities, setCharity] = useState([]);
 
   useEffect(() => {
-    db.getCollection('CharityDetails')
+    db.getCollection("Users")
+      .where("type", "==", "charity")
       .get()
       .then((querySnapShot) => {
         const charityArray = [];
@@ -23,9 +24,10 @@ export default function Dashboard() {
 
   return (
     <Container className={classes.cardContainer}>
+      <SearchBar />
       <CardColumns>
         {charities.map((charity, id) => (
-          <Card className={classes.charityCard} id={id}>
+          <Card className={classes.charityCard} key={id}>
             <Link to={`/charity/${charity.id}`}>
               <Card.Img src={charity.imgUrl} />
             </Link>

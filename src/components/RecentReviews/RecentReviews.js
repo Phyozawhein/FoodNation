@@ -4,6 +4,7 @@ import Fire from '../../firebase.config';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import classes from './RecentReviews.module.css';
+import firebase from 'firebase/app';
 
 const RecentReviews = ()  =>{
     const {currentUser} = useAuth();

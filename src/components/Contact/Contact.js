@@ -1,16 +1,15 @@
 import React, { useRef, useState } from 'react';
+import firebase from 'firebase';
+import { Form, Container, Button } from 'react-bootstrap';
 import classes from './Contact.module.css';
 
-import firebase from 'firebase';
 import Fire, { db } from '../../firebase.config';
-import { Form, Container, Button,Alert } from 'react-bootstrap';
 
 const Contact = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
-  const [success,setSuccess]=useState('');
 
   const { db } = Fire;
 
@@ -24,7 +23,7 @@ const Contact = () => {
         message,
       })
       .then(() => {
-        setSuccess("Message has been submitted");
+        alert('Message has been submitted.');
       })
       .catch((error) => {
         alert(error.message);
@@ -34,13 +33,11 @@ const Contact = () => {
     setSubject('');
     setMessage('');
   };
-  //style={{ minHeight: '100vh' }} className={`${classes.Container} d-flex align-items-center justify-content-center`}
+  // style={{ minHeight: '100vh' }} className={`${classes.Container} d-flex align-items-center justify-content-center`}
   return (
     <div>
       <h1 className={classes.headline}>CONTACT US 📞</h1>
-      <div className= {classes.alert}>{success &&<Alert variant="success">{success}</Alert>}</div>
-      
-      <Container onSubmit={handleSubmit} className={classes.Container}>
+      <Container className={classes.Container}>
         <Form className={classes.form}>
           <Form.Group className={classes.group}>
             <Form.Label>Name:*</Form.Label>
@@ -68,3 +65,30 @@ const Contact = () => {
 };
 
 export default Contact;
+
+// <form className="form" onSubmit={handleSubmit}>
+// <div className="container">
+//   <label className="label">Name</label>
+//   <br />
+//   <input placeholder="Name" className="input" value={name} onChange={(e) => setName(e.target.value)} />
+//   <br />
+//   <label className="label">Email</label>
+//   <br />
+//   <input placeholder="Email" className="input" value={email} onChange={(e) => setEmail(e.target.value)} />
+//   <br />
+//   <label className="label">Subject</label>
+//   <br />
+//   <input placeholder="Subject" className="input" value={subject} onChange={(e) => setSubject(e.target.value)} />
+//   <br />
+
+//   <label className="label">Message</label>
+//   <br />
+//   <textarea placeholder="Message" className="input1" value={message} onChange={(e) => setMessage(e.target.value)} />
+//   <br />
+// </div>
+// <br />
+
+// <button type="submit" className="submitbutton">
+//   Submit
+// </button>
+// </form>

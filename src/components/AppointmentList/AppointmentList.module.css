@@ -26,16 +26,26 @@
         font-family: 'Sora', sans-serif !important;
     }
     .rectangle{
-    position: absolute;
-    left: 30%;
+   
+    
     right: 30%;
     top: 20%;
     bottom: 15%;
-    
-    background: rgba(196, 196, 196, 0.27);
     border-radius: 58px;
     }
-    
+
+    .container {
+        background-color: rgba(196, 196, 196, 0.27) !important;
+        padding: 1rem;
+        border-radius: 1rem;
+        overflow-x: hidden;
+        font-family: 'Sora';
+        color: rgb(255, 255, 255);
+        width:50% !important;
+        margin-left: 20%;
+        margin-top: 8%;
+        font-size: 30px;
+      }
     .date{
         margin-left:20px;
         border-color: black;
@@ -65,7 +75,7 @@
     }
     .label1{
         margin-top:0px;
-        width: 558px;
+        width: 200px;
         height: 39px;
         margin-left :35px;
         
@@ -74,9 +84,8 @@
         font-weight: normal;
         font-size: 20px;
         line-height: 50px;
-        
-        // color: #FFFFFF;
         }
+        
     .input{
     position: absolute;
     width: 650px;
@@ -96,3 +105,18 @@
         background: #FFFFFF;
         border-radius: 20px;
         }
+
+ .open{
+    font-weight: bold;
+     font-size: 100px;
+     color: #ffffff;
+     margin-left: 25%;
+     margin-top: 5%;
+ }
+ .completed{
+     font-weight: bold;
+    font-size: 100px;
+    color: #ffffff;
+    margin-left: 30%;
+    margin-top: 5%;
+} 
