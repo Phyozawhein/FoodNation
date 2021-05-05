@@ -75,7 +75,28 @@ export default function Profile() {
       setErrors(newErrors)
     } else {
       // Profile Edit Confirmation
-      alert('Saved!')
+      db.getCollection("Users")
+      .doc(user.email)
+      .update({...form})
+      .then(()=> {db.getCollection("Users").doc(user.email)
+      .onSnapshot((doc) => {
+        const res = doc.data(); // "res" will have all the details of the user with the id parameter we fetched from url
+        console.log(res);
+        setUser(res);
+        
+        setImgUrl(res.imgUrl);
+        setUserName(res.username);
+        setEmail(res.email);
+        setPhoneNumber(res.phone);
+        setCID(res.CID);
+        setFName(res.firstName);
+        setLName(res.lastName);
+      });} )
+      .catch((err) => {
+        console.error(err);
+      });
+      alert('Saved!');
+
     }
   }
 
@@ -117,12 +138,9 @@ export default function Profile() {
       .then((querySnapShot) => {
         console.log(querySnapShot.docs);
         const res = querySnapShot.docs.find((doc) => doc.data().id === queryID).data(); // "res" will have all the details of the user with the id parameter we fetched from url
-<<<<<<< HEAD
         console.log(res);
         setUser(res);
-        console.log(user);
-=======
->>>>>>> aba3c3e784fe5ddacfea3c67574b59cd1b99386f
+        
         setImgUrl(res.imgUrl);
         setUserName(res.username);
         setEmail(res.email);
@@ -138,6 +156,7 @@ export default function Profile() {
   }, [id]);
 
   return (
+
     <>
       <Modal size="lg" contentClassName={classes.custommodal} show={show} onHide={handleClose} animation={false}>
         <Modal.Header className={`${classes.custommodaltitle} ${classes.custommodalheader}`} closeButton>
@@ -145,7 +164,6 @@ export default function Profile() {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit} className={classes.EditForm}>
-<<<<<<< HEAD
                 <Form.Group >
                   <Form.Label>Username</Form.Label>
                   <Form.Control type="username" onChange={e => setField('username', e.target.value)} required  isInvalid={ !!errors.name }/>
@@ -183,30 +201,6 @@ export default function Profile() {
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Form.Row>
-=======
-            <Form.Group>
-              <Form.Label>Username</Form.Label>
-              <Form.Control type="username" onChange={(e) => setUserName(e.target.value)} required />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>First</Form.Label>
-              <Form.Control type="first" onChange={(e) => setFName(e.target.value)} required />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Last</Form.Label>
-              <Form.Control type="last" onChange={(e) => setLName(e.target.value)} required />
-            </Form.Group>
-            <Form.Row>
-              <Form.Group className={classes.EditFormRow}>
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" onChange={(e) => setEmail(e.target.value)} required />
-              </Form.Group>
-              <Form.Group className={classes.EditFormRow}>
-                <Form.Label>Phone</Form.Label>
-                <Form.Control type="text" onChange={(e) => setPhoneNumber(e.target.value)} required />
-              </Form.Group>
-            </Form.Row>
->>>>>>> aba3c3e784fe5ddacfea3c67574b59cd1b99386f
 
             <Button className={`w-100 ${classes.profilebutton}`} type="submit">
               Save
