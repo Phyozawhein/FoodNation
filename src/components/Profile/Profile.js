@@ -17,13 +17,16 @@ export default function Profile() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [show, setShow] = useState(false);
   const [form, setForm] = useState({});
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState({});
+  const [address, setAddress] = useState({});
+  const [address_display, setAddressDisplay] = useState({});
 
   //Handle inputs for edit profile field
   const setField = (field, value) => {
     setForm({
       ...form,
-      [field]: value
+      [field]: value,
+      address: address
     })
   }
 
@@ -58,9 +61,30 @@ export default function Profile() {
     }
   }
 
+  const handleAddressChange = (field, value) => {
+    formUpdate(field, value);
+    console.log(address);
+  }
+
+  async function formUpdate(field, value){
+    
+    setTimeout(function(){
+    setAddress({
+      ...address,
+      [field]: value
+    });
+    }, 100);
+    setForm({
+      ...form,
+      address: address 
+    });
+  }
+
   async function handleSubmit(e) {
     e.preventDefault()
+    
     // Check Errors
+    
     const newErrors = findFormErrors()
     // Conditional logic:
     if ( Object.keys(newErrors).length > 0 ) {
@@ -82,6 +106,8 @@ export default function Profile() {
         console.log(res);
         setUser(res);
         setPhoneNumber(res.phone);
+        setAddressDisplay(res.address);
+        setAddress(res.address);
       });} )
       .catch((err) => {
         console.error(err);
@@ -131,20 +157,17 @@ export default function Profile() {
         console.log(res);
         setUser(res);
         setForm(res);
+        setAddressDisplay(res.address);
+        setAddress(res.address);
         setPhoneNumber(res.phone);
-        // setImgUrl(res.imgUrl);
-        // setUserName(res.username);
-        // setEmail(res.email);
-        
-        // setCID(res.CID);
-        // setFName(res.firstName);
-        // setLName(res.lastName);
       })
       .catch((error) => console.log(error.message));
     // return () => {
     //   cleanup;
     // };
   }, [id]);
+
+  console.log(address);
 
   return (
 
@@ -184,7 +207,29 @@ export default function Profile() {
                         { errors.phone }
                     </Form.Control.Feedback>
                   </Form.Group>
+                  <Form.Group className={classes.EditFormRow}>
+                    <Form.Label>Street Address</Form.Label>
+                    <Form.Control defaultValue={address_display.street} type="phone" onInput={e => handleAddressChange('street', e.target.value)} required isInvalid={ !!errors.street }/>
+                    <Form.Control.Feedback type='invalid'>
+                        { errors.street }
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  <Form.Group className={classes.EditFormRow}>
+                    <Form.Label>State</Form.Label>
+                    <Form.Control defaultValue={address_display.state} type="phone" onInput={e => handleAddressChange('state', e.target.value)} required isInvalid={ !!errors.state }/>
+                    <Form.Control.Feedback type='invalid'>
+                        { errors.state }
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  <Form.Group className={classes.EditFormRow}>
+                    <Form.Label>Zip Code</Form.Label>
+                    <Form.Control defaultValue={address_display.zip} type="phone" onInput={e => handleAddressChange('zip', e.target.value)} required isInvalid={ !!errors.zip }/>
+                    <Form.Control.Feedback type='invalid'>
+                        { errors.zip }
+                    </Form.Control.Feedback>
+                  </Form.Group>
                 </Form.Row>
+                
                 <Form.Row>
                   <Form.Group className={classes.EditFormRow}>
                   <Form.File
@@ -225,6 +270,12 @@ export default function Profile() {
               <p className={`${classes.infotext}`}>{user.email}</p>
               <p className={`${classes.infolabel}`}>Phone</p>
               <p className={`${classes.infotext}`}>{phoneNumber.substr(0, 3) + "-" + phoneNumber.substr(3, 3) + "-" + phoneNumber.substr(6)}</p>
+              {currentUser.email === user.email ? 
+              <>
+              <p className={`${classes.infolabel}`}>Name</p>
+              <p className={`${classes.infotext}`}>{`${user.first} ${user.last}`}</p> 
+              </>
+              : <></>}
               {/* <p className={`${classes.infolabel}`}>About Us</p>
               <p className={`${classes.infotext}`}>I'mma hyuck you up, and fill you up with my charitable meat! </p> */}
             </div>
