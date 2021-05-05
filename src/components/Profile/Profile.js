@@ -245,12 +245,12 @@ export default function Profile() {
               <h4 className={`${classes.font} m-1`}>{user.username}</h4>
             </div>
             <div>
-              <h6 className={`${classes.font} ml-2 mt-2`}>About Info</h6>
+              <h6 className={`${classes.font} ml-2 mt-2`}>Contact Info</h6>
             </div>
 
             <div className={`${classes.container} ${classes.font}`}>
               <p className={`${classes.infolabel}`}>Address</p> {/* Change me for dynamic text */}
-              <p className={`${classes.infotext}`}>420 69st Scranton, New York 16996 </p>
+              <p className={`${classes.infotext}`}>{`${address_display.street}, ${address_display.city}, ${address_display.state}, ${address_display.zip}`}</p>
               <p className={`${classes.infolabel}`}>Email</p>
               <p className={`${classes.infotext}`}>{user.email}</p>
               <p className={`${classes.infolabel}`}>Phone</p>
