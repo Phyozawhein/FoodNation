@@ -18,21 +18,19 @@ export default function Profile() {
   const [show, setShow] = useState(false);
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
-  const [address, setAddress] = useState({});
   const [address_display, setAddressDisplay] = useState({});
 
   //Handle inputs for edit profile field
   const setField = (field, value) => {
     setForm({
       ...form,
-      [field]: value,
-      address: address
+      [field]: value
     })
   }
 
   //Form Errors
   const findFormErrors = () => {
-    const { username, first, last, phone } = form
+    const { username, first, last, phone, street, city, state, zip } = form
     const newErrors = {}
     // Username errors
     if ( !username || username === '' ) newErrors.username = 'Username cannot be blank!'
@@ -61,24 +59,6 @@ export default function Profile() {
     }
   }
 
-  const handleAddressChange = (field, value) => {
-    formUpdate(field, value);
-    console.log(address);
-  }
-
-  async function formUpdate(field, value){
-    
-    setTimeout(function(){
-    setAddress({
-      ...address,
-      [field]: value
-    });
-    }, 100);
-    setForm({
-      ...form,
-      address: address 
-    });
-  }
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -107,7 +87,6 @@ export default function Profile() {
         setUser(res);
         setPhoneNumber(res.phone);
         setAddressDisplay(res.address);
-        setAddress(res.address);
       });} )
       .catch((err) => {
         console.error(err);
@@ -158,7 +137,6 @@ export default function Profile() {
         setUser(res);
         setForm(res);
         setAddressDisplay(res.address);
-        setAddress(res.address);
         setPhoneNumber(res.phone);
       })
       .catch((error) => console.log(error.message));
@@ -167,7 +145,6 @@ export default function Profile() {
     // };
   }, [id]);
 
-  console.log(address);
 
   return (
 
@@ -199,6 +176,36 @@ export default function Profile() {
                     { errors.last }
                 </Form.Control.Feedback>
                 </Form.Group>
+                <Form.Group>
+                    <Form.Label>Street Address</Form.Label>
+                    <Form.Control defaultValue={address_display.street} type="street" onInput={e => setField('address', {...form.address, street: e.target.value})} required isInvalid={ !!errors.street }/>
+                    <Form.Control.Feedback type='invalid'>
+                        { errors.street }
+                    </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Row>
+                  <Form.Group className={classes.EditFormRow}>
+                    <Form.Label>State</Form.Label>
+                    <Form.Control defaultValue={address_display.state} type="state" onInput={e => setField('address', {...form.address, state: e.target.value})} required isInvalid={ !!errors.state }/>
+                    <Form.Control.Feedback type='invalid'>
+                        { errors.state }
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  <Form.Group className={classes.EditFormRow}>
+                    <Form.Label>City</Form.Label>
+                    <Form.Control defaultValue={address_display.city} type="city" onInput={e => setField('address', {...form.address, city: e.target.value})} required isInvalid={ !!errors.city }/>
+                    <Form.Control.Feedback type='invalid'>
+                        { errors.city }
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  <Form.Group className={classes.EditFormRow}>
+                    <Form.Label>Zip Code</Form.Label>
+                    <Form.Control defaultValue={address_display.zip} type="zip" onInput={e => setField('address', {...form.address, zip: e.target.value})} required isInvalid={ !!errors.zip }/>
+                    <Form.Control.Feedback type='invalid'>
+                        { errors.zip }
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Form.Row>
                 <Form.Row>
                   <Form.Group className={classes.EditFormRow}>
                     <Form.Label>Phone</Form.Label>
@@ -207,29 +214,7 @@ export default function Profile() {
                         { errors.phone }
                     </Form.Control.Feedback>
                   </Form.Group>
-                  <Form.Group className={classes.EditFormRow}>
-                    <Form.Label>Street Address</Form.Label>
-                    <Form.Control defaultValue={address_display.street} type="phone" onInput={e => handleAddressChange('street', e.target.value)} required isInvalid={ !!errors.street }/>
-                    <Form.Control.Feedback type='invalid'>
-                        { errors.street }
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group className={classes.EditFormRow}>
-                    <Form.Label>State</Form.Label>
-                    <Form.Control defaultValue={address_display.state} type="phone" onInput={e => handleAddressChange('state', e.target.value)} required isInvalid={ !!errors.state }/>
-                    <Form.Control.Feedback type='invalid'>
-                        { errors.state }
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group className={classes.EditFormRow}>
-                    <Form.Label>Zip Code</Form.Label>
-                    <Form.Control defaultValue={address_display.zip} type="phone" onInput={e => handleAddressChange('zip', e.target.value)} required isInvalid={ !!errors.zip }/>
-                    <Form.Control.Feedback type='invalid'>
-                        { errors.zip }
-                    </Form.Control.Feedback>
-                  </Form.Group>
                 </Form.Row>
-                
                 <Form.Row>
                   <Form.Group className={classes.EditFormRow}>
                   <Form.File
