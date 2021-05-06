@@ -30,7 +30,8 @@ export default function Profile() {
 
   //Form Errors
   const findFormErrors = () => {
-    const { username, first, last, phone, street, city, state, zip } = form
+    const { username, first, last, phone} = form
+    const {state} = form.address
     const newErrors = {}
     // Username errors
     if ( !username || username === '' ) newErrors.username = 'Username cannot be blank!'
@@ -43,7 +44,8 @@ export default function Profile() {
     else if ( last.length > 30 ) newErrors.last = 'Last Name is too long! Cannot Exceed 30 Characters.'
     // Phone errors
     if ( phone.length != 10 ) newErrors.phone = 'Must be 10 characters long'
- 
+    //State errors
+    if ( state.length != 2 ) newErrors.state = 'Must be 2 characters long.'
 
     return newErrors
   }
@@ -182,6 +184,9 @@ export default function Profile() {
                     <Form.Control.Feedback type='invalid'>
                         { errors.street }
                     </Form.Control.Feedback>
+                    <Form.Text className="text-muted">
+                     (e.g. 123 Tatooine St.)
+                    </Form.Text>
                 </Form.Group>
                 <Form.Row>
                   <Form.Group className={classes.EditFormRow}>
@@ -190,6 +195,9 @@ export default function Profile() {
                     <Form.Control.Feedback type='invalid'>
                         { errors.state }
                     </Form.Control.Feedback>
+                    <Form.Text className="text-muted">
+                      (For New York, enter "NY")
+                    </Form.Text>
                   </Form.Group>
                   <Form.Group className={classes.EditFormRow}>
                     <Form.Label>City</Form.Label>
@@ -198,21 +206,24 @@ export default function Profile() {
                         { errors.city }
                     </Form.Control.Feedback>
                   </Form.Group>
-                  <Form.Group className={classes.EditFormRow}>
+                  <Form.Group as="number" className={classes.EditFormRow}>
                     <Form.Label>Zip Code</Form.Label>
-                    <Form.Control defaultValue={address_display.zip} type="zip" onInput={e => setField('address', {...form.address, zip: e.target.value})} required isInvalid={ !!errors.zip }/>
+                    <Form.Control  defaultValue={address_display.zip} type="zip" onInput={e => setField('address', {...form.address, zip: e.target.value})} required isInvalid={ !!errors.zip }/>
                     <Form.Control.Feedback type='invalid'>
                         { errors.zip }
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Form.Row>
                 <Form.Row>
-                  <Form.Group className={classes.EditFormRow}>
+                  <Form.Group as="number" className={classes.EditFormRow}>
                     <Form.Label>Phone</Form.Label>
-                    <Form.Control defaultValue={user.phone} type="phone" onChange={e => setField('phone', e.target.value)} required isInvalid={ !!errors.phone }/>
+                    <Form.Control  defaultValue={user.phone} type="phone" onChange={e => setField('phone', e.target.value)} required isInvalid={ !!errors.phone }/>
                     <Form.Control.Feedback type='invalid'>
                         { errors.phone }
                     </Form.Control.Feedback>
+                    <Form.Text className="text-muted">
+                      (No dashes e.g. 1234567890)
+                    </Form.Text>
                   </Form.Group>
                 </Form.Row>
                 <Form.Row>
@@ -306,7 +317,7 @@ export default function Profile() {
                   </Row>
                   
                 </div>*/}
-                <ProfileTabsUser description={user.description}/>
+                <ProfileTabsUser user={user.email} description={user.description}/>
               </div>
             </Row>
           </Col>
