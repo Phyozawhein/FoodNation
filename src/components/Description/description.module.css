@@ -1,0 +1,70 @@
+.postings {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 35vh;
+  margin: 0.5rem;
+  margin-bottom: 0rem;
+  border-bottom: 1.8px solid rgba(255, 255, 255, 0.692);
+}
+
+.postbutton {
+  background: #bc0000 !important;
+  border-radius: 0.5rem !important;
+  border: none !important;
+  font-weight: bolder !important;
+  font-family: 'Sora', sans-serif !important;
+}
+
+
+.postbutton:hover {
+  background: #b43535 !important;
+  border-radius: 0.5rem !important;
+  border: none !important;
+  font-weight: bolder;
+  font-family: 'Sora', sans-serif !important;
+}
+
+.profilebutton {
+  background: #bc0000 !important;
+  border-radius: 0.5rem !important;
+  border: none !important;
+  margin-top: 1rem;
+  font-weight: bolder !important;
+  font-family: 'Sora', sans-serif !important;
+}
+
+.profilebutton:hover {
+  background: #b43535 !important;
+  border-radius: 0.5rem !important;
+  border: none !important;
+  margin-top: 1rem;
+  font-weight: bolder;
+  font-family: 'Sora', sans-serif !important;
+}
+
+
+.postsection {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.info {
+  width: 100%;
+  position: relative;
+}
+
+.infolabel {
+  font-size: 0.9rem;
+  color: white;
+  margin: 1rem;
+  font-family: 'Sora', sans-serif !important;
+  border-bottom: 1.8px solid rgba(255, 255, 255, 0.692);
+}
+
+.infotext {
+  font-size: 0.75rem;
+  color: white;
+  margin: 1rem;
+  font-family: 'Sora', sans-serif !important;
+}

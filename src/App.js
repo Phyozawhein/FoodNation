@@ -14,6 +14,11 @@ import Contact from "./components/Contact/Contact";
 import CharityDetails from "./components/CharityDetails/CharityDetails";
 import Donation from "./components/Donation/Donation";
 import SearchBar from "./layouts/search/SearchBar";
+import AppointmentList from "./components/AppointmentList/AppointmentList";
+import Description from "./components/Description/Description";
+import RecentReviews from "./components/RecentReviews/RecentReviews";
+import RecentEvent from "./components/RecentEvent/RecentEvent"
+
 
 function App() {
   return (
@@ -36,6 +41,10 @@ function App() {
               <PrivateRoute path="/restaurant-donation" component={Donation} />
               <Route path="/contact" component={Contact} />
               <Route path="/search" component={SearchBar} />
+              <PrivateRoute path ="/appointments" component={AppointmentList} />
+              <Route path = "/description/:id" children={<Description/>}/>
+              <Route path ="/recentevent/:id" children = {<RecentEvent/>}/>
+              <Route path ="/recentreview/:id" children = {<RecentReviews/>}/> 
             </Switch>
           </div>
         </Router>

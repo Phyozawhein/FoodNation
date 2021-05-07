@@ -9,7 +9,7 @@ export default function Dashboard() {
   const [charities, setCharity] = useState([]);
 
   useEffect(() => {
-    db.getCollection("CharityDetails")
+    db.getCollection("Users").where("type","==","charity")
       .get()
       .then((querySnapShot) => {
         const charityArray = [];

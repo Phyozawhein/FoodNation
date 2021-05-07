@@ -1,5 +1,5 @@
 .container {
-  background-color: rgba(196, 196, 196, 0.27) !important;
+  background-color: rgba(99, 99, 99, 0.27) !important;
   width: 100%;
   padding: 0.06rem;
   border-radius: 1rem;
@@ -121,4 +121,64 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #ff0000;
   border-radius: 10px;
+}
+
+.custommodal{
+    background-color: rgba(70, 63, 63, 0.733) !important;
+    color: white;
+    border-radius: 1rem;
+    box-shadow:
+        
+        0 0 70px rgba(245, 21, 69, 0.452),           
+        -10px 0 100px rgba(177, 0, 9, 0.452),       
+        10px 0 250px rgb(0, 0, 0);  
+}
+
+.custommodalheader {
+
+    color: white;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.603), 0 0 4px rgba(255, 255, 255, 0.603);
+    border-bottom: .1vh solid  rgba(167, 1, 34, 0);
+    font-weight: bolder !important;
+    font-family: 'Sora', sans-serif !important;
+
+}
+
+.custommodaltitle{
+    font-size: 6vh;
+    text-indent:2vmin;
+    font-weight: bolder !important;
+    font-family: 'Sora', sans-serif !important;
+}
+
+.custommodal .modal-body{
+    box-shadow:
+        inset 0 0 30px rgb(255, 0, 76),      
+        inset 20px 0 60px rgb(75, 0, 0),  
+        inset -20px 0 60px rgb(80, 0, 0), 
+        inset 20px 0 120px rgb(63, 0, 0),  
+        inset -20px 0 120px rgb(0, 0, 0);
+    
+}
+
+.custommodal .close{
+    color: white;
+    font-size: 8vh;
+    font-weight: 4;
+    opacity: 1;   
+    font-family: 'Goldman', cursive;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.603), 0 0 4px rgba(255, 255, 255, 0.603);
+    
+}
+
+.EditForm {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.EditFormRow{
+  padding-right: 1rem;
+  padding-left: .3rem;
+
 }
