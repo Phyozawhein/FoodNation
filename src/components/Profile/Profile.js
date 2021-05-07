@@ -117,12 +117,6 @@ export default function Profile() {
       .then((querySnapShot) => {
         console.log(querySnapShot.docs);
         const res = querySnapShot.docs.find((doc) => doc.data().id === queryID).data(); // "res" will have all the details of the user with the id parameter we fetched from url
-<<<<<<< HEAD
-        console.log(res);
-        setUser(res);
-        console.log(user);
-=======
->>>>>>> aba3c3e784fe5ddacfea3c67574b59cd1b99386f
         setImgUrl(res.imgUrl);
         setUserName(res.username);
         setEmail(res.email);
@@ -145,45 +139,6 @@ export default function Profile() {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit} className={classes.EditForm}>
-<<<<<<< HEAD
-                <Form.Group >
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control type="username" onChange={e => setField('username', e.target.value)} required  isInvalid={ !!errors.name }/>
-                <Form.Control.Feedback type='invalid'>
-                    { errors.username }
-                </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group >
-                  <Form.Label>First Name</Form.Label>
-                  <Form.Control type="first" onChange={e => setField('first', e.target.value)} required isInvalid={ !!errors.first }/>
-                <Form.Control.Feedback type='invalid'>
-                    { errors.first }
-                </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group >
-                  <Form.Label>Last Name</Form.Label>
-                  <Form.Control type="last" onChange={e => setField('last', e.target.value)} required isInvalid={ !!errors.last }/>
-                <Form.Control.Feedback type='invalid'>
-                    { errors.last }
-                </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Row>
-                  <Form.Group className={classes.EditFormRow}>
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" onChange={e => setField('email', e.target.value)} required isInvalid={ !!errors.email }/>
-                    <Form.Control.Feedback type='invalid'>
-                        { errors.email }
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group className={classes.EditFormRow}>
-                    <Form.Label>Phone</Form.Label>
-                    <Form.Control type="phone" onInput={e => setField('phone', e.target.value)} required isInvalid={ !!errors.phone }/>
-                    <Form.Control.Feedback type='invalid'>
-                        { errors.phone }
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Form.Row>
-=======
             <Form.Group>
               <Form.Label>Username</Form.Label>
               <Form.Control type="username" onChange={(e) => setUserName(e.target.value)} required />
@@ -206,7 +161,6 @@ export default function Profile() {
                 <Form.Control type="text" onChange={(e) => setPhoneNumber(e.target.value)} required />
               </Form.Group>
             </Form.Row>
->>>>>>> aba3c3e784fe5ddacfea3c67574b59cd1b99386f
 
             <Button className={`w-100 ${classes.profilebutton}`} type="submit">
               Save

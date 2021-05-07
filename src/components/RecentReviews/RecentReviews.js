@@ -13,14 +13,14 @@ const RecentReviews = ()  =>{
     const [reviews, setReviews] = useState([]);
     
     useEffect(() => {
-        db.getCollection('CharityDetails')
+        db.getCollection('Users')
         .where('id', '==', id)
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc)=>{
                 const reviews = doc.data().reviews;
                  setReviews(reviews.reverse());
-               
+               console.log(reviews);
             });
 
         })
