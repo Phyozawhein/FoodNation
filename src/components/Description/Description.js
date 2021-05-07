@@ -73,7 +73,7 @@ const Description = (props) => {
               <p>Description:</p>
               <Row>
                     <InputGroup className="mt-0 mb-3 pr-4 pl-4" style={{ minWidth: "50%" }}>
-                      <FormControl defaultValue={form.description} as="textarea" aria-label="With textarea" rows="5" 
+                      <FormControl style={{ backgroundColor: "transparent", color: "white" }} defaultValue={form.description} as="textarea" aria-label="With textarea" rows="5" 
                       onInput={e => setField('description', e.target.value)} required/>
                     </InputGroup>
               </Row>

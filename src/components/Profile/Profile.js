@@ -159,28 +159,28 @@ export default function Profile() {
           <Form onSubmit={handleSubmit} className={classes.EditForm}>
                 <Form.Group >
                   <Form.Label>Username</Form.Label>
-                  <Form.Control defaultValue={user.username} type="username" onChange={e => setField('username', e.target.value)} required  isInvalid={ !!errors.name }/>
+                  <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={user.username} type="username" onChange={e => setField('username', e.target.value)} required  isInvalid={ !!errors.name }/>
                 <Form.Control.Feedback type='invalid'>
                     { errors.username }
                 </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group >
                   <Form.Label>First Name</Form.Label>
-                  <Form.Control defaultValue={user.first} type="first" onChange={e => setField('first', e.target.value)} required isInvalid={ !!errors.first }/>
+                  <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={user.first} type="first" onChange={e => setField('first', e.target.value)} required isInvalid={ !!errors.first }/>
                 <Form.Control.Feedback type='invalid'>
                     { errors.first }
                 </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group >
                   <Form.Label>Last Name</Form.Label>
-                  <Form.Control defaultValue={user.last} type="last" onChange={e => setField('last', e.target.value)} required isInvalid={ !!errors.last }/>
+                  <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={user.last} type="last" onChange={e => setField('last', e.target.value)} required isInvalid={ !!errors.last }/>
                 <Form.Control.Feedback type='invalid'>
                     { errors.last }
                 </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Street Address</Form.Label>
-                    <Form.Control defaultValue={address_display.street} type="street" onInput={e => setField('address', {...form.address, street: e.target.value})} required isInvalid={ !!errors.street }/>
+                    <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={address_display.street} type="street" onInput={e => setField('address', {...form.address, street: e.target.value})} required isInvalid={ !!errors.street }/>
                     <Form.Control.Feedback type='invalid'>
                         { errors.street }
                     </Form.Control.Feedback>
@@ -191,7 +191,7 @@ export default function Profile() {
                 <Form.Row>
                   <Form.Group className={classes.EditFormRow}>
                     <Form.Label>State</Form.Label>
-                    <Form.Control defaultValue={address_display.state} type="state" onInput={e => setField('address', {...form.address, state: e.target.value})} required isInvalid={ !!errors.state }/>
+                    <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={address_display.state} type="state" onInput={e => setField('address', {...form.address, state: e.target.value})} required isInvalid={ !!errors.state }/>
                     <Form.Control.Feedback type='invalid'>
                         { errors.state }
                     </Form.Control.Feedback>
@@ -201,23 +201,23 @@ export default function Profile() {
                   </Form.Group>
                   <Form.Group className={classes.EditFormRow}>
                     <Form.Label>City</Form.Label>
-                    <Form.Control defaultValue={address_display.city} type="city" onInput={e => setField('address', {...form.address, city: e.target.value})} required isInvalid={ !!errors.city }/>
+                    <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={address_display.city} type="city" onInput={e => setField('address', {...form.address, city: e.target.value})} required isInvalid={ !!errors.city }/>
                     <Form.Control.Feedback type='invalid'>
                         { errors.city }
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group as="number" className={classes.EditFormRow}>
                     <Form.Label>Zip Code</Form.Label>
-                    <Form.Control  defaultValue={address_display.zip} type="zip" onInput={e => setField('address', {...form.address, zip: e.target.value})} required isInvalid={ !!errors.zip }/>
+                    <Form.Control  style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={address_display.zip} type="zip" onInput={e => setField('address', {...form.address, zip: e.target.value})} required isInvalid={ !!errors.zip }/>
                     <Form.Control.Feedback type='invalid'>
                         { errors.zip }
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Form.Row>
                 <Form.Row>
-                  <Form.Group as="number" className={classes.EditFormRow}>
+                  <Form.Group className={classes.EditFormRow}>
                     <Form.Label>Phone</Form.Label>
-                    <Form.Control  defaultValue={user.phone} type="phone" onChange={e => setField('phone', e.target.value)} required isInvalid={ !!errors.phone }/>
+                    <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={user.phone} type="phone" onChange={e => setField('phone', e.target.value)} required isInvalid={ !!errors.phone }/>
                     <Form.Control.Feedback type='invalid'>
                         { errors.phone }
                     </Form.Control.Feedback>
@@ -226,13 +226,13 @@ export default function Profile() {
                     </Form.Text>
                   </Form.Group>
                 </Form.Row>
+                <Form.Row className={classes.EditFormRow}>
+                  <Form.Label>Profile Picture</Form.Label>
+                </Form.Row>
                 <Form.Row>
-                  <Form.Group className={classes.EditFormRow}>
-                  <Form.File
-                    id="custom-file-translate-scss"
-                    label="Profile Picture"
-                    lang="en"
-                    custom
+                  <Form.Group style={{ backgroundColor: "transparent !important", color: "white !important" }} className={classes.EditFormRow}>
+                  
+                  <input class={classes.profilebutton} type="file" id="myFile" name="filename"
                     onChange={handleFileChange}
                     />
 

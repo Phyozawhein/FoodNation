@@ -1,7 +1,7 @@
 .postings {
   overflow-x: hidden;
   overflow-y: scroll;
-  max-height: 20vw;
+  max-height: 35vh;
   margin: 0.5rem;
   margin-bottom: 0rem;
   border-bottom: 1.8px solid rgba(255, 255, 255, 0.692);
@@ -14,6 +14,7 @@
   font-weight: bolder !important;
   font-family: 'Sora', sans-serif !important;
 }
+
 
 .postbutton:hover {
   background: #b43535 !important;
