@@ -10,6 +10,7 @@ function Event() {
   const Address = useRef();
   const ItemLists = useRef();
   const date = useRef();
+  const average = useRef();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [view, setView] = useState(false);
@@ -27,6 +28,7 @@ function Event() {
           address: Address.current.value,
           itemLists: ItemLists.current.value,
           date: date.current.value,
+          average: average.current.value,
           id,
         })
         .then((response) => {
@@ -99,6 +101,13 @@ function Event() {
           <Form.Control className="date" type="datetime-local" ref={date} required />
         </Form.Group>
         <br />
+        <Form.Group id="average">
+          <Form.Label className={styles.label}>
+            Estimated No. of People
+            <br />
+          </Form.Label>
+          <Form.Control className="input" type="text" ref={average} required />
+        </Form.Group>
         <Button type="post" className={styles.postbutton}>
           Post
         </Button>
@@ -107,14 +116,8 @@ function Event() {
   );
 
   let cantViewPage = (
-    <div>
+    <div className={styles.cantView}>
       <h1>Not authorized to view this page</h1>
-    </div>
-  );
-
-  cantViewPage = (
-    <div>
-      <h1 className={styles.cantView}>Not authorized to view this page</h1>
     </div>
   );
 
@@ -124,7 +127,6 @@ function Event() {
 
       {view === true ? viewPage : cantViewPage}
 
-      {view === true ? viewPage : cantViewPage}
     </div>
   );
 }
