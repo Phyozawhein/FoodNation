@@ -111,6 +111,11 @@ function AppointmentList() {
                         Restaurant: {item[1].resName} </p>
                     <p id={item[1].id} style={{color: "white"}}>
                         Items: {item[1].itemLists} </p>
+
+                    {item[1].expiryEstimate === undefined ? <></> : 
+                   <> <p id={item[1].id} style={{color: "white"}}>
+                        Expiry Estimate: {item[1].expiryEstimate} </p> </> }
+
                     <p id={item[1].id} style={{color: "white"}}>
                         Charity: {item[1].orgName} </p>
                     <p id={item[1].id} style={{color: "white"}}>
@@ -159,6 +164,11 @@ function AppointmentList() {
                         Restaurant: {item[1].resName} </p>
                     <p id={item[1].id} style={{color: "white"}}>
                         Items: {item[1].itemLists} </p>
+
+                    {item[1].expiryEstimate === undefined ? <></> : 
+                        <> <p id={item[1].id} style={{color: "white"}}>
+                        Expiry Estimate: {item[1].expiryEstimate} </p> </> }
+
                     <p id={item[1].id} style={{color: "white"}}>
                         Charity: {item[1].orgName} </p>
                     <p id={item[1].id} style={{color: "white"}}>
@@ -207,6 +217,11 @@ function AppointmentList() {
                              Restaurant: {item[1].resName} </p>
                          <p id={item[1].id} style={{color: "white"}}>
                              Items: {item[1].itemLists} </p>
+
+                        {item[1].expiryEstimate === undefined ? <></> : 
+                            <> <p id={item[1].id} style={{color: "white"}}>
+                            Expiry Estimate: {item[1].expiryEstimate} </p> </> }
+
                          <p id={item[1].id} style={{color: "white"}}>
                              Charity: {item[1].orgName} </p>
                          <p id={item[1].id} style={{color: "white"}}>

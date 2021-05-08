@@ -12,6 +12,7 @@ function Donation () {
     const Address   = useRef()
     const ItemLists = useRef()
     const date      = useRef()
+    const expiry    = useRef()
     const [error,setError]=useState('');
     const [success,setSuccess]=useState('');
     const [view,setView]=useState(false);
@@ -33,6 +34,7 @@ function Donation () {
                 orgName: orgName,                         
                 address: Address.current.value,
                 itemLists:ItemLists.current.value,
+                expiryEstimate: expiry.current.value,
                 date: date.current.value,
                 orgid: charid,
                 resid: resid,
@@ -139,6 +141,14 @@ function Donation () {
             <br />
           </Form.Label>
           <Form.Control className="input1" type="textarea" ref={ItemLists} required />
+        </Form.Group>
+        <br />
+        <Form.Group id="expiry">
+          <Form.Label className={styles.label}>
+            Expiry Estimate
+            <br />
+          </Form.Label>
+          <Form.Control className="input" type="text" ref={expiry} required />
         </Form.Group>
         <br />
         <br />
