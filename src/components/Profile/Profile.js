@@ -30,18 +30,18 @@ export default function Profile() {
 
   //Form Errors
   const findFormErrors = () => {
-    const { username, first, last, phone} = form
+    const { username, firstName, lastName, phone} = form
     const {state} = form.address
     const newErrors = {}
     // Username errors
     if ( !username || username === '' ) newErrors.username = 'Username cannot be blank!'
     else if ( username.length > 30 ) newErrors.username = 'Username is too long! Cannot Exceed 30 Characters.'
     // First Name errors
-    if ( !first || first === '' ) newErrors.first = 'First Name cannot be blank!'
-    else if ( first.length > 30 ) newErrors.first = 'First Name is too long! Cannot Exceed 30 Characters.'
+    if ( !firstName || firstName === '' ) newErrors.firstName = 'First Name cannot be blank!'
+    else if ( firstName.length > 30 ) newErrors.first = 'First Name is too long! Cannot Exceed 30 Characters.'
     // Last Name errors
-    if ( !last || last === '' ) newErrors.last = 'Last Name cannot be blank!'
-    else if ( last.length > 30 ) newErrors.last = 'Last Name is too long! Cannot Exceed 30 Characters.'
+    if ( !lastName || lastName === '' ) newErrors.lastName = 'Last Name cannot be blank!'
+    else if ( lastName.length > 30 ) newErrors.lastName = 'Last Name is too long! Cannot Exceed 30 Characters.'
     // Phone errors
     if ( phone.length != 10 ) newErrors.phone = 'Must be 10 characters long'
     //State errors
@@ -159,23 +159,23 @@ export default function Profile() {
           <Form onSubmit={handleSubmit} className={classes.EditForm}>
                 <Form.Group >
                   <Form.Label>Username</Form.Label>
-                  <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={user.username} type="username" onChange={e => setField('username', e.target.value)} required  isInvalid={ !!errors.name }/>
+                  <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={user.username} type="username" onChange={e => setField('username', e.target.value)} required  isInvalid={ !!errors.username }/>
                 <Form.Control.Feedback type='invalid'>
                     { errors.username }
                 </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group >
                   <Form.Label>First Name</Form.Label>
-                  <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={user.first} type="first" onChange={e => setField('first', e.target.value)} required isInvalid={ !!errors.first }/>
+                  <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={user.firstName} type="firstName" onChange={e => setField('firstName', e.target.value)} required isInvalid={ !!errors.firstName }/>
                 <Form.Control.Feedback type='invalid'>
-                    { errors.first }
+                    { errors.firstName }
                 </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group >
                   <Form.Label>Last Name</Form.Label>
-                  <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={user.last} type="last" onChange={e => setField('last', e.target.value)} required isInvalid={ !!errors.last }/>
+                  <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={user.lastName} type="lastName" onChange={e => setField('lastName', e.target.value)} required isInvalid={ !!errors.lastName }/>
                 <Form.Control.Feedback type='invalid'>
-                    { errors.last }
+                    { errors.lastName }
                 </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group>
@@ -269,7 +269,7 @@ export default function Profile() {
               {currentUser.email === user.email ? 
               <>
               <p className={`${classes.infolabel}`}>Name</p>
-              <p className={`${classes.infotext}`}>{`${user.first} ${user.last}`}</p> 
+              <p className={`${classes.infotext}`}>{`${user.firstName} ${user.lastName}`}</p> 
               </>
               : <></>}
               {/* <p className={`${classes.infolabel}`}>About Us</p>

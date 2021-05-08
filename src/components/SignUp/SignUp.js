@@ -47,6 +47,7 @@ export default function SignUp() {
           lastName: lName.trim(),
           email: email.toLowerCase().trim(),
           phone: phoneNumber.trim(),
+          address: {street: "", state:"", city: "", zip: ""},
         //   address: address.trim(),
           password: password,
           imgUrl: "https://firebasestorage.googleapis.com/v0/b/food-nation-d70ea.appspot.com/o/profiles%2Fdefault.jpg?alt=media&token=2545aed8-026a-497c-a82f-97abeaf7925f",
