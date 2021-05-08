@@ -3,12 +3,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import Fire from '../../firebase.config';
 import {Button,Form, Alert} from 'react-bootstrap';
+import sha256 from "js-sha256";
 
 function Donation () {
 
     let db = Fire.db
     const user = useAuth().currentUser.email
-    const ResName   = useRef()
     const Address   = useRef()
     const ItemLists = useRef()
     const date      = useRef()
@@ -16,8 +16,10 @@ function Donation () {
     const [success,setSuccess]=useState('');
     const [view,setView]=useState(false);
     const [array,setArray]=useState([]);
-    const [id, setId]=useState('');
+    const [charid, setCharId]=useState('');
+    const [resid, setResId]=useState('');
     const [orgName, setOrgName]=useState('');
+    const [resName, setResName]=useState('');
 
 
     async function handleSubmit(e){
@@ -27,13 +29,13 @@ function Donation () {
             
             db.getCollection('Donation').doc().set({
                 
-                resName: ResName.current.value,
+                resName: resName,
                 orgName: orgName,                         
                 address: Address.current.value,
                 itemLists:ItemLists.current.value,
                 date: date.current.value,
-                orgid: id,
-                resid: ResName.current.value.toString().toLowerCase().replaceAll(" ","-"),
+                orgid: charid,
+                resid: resid,
                 status: "open"
                 
             }).then(response=>{
@@ -59,10 +61,11 @@ function Donation () {
       .where('email', '==', user)
       .get()
       .then((snapShotQuery) => {
-        let typeCheck = snapShotQuery.docs.filter((doc) => doc.data().type === 'restaurant').length;
-
-        if (typeCheck === 1) {
+        const typeCheck = snapShotQuery.docs.find((doc) => doc.data().type === "restaurant");
+        if (typeCheck) {
           setView(true);
+          setResName(typeCheck.data().username);
+          setResId(typeCheck.data().id);
         }
       })
       .catch((error) => {
@@ -70,23 +73,30 @@ function Donation () {
         setError(error.message);
       });
 
-    let array = [];
-    db.getCollection('Users')
+      db.getCollection('Users').where("type","==","charity")
       .get()
       .then((querySnapshot) => {
+        let array = [];
         querySnapshot.forEach((doc) => {
-          array.push(doc.data().username);
+          
+          array.push([doc.id,doc.data().username]);
         });
         setArray(array);
+       
       });
   }, []);
 
-  function updateId() {
-    let zone = document.getElementById('idselect');
-
-    if (zone && zone.value != null) {
-      setOrgName(zone.value); // FIX ME
-      setId(zone.value.toString().toLowerCase().replaceAll(' ', '-'));
+  function updateId(e) {
+    let zone = e.target.value;
+    
+    let pone = zone.split(',')
+    
+    if (zone != null) {
+     
+      setCharId(sha256( pone[0] ));
+      setOrgName(pone[1]);
+      
+      
     }
   }
 
@@ -98,13 +108,6 @@ function Donation () {
       {success && <Alert variant="success">{success}</Alert>}
 
       <Form onSubmit={handleSubmit}>
-        <Form.Group id="resName">
-          <Form.Label className={styles.label}>
-            Restaurant Name
-            <br />
-          </Form.Label>
-          <Form.Control className="input" type="text" ref={ResName} required />
-        </Form.Group>
         <br />
         <Form.Group id="orgName">
           <Form.Label className={styles.label}>
@@ -112,11 +115,12 @@ function Donation () {
             <br />
           </Form.Label>
 
-          <select id="idselect" className={styles.label1} onChange={updateId}>
+          <select id="idselect" className={styles.label1} onChange= { updateId} >
+            
             <option selected>Choose a Charity</option>
 
             {array.map((item) => (
-              <option value={item}>{item}</option>
+              <option  value={item} > {item[1]} </option>
             ))}
           </select>
         </Form.Group>

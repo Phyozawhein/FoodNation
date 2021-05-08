@@ -16,6 +16,7 @@ export default function Profile() {
   const [image, setImg] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [show, setShow] = useState(false);
+  const [counter,setCounter]= useState(0);                 // to check for total no of restaurant appointments
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
   const [address_display, setAddressDisplay] = useState({});
@@ -85,7 +86,7 @@ export default function Profile() {
       .then(()=> {db.getCollection("Users").doc(user.email)
       .onSnapshot((doc) => {
         const res = doc.data(); // "res" will have all the details of the user with the id parameter we fetched from url
-        console.log(res);
+        // console.log(res);
         setUser(res);
         setPhoneNumber(res.phone);
         setAddressDisplay(res.address);
@@ -128,25 +129,38 @@ export default function Profile() {
       // if the url does not have id parameter then it will pull logged in user's detail
       queryID = sha256(currentUser.email);
     }
-    console.log(id);
+    // console.log(id);
     db.getCollection("Users")
       .where("id", "==", queryID)
       .get()
       .then((querySnapShot) => {
-        console.log(querySnapShot.docs);
+        // console.log(querySnapShot.docs);
         const res = querySnapShot.docs.find((doc) => doc.data().id === queryID).data(); // "res" will have all the details of the user with the id parameter we fetched from url
-        console.log(res);
+        // console.log(res);
         setUser(res);
         setForm(res);
         setAddressDisplay(res.address);
         setPhoneNumber(res.phone);
       })
+      .then ( () => {
+        db.getCollection("Donation")
+        .where("resid", "==", queryID)
+        .where("status", "==", "completed")
+        .get().
+        then((querySnapshot) => {
+        
+          let counter = 0
+          querySnapshot.forEach(() => {
+            counter = counter +1;
+            });
+            console.log(counter);
+            setCounter(counter);
+        })
+      })
       .catch((error) => console.log(error.message));
-    // return () => {
-    //   cleanup;
-    // };
-  }, [id]);
 
+
+  }, [id,counter]);
 
   return (
 
@@ -268,10 +282,24 @@ export default function Profile() {
               <p className={`${classes.infotext}`}>{phoneNumber.substr(0, 3) + "-" + phoneNumber.substr(3, 3) + "-" + phoneNumber.substr(6)}</p>
               {currentUser.email === user.email ? 
               <>
+<<<<<<< HEAD
               <p className={`${classes.infolabel}`}>Name</p>
               <p className={`${classes.infotext}`}>{`${user.firstName} ${user.lastName}`}</p> 
+=======
+                <>
+                { counter === 0 ? <></>  :                                                  //  if appointment counter is not zero then renders the total donations
+                <><p className={classes.infolabel}>Total Donations</p>
+                  <p className={classes.infotext}>{counter}</p> </>  } 
+                </>
+                <>
+                { user.first === undefined || user.last === undefined ? <></>  :            //  if first or last name is not undefined  then renders the name part
+                  <><p className={`${classes.infolabel}`}>Name</p>
+                  <p className={`${classes.infotext}`}>{`${user.first} ${user.last}`}</p>  </>  } 
+                </>
+>>>>>>> 17cb8c57f8d0d30f5f4af892e944e9a914c9903c
               </>
               : <></>}
+
               {/* <p className={`${classes.infolabel}`}>About Us</p>
               <p className={`${classes.infotext}`}>I'mma hyuck you up, and fill you up with my charitable meat! </p> */}
             </div>
