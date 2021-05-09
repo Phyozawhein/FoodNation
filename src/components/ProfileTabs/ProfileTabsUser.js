@@ -101,6 +101,7 @@ export default function UserTabs(props) {
                 <Row>
                   <Card>
                     <Card.Body>
+                      <ReactStars count={5} edit={false} size={24} value={rev.rating} isHalf={true} emptyIcon={<i className="far fa-star"></i>} halfIcon={<i className="fa fa-star-half-alt"></i>} fullIcon={<i className="fa fa-star"></i>} activeColor="#ffd700" />
                       <Card.Text>{rev.writer}</Card.Text>
                       <Card.Text>{rev.review}</Card.Text>
                     </Card.Body>
