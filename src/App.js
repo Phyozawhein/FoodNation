@@ -18,6 +18,7 @@ import AppointmentList from "./components/AppointmentList/AppointmentList";
 import Description from "./components/Description/Description";
 import RecentReviews from "./components/RecentReviews/RecentReviews";
 import RecentEvent from "./components/RecentEvent/RecentEvent"
+import Donationlist from "./components/DonationList/Donationlist";
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
               <Route path = "/description/:id" children={<Description/>}/>
               <Route path ="/recentevent/:id" children = {<RecentEvent/>}/>
               <Route path ="/recentreview/:id" children = {<RecentReviews/>}/> 
+              <PrivateRoute path="/donationlist" component={Donationlist} />
             </Switch>
           </div>
         </Router>

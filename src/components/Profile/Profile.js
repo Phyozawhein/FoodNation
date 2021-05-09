@@ -350,4 +350,4 @@ export default function Profile() {
     </>
   );
 }
-export default Profile;
+

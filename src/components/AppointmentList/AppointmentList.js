@@ -22,7 +22,10 @@ function AppointmentList() {
 
     useEffect(() => {
 
-                db.getCollection("Users").doc(user).get().then((doc) => {
+                db.getCollection("Users")
+                .doc(user)
+                .get()
+                .then((doc) => {
                    let id;
                     if(doc.exists){
 
