@@ -40,16 +40,19 @@ export default function SignUp() {
         .doc(email)
         .set({
           CID: CID,
+          description: "About Us (edit me)...",
           id: sha256(email),
           username: userName.trim(),
           firstName: fName.trim(),
           lastName: lName.trim(),
           email: email.toLowerCase().trim(),
           phone: phoneNumber.trim(),
+          address: {street: "", state:"", city: "", zip: ""},
         //   address: address.trim(),
           password: password,
           imgUrl: "https://firebasestorage.googleapis.com/v0/b/food-nation-d70ea.appspot.com/o/profiles%2Fdefault.jpg?alt=media&token=2545aed8-026a-497c-a82f-97abeaf7925f",
           type: userType,
+
         })
         .then((response) => {
           console.log("Success");

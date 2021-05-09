@@ -1,5 +1,5 @@
 .container {
-  background-color: rgba(196, 196, 196, 0.27) !important;
+  background-color: rgba(99, 99, 99, 0.27) !important;
   width: 100%;
   padding: 0.06rem;
   border-radius: 1rem;
@@ -179,5 +179,6 @@
 
 .EditFormRow{
   padding-right: 1rem;
+  padding-left: .3rem;
 
 }

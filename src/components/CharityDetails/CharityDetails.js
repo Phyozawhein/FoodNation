@@ -16,6 +16,7 @@ function CharityDetails() {
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [date, setDate] = useState("");
+  const [average, setAverage] = useState("...");
   const [error,setError]=useState('');
 
   const dates = {
@@ -99,9 +100,11 @@ function CharityDetails() {
           const itemLists = "No upcoming event yet. Please be patient";
           const address = "...";
           const eventDate = "...";
+          const avg = "..."
           setAddress(address);
           setItemLists(itemLists);
           setDate(eventDate);
+          setAverage(avg);
           
         }
 
@@ -113,6 +116,7 @@ function CharityDetails() {
           let eventDate = new Date(doc.data().date);
           eventDate = eventDate.toLocaleString("en-US", { timeZone: "America/New_York" });
           setDate(eventDate);
+          setAverage(doc.data().average);
         })
         .catch((error) => setError(error.message));
 
@@ -139,7 +143,8 @@ function CharityDetails() {
           <Button className={styles.buttons}>Directions</Button>
         </Col>
       </Row>
-
+      <br />
+      <p style={{ color: "white", fontSize: 40, marginLeft: "16%", maxWidth: "70%" }}>Estimated people: {average}</p>
       <br />
       <p style={{ color: "white", fontSize: 40, marginLeft: "16%", maxWidth: "70%" }}>Date: {date}</p>
     </div>
