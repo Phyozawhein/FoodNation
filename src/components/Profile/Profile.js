@@ -119,12 +119,17 @@ export default function Profile() {
           date: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString(),
           rating: rating,
           review: review,
-          writer: currentUser.email,
+          writer: currentUserDetails.username,
         }),
       })
       .then(function () {
         // went through
-        console.log("Approved!");
+        db.getCollection("Users")
+          .doc(user.email)
+          .onSnapshot((doc) => {
+            setUser(doc.data());
+          })
+          .catch((error) => setError(error.message));
       })
       .catch(function (error) {
         //broke down somewhere
