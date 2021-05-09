@@ -6,20 +6,26 @@ import { useAuth } from "../../context/AuthContext";
 import Fire, { storage } from "../../firebase.config";
 import classes from "./Profile.module.css";
 import sha256 from "js-sha256";
+import ReactStars from "react-rating-stars-component";
+import firebase from "firebase/app";
 
 export default function Profile() {
   const { db } = Fire;
   const { currentUser } = useAuth();
   const [user, setUser] = useState([]);
   const { id } = useParams();
-  const [imgUrl, setImgUrl] = useState("");
   const [image, setImg] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [show, setShow] = useState(false);
+  const [showReview, setShowReview] = useState(false);
   const [counter, setCounter] = useState(0); // to check for total no of restaurant appointments
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
   const [address_display, setAddressDisplay] = useState({});
+  const [currentUserDetails, setCurrentUserDetails] = useState({});
+
+  const [review, setReview] = useState("");
+  const [rating, setRating] = useState(0);
 
   //Handle inputs for edit profile field
   const setField = (field, value) => {
@@ -53,6 +59,10 @@ export default function Profile() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleCloseReview = () => setShowReview(false);
+  const handleShowReview = () => setShowReview(true);
+
   const handleFileChange = (e) => {
     if (e.target.files[0]) {
       setImg(e.target.files[0]);
@@ -99,6 +109,29 @@ export default function Profile() {
     }
   }
 
+  const handleSubmitReview = async (e) => {
+    e.preventDefault();
+    await db
+      .getCollection("Users")
+      .doc(user.email)
+      .update({
+        reviews: firebase.firestore.FieldValue.arrayUnion({
+          date: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString(),
+          rating: rating,
+          review: review,
+          writer: currentUser.email,
+        }),
+      })
+      .then(function () {
+        // went through
+        console.log("Approved!");
+      })
+      .catch(function (error) {
+        //broke down somewhere
+        console.error("Error: ", error);
+      });
+  };
+
   const handleUpload = () => {
     const uploadTask = storage.ref(`profiles/${user.email}`).put(image);
     uploadTask.on(
@@ -128,18 +161,30 @@ export default function Profile() {
       // if the url does not have id parameter then it will pull logged in user's detail
       queryID = sha256(currentUser.email);
     }
-    // console.log(id);
     db.getCollection("Users")
-      .where("id", "==", queryID)
+      .doc(currentUser.email)
       .get()
-      .then((querySnapShot) => {
-        // console.log(querySnapShot.docs);
-        const res = querySnapShot.docs.find((doc) => doc.data().id === queryID).data(); // "res" will have all the details of the user with the id parameter we fetched from url
-        // console.log(res);
-        setUser(res);
-        setForm(res);
-        setAddressDisplay(res.address);
-        setPhoneNumber(res.phone);
+      .then((doc) => {
+        if (doc.exists) {
+          setCurrentUserDetails(doc.data());
+        }
+      })
+      .then(() => {
+        db.getCollection("Users")
+          .where("id", "==", queryID)
+          .get()
+          .then((querySnapShot) => {
+            // console.log(querySnapShot.docs);
+            const res = querySnapShot.docs.find((doc) => doc.data().id === queryID).data(); // "res" will have all the details of the user with the id parameter we fetched from url
+            // console.log(res);
+            setUser(res);
+            if (currentUser.email === res.email) {
+              setForm(res);
+            }
+
+            setAddressDisplay(res.address);
+            setPhoneNumber(res.phone);
+          });
       })
       .then(() => {
         db.getCollection("Donation")
@@ -160,6 +205,7 @@ export default function Profile() {
 
   return (
     <>
+      {/*  This modal is for editing profile data */}
       <Modal size="lg" contentClassName={classes.custommodal} show={show} onHide={handleClose} animation={false}>
         <Modal.Header className={`${classes.custommodaltitle} ${classes.custommodalheader}`} closeButton>
           <Modal.Title id="example-modal-sizes-title-lg">Edit Profile</Modal.Title>
@@ -228,6 +274,29 @@ export default function Profile() {
           </Form>
         </Modal.Body>
       </Modal>
+      {/* This modal is for writing a review */}
+      <Modal size="lg" contentClassName={classes.custommodal} show={showReview} onHide={handleCloseReview} animation={false}>
+        <Modal.Header className={`${classes.custommodaltitle} ${classes.custommodalheader}`} closeButton>
+          <Modal.Title id="example-modal-sizes-title-lg">Write a Review</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleSubmitReview} className={classes.EditForm}>
+            <Form.Group>
+              <Form.Label>Rating</Form.Label>
+              <ReactStars count={5} size={24} onChange={(ratin) => setRating(ratin)} isHalf={true} emptyIcon={<i className="far fa-star"></i>} halfIcon={<i className="fa fa-star-half-alt"></i>} fullIcon={<i className="fa fa-star"></i>} activeColor="#ffd700" />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Review</Form.Label>
+              <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={review} type="review" onChange={(e) => setReview(e.target.value)} required />
+            </Form.Group>
+
+            <Button className={`w-100 ${classes.profilebutton}`} type="submit">
+              Submit Review
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+
       <Container className="flex ml-4 align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
         <Row>
           <Col xs={12} md={3}>
@@ -280,6 +349,13 @@ export default function Profile() {
             {currentUser.email === user.email ? (
               <Button className={`w-100 ${classes.profilebutton}`} onClick={handleShow}>
                 Edit Profile
+              </Button>
+            ) : (
+              <></>
+            )}
+            {currentUserDetails.type === "regular" && user.type === "charity" ? (
+              <Button className={`w-100 ${classes.profilebutton}`} onClick={handleShowReview}>
+                Write a Review
               </Button>
             ) : (
               <></>

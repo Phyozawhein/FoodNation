@@ -4,12 +4,15 @@ import { Link } from "react-router-dom";
 import classes from "./Dashboard.module.css";
 import Fire from "../../firebase.config";
 import SearchBar from "../../layouts/search/SearchBar";
+import { useAuth } from "../../context/AuthContext";
+
 export default function Dashboard() {
   const { db } = Fire;
   const [charities, setCharity] = useState([]);
-
+  const { currentUser } = useAuth();
   useEffect(() => {
-    db.getCollection("Users").where("type","==","charity")
+    db.getCollection("Users")
+      .where("type", "==", "charity")
       .get()
       .then((querySnapShot) => {
         const charityArray = [];
@@ -25,13 +28,16 @@ export default function Dashboard() {
     <Container className={classes.cardContainer}>
       <SearchBar />
       <CardColumns>
-        {charities.map((charity, id) => (
-          <Card className={classes.charityCard} key={id}>
-            <Link to={`/charity/${charity.id}`}>
-              <Card.Img src={charity.imgUrl} />
-            </Link>
-          </Card>
-        ))}
+        {charities.map((charity) => {
+          const linkUrl = currentUser !== null ? `/profile/${charity.id}` : `charity/${charity.id}`;
+          return (
+            <Card className={classes.charityCard} key={charity.id}>
+              <Link to={linkUrl}>
+                <Card.Img src={charity.imgUrl} />
+              </Link>
+            </Card>
+          );
+        })}
       </CardColumns>
     </Container>
   );
