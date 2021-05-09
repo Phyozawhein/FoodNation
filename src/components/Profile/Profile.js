@@ -3,7 +3,7 @@ import { Container, InputGroup, FormControl, Col, Row, Button, Modal, Form } fro
 import ProfileTabsUser from "../ProfileTabs/ProfileTabsUser";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import Fire,{storage} from "../../firebase.config";
+import Fire, { storage } from "../../firebase.config";
 import classes from "./Profile.module.css";
 import sha256 from "js-sha256";
 
@@ -16,7 +16,7 @@ export default function Profile() {
   const [image, setImg] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [show, setShow] = useState(false);
-  const [counter,setCounter]= useState(0);                 // to check for total no of restaurant appointments
+  const [counter, setCounter] = useState(0); // to check for total no of restaurant appointments
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
   const [address_display, setAddressDisplay] = useState({});
@@ -25,77 +25,77 @@ export default function Profile() {
   const setField = (field, value) => {
     setForm({
       ...form,
-      [field]: value
-    })
-  }
+      [field]: value,
+    });
+  };
 
   //Form Errors
   const findFormErrors = () => {
-    const { username, firstName, lastName, phone} = form
-    const {state} = form.address
-    const newErrors = {}
+    const { username, firstName, lastName, phone } = form;
+    const { state } = form.address;
+    const newErrors = {};
     // Username errors
-    if ( !username || username === '' ) newErrors.username = 'Username cannot be blank!'
-    else if ( username.length > 30 ) newErrors.username = 'Username is too long! Cannot Exceed 30 Characters.'
+    if (!username || username === "") newErrors.username = "Username cannot be blank!";
+    else if (username.length > 30) newErrors.username = "Username is too long! Cannot Exceed 30 Characters.";
     // First Name errors
-    if ( !firstName || firstName === '' ) newErrors.firstName = 'First Name cannot be blank!'
-    else if ( firstName.length > 30 ) newErrors.first = 'First Name is too long! Cannot Exceed 30 Characters.'
+    if (!firstName || firstName === "") newErrors.firstName = "First Name cannot be blank!";
+    else if (firstName.length > 30) newErrors.first = "First Name is too long! Cannot Exceed 30 Characters.";
     // Last Name errors
-    if ( !lastName || lastName === '' ) newErrors.lastName = 'Last Name cannot be blank!'
-    else if ( lastName.length > 30 ) newErrors.lastName = 'Last Name is too long! Cannot Exceed 30 Characters.'
+    if (!lastName || lastName === "") newErrors.lastName = "Last Name cannot be blank!";
+    else if (lastName.length > 30) newErrors.lastName = "Last Name is too long! Cannot Exceed 30 Characters.";
     // Phone errors
-    if ( phone.length != 10 ) newErrors.phone = 'Must be 10 characters long'
+    if (phone.length != 10) newErrors.phone = "Must be 10 characters long";
     //State errors
-    if ( state.length != 2 ) newErrors.state = 'Must be 2 characters long.'
+    if (state.length != 2) newErrors.state = "Must be 2 characters long.";
 
-    return newErrors
-  }
+    return newErrors;
+  };
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleFileChange=(e)=>{
-    if(e.target.files[0]){
-      setImg(e.target.files[0])
+  const handleFileChange = (e) => {
+    if (e.target.files[0]) {
+      setImg(e.target.files[0]);
+    } else {
+      console.log("no file found");
     }
-    else{
-    console.log("no file found");
-    }
-  }
-
+  };
 
   async function handleSubmit(e) {
-    e.preventDefault()
-    
+    e.preventDefault();
+
     // Check Errors
-    
-    const newErrors = findFormErrors()
+
+    const newErrors = findFormErrors();
     // Conditional logic:
-    if ( Object.keys(newErrors).length > 0 ) {
+    if (Object.keys(newErrors).length > 0) {
       // Errors
-      setErrors(newErrors)
+      setErrors(newErrors);
     } else {
       // Profile Edit Confirmation
       db.getCollection("Users")
-      .doc(user.email)
-      .update({...form})
-      .then(()=>{
-        if(image !== null){
-         handleUpload();
-        }
-      })
-      .then(()=> {db.getCollection("Users").doc(user.email)
-      .onSnapshot((doc) => {
-        const res = doc.data(); // "res" will have all the details of the user with the id parameter we fetched from url
-        // console.log(res);
-        setUser(res);
-        setPhoneNumber(res.phone);
-        setAddressDisplay(res.address);
-      });} )
-      .catch((err) => {
-        console.error(err);
-      });
-      alert('Saved!');
-
+        .doc(user.email)
+        .update({ ...form })
+        .then(() => {
+          if (image !== null) {
+            handleUpload();
+          }
+        })
+        .then(() => {
+          db.getCollection("Users")
+            .doc(user.email)
+            .onSnapshot((doc) => {
+              const res = doc.data(); // "res" will have all the details of the user with the id parameter we fetched from url
+              // console.log(res);
+              setUser(res);
+              setPhoneNumber(res.phone);
+              setAddressDisplay(res.address);
+            });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+      alert("Saved!");
     }
   }
 
@@ -116,7 +116,6 @@ export default function Profile() {
             db.getCollection("Users").doc(user.email).update({
               imgUrl: url,
             });
-
           })
           .catch((error) => console.log(error.message));
       }
@@ -142,28 +141,24 @@ export default function Profile() {
         setAddressDisplay(res.address);
         setPhoneNumber(res.phone);
       })
-      .then ( () => {
+      .then(() => {
         db.getCollection("Donation")
-        .where("resid", "==", queryID)
-        .where("status", "==", "completed")
-        .get().
-        then((querySnapshot) => {
-        
-          let counter = 0
-          querySnapshot.forEach(() => {
-            counter = counter +1;
+          .where("resid", "==", queryID)
+          .where("status", "==", "completed")
+          .get()
+          .then((querySnapshot) => {
+            let counter = 0;
+            querySnapshot.forEach(() => {
+              counter = counter + 1;
             });
             console.log(counter);
             setCounter(counter);
-        })
+          });
       })
       .catch((error) => console.log(error.message));
-
-
-  }, [id,counter]);
+  }, [id, counter]);
 
   return (
-
     <>
       <Modal size="lg" contentClassName={classes.custommodal} show={show} onHide={handleClose} animation={false}>
         <Modal.Header className={`${classes.custommodaltitle} ${classes.custommodalheader}`} closeButton>
@@ -171,88 +166,61 @@ export default function Profile() {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit} className={classes.EditForm}>
-                <Form.Group >
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={user.username} type="username" onChange={e => setField('username', e.target.value)} required  isInvalid={ !!errors.username }/>
-                <Form.Control.Feedback type='invalid'>
-                    { errors.username }
-                </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group >
-                  <Form.Label>First Name</Form.Label>
-                  <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={user.firstName} type="firstName" onChange={e => setField('firstName', e.target.value)} required isInvalid={ !!errors.firstName }/>
-                <Form.Control.Feedback type='invalid'>
-                    { errors.firstName }
-                </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group >
-                  <Form.Label>Last Name</Form.Label>
-                  <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={user.lastName} type="lastName" onChange={e => setField('lastName', e.target.value)} required isInvalid={ !!errors.lastName }/>
-                <Form.Control.Feedback type='invalid'>
-                    { errors.lastName }
-                </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Street Address</Form.Label>
-                    <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={address_display.street} type="street" onInput={e => setField('address', {...form.address, street: e.target.value})} required isInvalid={ !!errors.street }/>
-                    <Form.Control.Feedback type='invalid'>
-                        { errors.street }
-                    </Form.Control.Feedback>
-                    <Form.Text className="text-muted">
-                     (e.g. 123 Tatooine St.)
-                    </Form.Text>
-                </Form.Group>
-                <Form.Row>
-                  <Form.Group className={classes.EditFormRow}>
-                    <Form.Label>State</Form.Label>
-                    <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={address_display.state} type="state" onInput={e => setField('address', {...form.address, state: e.target.value})} required isInvalid={ !!errors.state }/>
-                    <Form.Control.Feedback type='invalid'>
-                        { errors.state }
-                    </Form.Control.Feedback>
-                    <Form.Text className="text-muted">
-                      (For New York, enter "NY")
-                    </Form.Text>
-                  </Form.Group>
-                  <Form.Group className={classes.EditFormRow}>
-                    <Form.Label>City</Form.Label>
-                    <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={address_display.city} type="city" onInput={e => setField('address', {...form.address, city: e.target.value})} required isInvalid={ !!errors.city }/>
-                    <Form.Control.Feedback type='invalid'>
-                        { errors.city }
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group as="number" className={classes.EditFormRow}>
-                    <Form.Label>Zip Code</Form.Label>
-                    <Form.Control  style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={address_display.zip} type="zip" onInput={e => setField('address', {...form.address, zip: e.target.value})} required isInvalid={ !!errors.zip }/>
-                    <Form.Control.Feedback type='invalid'>
-                        { errors.zip }
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Form.Row>
-                <Form.Row>
-                  <Form.Group className={classes.EditFormRow}>
-                    <Form.Label>Phone</Form.Label>
-                    <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={user.phone} type="phone" onChange={e => setField('phone', e.target.value)} required isInvalid={ !!errors.phone }/>
-                    <Form.Control.Feedback type='invalid'>
-                        { errors.phone }
-                    </Form.Control.Feedback>
-                    <Form.Text className="text-muted">
-                      (No dashes e.g. 1234567890)
-                    </Form.Text>
-                  </Form.Group>
-                </Form.Row>
-                <Form.Row className={classes.EditFormRow}>
-                  <Form.Label>Profile Picture</Form.Label>
-                </Form.Row>
-                <Form.Row>
-                  <Form.Group style={{ backgroundColor: "transparent !important", color: "white !important" }} className={classes.EditFormRow}>
-                  
-                  <input class={classes.profilebutton} type="file" id="myFile" name="filename"
-                    onChange={handleFileChange}
-                    />
-
-                  </Form.Group>
-                </Form.Row>
-
+            <Form.Group>
+              <Form.Label>Username</Form.Label>
+              <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={user.username} type="username" onChange={(e) => setField("username", e.target.value)} required isInvalid={!!errors.username} />
+              <Form.Control.Feedback type="invalid">{errors.username}</Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>First Name</Form.Label>
+              <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={user.firstName} type="firstName" onChange={(e) => setField("firstName", e.target.value)} required isInvalid={!!errors.firstName} />
+              <Form.Control.Feedback type="invalid">{errors.firstName}</Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={user.lastName} type="lastName" onChange={(e) => setField("lastName", e.target.value)} required isInvalid={!!errors.lastName} />
+              <Form.Control.Feedback type="invalid">{errors.lastName}</Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Street Address</Form.Label>
+              <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={address_display.street} type="street" onInput={(e) => setField("address", { ...form.address, street: e.target.value })} required isInvalid={!!errors.street} />
+              <Form.Control.Feedback type="invalid">{errors.street}</Form.Control.Feedback>
+              <Form.Text className="text-muted">(e.g. 123 Tatooine St.)</Form.Text>
+            </Form.Group>
+            <Form.Row>
+              <Form.Group className={classes.EditFormRow}>
+                <Form.Label>State</Form.Label>
+                <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={address_display.state} type="state" onInput={(e) => setField("address", { ...form.address, state: e.target.value })} required isInvalid={!!errors.state} />
+                <Form.Control.Feedback type="invalid">{errors.state}</Form.Control.Feedback>
+                <Form.Text className="text-muted">(For New York, enter "NY")</Form.Text>
+              </Form.Group>
+              <Form.Group className={classes.EditFormRow}>
+                <Form.Label>City</Form.Label>
+                <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={address_display.city} type="city" onInput={(e) => setField("address", { ...form.address, city: e.target.value })} required isInvalid={!!errors.city} />
+                <Form.Control.Feedback type="invalid">{errors.city}</Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group as="number" className={classes.EditFormRow}>
+                <Form.Label>Zip Code</Form.Label>
+                <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={address_display.zip} type="zip" onInput={(e) => setField("address", { ...form.address, zip: e.target.value })} required isInvalid={!!errors.zip} />
+                <Form.Control.Feedback type="invalid">{errors.zip}</Form.Control.Feedback>
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Form.Group className={classes.EditFormRow}>
+                <Form.Label>Phone</Form.Label>
+                <Form.Control style={{ backgroundColor: "rgba(196, 196, 196, 0.27) ", color: "white" }} defaultValue={user.phone} type="phone" onChange={(e) => setField("phone", e.target.value)} required isInvalid={!!errors.phone} />
+                <Form.Control.Feedback type="invalid">{errors.phone}</Form.Control.Feedback>
+                <Form.Text className="text-muted">(No dashes e.g. 1234567890)</Form.Text>
+              </Form.Group>
+            </Form.Row>
+            <Form.Row className={classes.EditFormRow}>
+              <Form.Label>Profile Picture</Form.Label>
+            </Form.Row>
+            <Form.Row>
+              <Form.Group style={{ backgroundColor: "transparent !important", color: "white !important" }} className={classes.EditFormRow}>
+                <input class={classes.profilebutton} type="file" id="myFile" name="filename" onChange={handleFileChange} />
+              </Form.Group>
+            </Form.Row>
 
             <Button className={`w-100 ${classes.profilebutton}`} type="submit">
               Save
@@ -280,32 +248,42 @@ export default function Profile() {
               <p className={`${classes.infotext}`}>{user.email}</p>
               <p className={`${classes.infolabel}`}>Phone</p>
               <p className={`${classes.infotext}`}>{phoneNumber.substr(0, 3) + "-" + phoneNumber.substr(3, 3) + "-" + phoneNumber.substr(6)}</p>
-              {currentUser.email === user.email ? 
-              <>
-<<<<<<< HEAD
-              <p className={`${classes.infolabel}`}>Name</p>
-              <p className={`${classes.infotext}`}>{`${user.firstName} ${user.lastName}`}</p> 
-=======
+              {currentUser.email === user.email ? (
                 <>
-                { counter === 0 ? <></>  :                                                  //  if appointment counter is not zero then renders the total donations
-                <><p className={classes.infolabel}>Total Donations</p>
-                  <p className={classes.infotext}>{counter}</p> </>  } 
+                  <>
+                    {counter === 0 ? (
+                      <></> //  if appointment counter is not zero then renders the total donations
+                    ) : (
+                      <>
+                        <p className={classes.infolabel}>Total Donations</p>
+                        <p className={classes.infotext}>{counter}</p>{" "}
+                      </>
+                    )}
+                  </>
+                  <>
+                    {user.first === undefined || user.last === undefined ? (
+                      <></> //  if first or last name is not undefined  then renders the name part
+                    ) : (
+                      <>
+                        <p className={`${classes.infolabel}`}>Name</p>
+                        <p className={`${classes.infotext}`}>{`${user.first} ${user.last}`}</p>{" "}
+                      </>
+                    )}
+                  </>
                 </>
-                <>
-                { user.first === undefined || user.last === undefined ? <></>  :            //  if first or last name is not undefined  then renders the name part
-                  <><p className={`${classes.infolabel}`}>Name</p>
-                  <p className={`${classes.infotext}`}>{`${user.first} ${user.last}`}</p>  </>  } 
-                </>
->>>>>>> 17cb8c57f8d0d30f5f4af892e944e9a914c9903c
-              </>
-              : <></>}
-
+              ) : (
+                <></>
+              )}
               {/* <p className={`${classes.infolabel}`}>About Us</p>
               <p className={`${classes.infotext}`}>I'mma hyuck you up, and fill you up with my charitable meat! </p> */}
             </div>
-            {currentUser.email === user.email ? <Button className={`w-100 ${classes.profilebutton}`} onClick={handleShow}>
-              Edit Profile
-            </Button>: <></>}
+            {currentUser.email === user.email ? (
+              <Button className={`w-100 ${classes.profilebutton}`} onClick={handleShow}>
+                Edit Profile
+              </Button>
+            ) : (
+              <></>
+            )}
           </Col>
           <Col className="ml-3" xs={12} md={7}>
             <Row>
@@ -345,7 +323,7 @@ export default function Profile() {
                   </Row>
                   
                 </div>*/}
-                <ProfileTabsUser user={user.email} description={user.description}/>
+                <ProfileTabsUser user={user.email} description={user.description} />
               </div>
             </Row>
           </Col>
