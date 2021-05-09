@@ -353,7 +353,7 @@ export default function Profile() {
             ) : (
               <></>
             )}
-            {currentUserDetails.type === "regular" && user.type === "charity" ? (
+            {(currentUserDetails.type === "regular" && user.type === "charity") || (currentUserDetails.type === "charity" && user.type === "restaurant") ? (
               <Button className={`w-100 ${classes.profilebutton}`} onClick={handleShowReview}>
                 Write a Review
               </Button>
@@ -399,7 +399,7 @@ export default function Profile() {
                   </Row>
                   
                 </div>*/}
-                <ProfileTabsUser user={user.email} description={user.description} />
+                <ProfileTabsUser user={user.email} description={user.description} reviews={user.reviews} />
               </div>
             </Row>
           </Col>

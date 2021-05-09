@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { Container, InputGroup, FormControl, Col, Row, Button, Modal, Form } from "react-bootstrap";
-
+import { Container, InputGroup, FormControl, Col, Row, Button, Modal, Form, Card } from "react-bootstrap";
+import ReactStars from "react-rating-stars-component";
 import "./Tab.module.css";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -81,6 +81,7 @@ export default function UserTabs(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  console.log(props.reviews);
 
   return (
     <div className={classes.root}>
@@ -93,15 +94,25 @@ export default function UserTabs(props) {
         <TabPanel value={value} index={0}>
           <div className={`${classes.postings} ${classes.font}`}></div>
 
+          {/* REVIEW TAB  */}
           <div className={`${classes.postsection} ${classes.font} align-items-center justify-content-center`}>
-            <Row>
-              <InputGroup className="mt-3 pr-4 pl-4" style={{ minWidth: "50%" }}>
+            {props.reviews &&
+              props.reviews.map((rev) => (
+                <Row>
+                  <Card>
+                    <Card.Body>
+                      <Card.Text>{rev.writer}</Card.Text>
+                      <Card.Text>{rev.review}</Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Row>
+              ))}
+            {/* <Row><InputGroup className="mt-3 pr-4 pl-4" style={{ minWidth: "50%" }}>
                 <FormControl placeholder="Post Something..." aria-label="Post Something..." aria-describedby="basic-addon2" />
                 <InputGroup.Append>
                   <Button className={`${classes.postbutton}`}>Post</Button>
                 </InputGroup.Append>
-              </InputGroup>
-            </Row>
+              </InputGroup></Row> */}
           </div>
         </TabPanel>
         <TabPanel value={value} index={1}>
