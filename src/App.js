@@ -19,6 +19,7 @@ import Description from "./components/Description/Description";
 import RecentReviews from "./components/RecentReviews/RecentReviews";
 import RecentEvent from "./components/RecentEvent/RecentEvent"
 import Donationlist from "./components/DonationList/Donationlist";
+import Restaurantappointments from "./components/RestaurantAppointment/Restaurantappointment";
 
 
 function App() {
@@ -47,6 +48,8 @@ function App() {
               <Route path ="/recentevent/:id" children = {<RecentEvent/>}/>
               <Route path ="/recentreview/:id" children = {<RecentReviews/>}/> 
               <PrivateRoute path="/donationlist" component={Donationlist} />
+              <PrivateRoute path ="/restaurant-appointments" component={Restaurantappointments} />
+
             </Switch>
           </div>
         </Router>

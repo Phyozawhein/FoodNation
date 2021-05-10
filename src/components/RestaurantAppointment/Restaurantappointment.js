@@ -1,11 +1,11 @@
-import styles from './AppointmentList.module.css'
+import styles from './Restaurantappointments.module.css'
 import React, {useState,useEffect} from 'react'
 import {useAuth} from '../../context/AuthContext';
 import Fire from '../../firebase.config';
 import {Button,Form, Alert, Col,Row} from 'react-bootstrap';
-import classes from './AppointmentList.module.css';
+import classes from './Restaurantappointments.module.css';
 
-function AppointmentList() {
+function Restaurantappointments() {
 
     let db = Fire.db
     const user = useAuth().currentUser.email
@@ -27,7 +27,7 @@ function AppointmentList() {
 
             const typeCheck = doc.data();
             
-            if (typeCheck.type==="charity") {
+            if (typeCheck.type==="restaurant") {
 
                 
                 setId(typeCheck.id);
@@ -39,7 +39,7 @@ function AppointmentList() {
           .then((id)=>{
 
 
-                db.getCollection("Donation").where("orgid", "==", id).get().
+                db.getCollection("Donation").where("resid", "==", id).get().
                 then((querySnapshot) => {
                     let array=[];
                     querySnapshot.forEach((doc) => {
@@ -112,8 +112,12 @@ function AppointmentList() {
                        Address: {item[1].address}</p>
                    <p id={item[1].id} style={{color: "white"}}>
                         Restaurant: {item[1].resName} </p>
-                    <p id={item[1].id} style={{color: "white"}}>
-                        Items: {item[1].itemLists} </p>
+                        <p style={{color: "white"}}>
+                            Items: 
+                            {item[1].itemLists.map((stuff,index) => (
+                                <ul id ={index}>{stuff} </ul>
+                            ))}
+                        </p>
                     <p id={item[1].id} style={{color: "white"}}>
                         Charity: {item[1].orgName} </p>
                     <p id={item[1].id} style={{color: "white"}}>
@@ -137,7 +141,7 @@ function AppointmentList() {
                             <option value="cancelled">Cancelled</option>
                         </select>   
                     </Form.Group>
-                    <Button type="submit" >
+                    <Button type="submit" className={classes.update} >
                         Update
                     </Button>
                 </Form>
@@ -160,8 +164,12 @@ function AppointmentList() {
                        Address: {item[1].address}</p>
                    <p id={item[1].id} style={{color: "white"}}>
                         Restaurant: {item[1].resName} </p>
-                    <p id={item[1].id} style={{color: "white"}}>
-                        Items: {item[1].itemLists} </p>
+                        <p style={{color: "white"}}>
+                            Items: 
+                            {item[1].itemLists.map((stuff,index) => (
+                                <ul id ={index}>{stuff} </ul>
+                            ))}
+                        </p>
                     <p id={item[1].id} style={{color: "white"}}>
                         Charity: {item[1].orgName} </p>
                     <p id={item[1].id} style={{color: "white"}}>
@@ -185,7 +193,7 @@ function AppointmentList() {
                             <option value="cancelled">Cancelled</option>
                         </select>   
                     </Form.Group>
-                    <Button type="submit">
+                    <Button type="submit" className={classes.update}>
                         Update
                     </Button>
                 </Form>
@@ -208,8 +216,12 @@ function AppointmentList() {
                             Address: {item[1].address}</p>
                         <p id={item[1].id} style={{color: "white"}}>
                              Restaurant: {item[1].resName} </p>
-                         <p id={item[1].id} style={{color: "white"}}>
-                             Items: {item[1].itemLists} </p>
+                             <p style={{color: "white"}}>
+                            Items: 
+                            {item[1].itemLists.map((stuff,index) => (
+                                <ul id ={index}>{stuff} </ul>
+                            ))}
+                        </p>
                          <p id={item[1].id} style={{color: "white"}}>
                              Charity: {item[1].orgName} </p>
                          <p id={item[1].id} style={{color: "white"}}>
@@ -233,7 +245,7 @@ function AppointmentList() {
                                  <option value="cancelled">Cancelled</option>
                              </select>   
                          </Form.Group>
-                         <Button type="submit" >
+                         <Button type="submit"  className={classes.update}>
                         Update
                     </Button>
                      </Form>
@@ -259,4 +271,4 @@ function AppointmentList() {
     )
 }
 
-export default AppointmentList;
+export default Restaurantappointments;
