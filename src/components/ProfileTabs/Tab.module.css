@@ -1,23 +1,22 @@
 /* Inactive tab */
 .nav-tabs ul > li > a {
-    background-color: white !important;
-    color: rgb(243, 0, 0) !important;
+  background-color: white !important;
+  color: rgb(243, 0, 0) !important;
 }
 .nav-tabs ul > li > a:hover {
-    background-color: pink !important;
+  background-color: pink !important;
 }
 
 /* Active tab */
 .nav-tabs ul > li.active > a,
 .nav-tabs ul > li.active > a:hover,
 .nav-tabs ul > li.active > a:focus {
-    background-color: red !important;
-    color: white !important;
+  background-color: red !important;
+  color: white !important;
 }
 
 /* Disabled tab */
 .nav-tabs ul > li.disabled > a {
-    background-color: lightgray !important;
-    color: darkgray !important;
+  background-color: lightgray !important;
+  color: darkgray !important;
 }
-

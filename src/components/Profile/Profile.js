@@ -23,7 +23,7 @@ export default function Profile() {
   const [errors, setErrors] = useState({});
   const [address_display, setAddressDisplay] = useState({});
   const [currentUserDetails, setCurrentUserDetails] = useState({});
-
+  const [events, setEvents] = useState([]);
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
 
@@ -182,6 +182,7 @@ export default function Profile() {
             // console.log(querySnapShot.docs);
             const res = querySnapShot.docs.find((doc) => doc.data().id === queryID).data(); // "res" will have all the details of the user with the id parameter we fetched from url
             // console.log(res);
+
             setUser(res);
             if (currentUser.email === res.email) {
               setForm(res);
@@ -189,6 +190,18 @@ export default function Profile() {
 
             setAddressDisplay(res.address);
             setPhoneNumber(res.phone);
+          });
+      })
+      .then(() => {
+        db.getCollection("Events")
+          .where("id", "==", queryID)
+          .get()
+          .then((querySnapshot) => {
+            let eventsArr = [];
+            querySnapshot.forEach((doc) => {
+              eventsArr.push(doc.data());
+            });
+            setEvents(eventsArr);
           });
       })
       .then(() => {
@@ -335,12 +348,12 @@ export default function Profile() {
                     )}
                   </>
                   <>
-                    {user.first === undefined || user.last === undefined ? (
+                    {user.firstName === undefined || user.lastName === undefined ? (
                       <></> //  if first or last name is not undefined  then renders the name part
                     ) : (
                       <>
                         <p className={`${classes.infolabel}`}>Name</p>
-                        <p className={`${classes.infotext}`}>{`${user.first} ${user.last}`}</p>{" "}
+                        <p className={`${classes.infotext}`}>{`${user.firstName} ${user.lastName}`}</p>{" "}
                       </>
                     )}
                   </>
@@ -404,7 +417,7 @@ export default function Profile() {
                   </Row>
                   
                 </div>*/}
-                <ProfileTabsUser user={user.email} description={user.description} reviews={user.reviews} />
+                <ProfileTabsUser user={user.email} description={user.description} reviews={user.reviews} events={events} userType={user.type} />
               </div>
             </Row>
           </Col>

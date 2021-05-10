@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { Container, InputGroup, FormControl, Col, Row, Button, Modal, Form, Card } from "react-bootstrap";
-import ReactStars from "react-rating-stars-component";
+import RecentReviews from "../RecentReviews/RecentReviews";
+import RecentEvent from "../RecentEvent/RecentEvent";
 import "./Tab.module.css";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Description from "../Description/Description.js";
 
@@ -81,7 +79,6 @@ export default function UserTabs(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  console.log(props.reviews);
 
   return (
     <div className={classes.root}>
@@ -95,24 +92,14 @@ export default function UserTabs(props) {
           <div className={`${classes.postings} ${classes.font}`}></div>
 
           {/* REVIEW TAB  */}
-          <div className={`${classes.postsection} ${classes.font} align-items-center justify-content-center`}>
-            {props.reviews &&
-              props.reviews.map((rev) => (
-                <Row>
-                  <div>
-                    <ReactStars count={5} edit={false} size={24} value={rev.rating} isHalf={true} emptyIcon={<i className="far fa-star"></i>} halfIcon={<i className="fa fa-star-half-alt"></i>} fullIcon={<i className="fa fa-star"></i>} activeColor="#ffd700" />
-                    <p>Writer : {rev.writer}</p>
-                    <p>Review : {rev.review}</p>
-                  </div>
-                </Row>
-              ))}
-            {/* <Row><InputGroup className="mt-3 pr-4 pl-4" style={{ minWidth: "50%" }}>
+
+          <RecentReviews reviews={props.reviews} users={props.user} userType={props.userType} />
+          {/* <Row><InputGroup className="mt-3 pr-4 pl-4" style={{ minWidth: "50%" }}>
                 <FormControl placeholder="Post Something..." aria-label="Post Something..." aria-describedby="basic-addon2" />
                 <InputGroup.Append>
                   <Button className={`${classes.postbutton}`}>Post</Button>
                 </InputGroup.Append>
               </InputGroup></Row> */}
-          </div>
         </TabPanel>
         <TabPanel value={value} index={1}>
           <div>
@@ -120,7 +107,7 @@ export default function UserTabs(props) {
           </div>
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Item Three
+          <RecentEvent user={props.user} userType={props.userType} events={props.events} />
         </TabPanel>
       </div>
     </div>

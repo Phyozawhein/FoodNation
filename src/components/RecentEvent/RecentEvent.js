@@ -1,58 +1,64 @@
-import React from 'react'
-import  { useState, useEffect } from 'react';
-import Fire from '../../firebase.config';
-import { useParams } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import classes from './recentevent.module.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Button, Row } from "react-bootstrap";
+import { useAuth } from "../../context/AuthContext";
+import classes from "./RecentEvent.module.css";
 
-const recentevent = () => {
-    const { currentUser } = useAuth();
+const recentevent = (props) => {
+  const { currentUser } = useAuth();
+  let url = "";
+  let urlEditEvents = "";
+  let urlEditDonations = "";
+  let buttonName = "";
 
-  const { id } = useParams();
-  const { db } = Fire;
-  const [address, setAddress] = useState('');
-  const [itemLists, setitemLists] = useState('');
-  const [date, setDate] = useState('');
-
-  useEffect(() => {
-    db.getCollection('Events')
-      .where('id', '==', id)
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-         
-          const  itemLists  = doc.data().itemLists;
-          const  address  = doc.data().address;
-          
-           let fordate = new Date(doc.data().date);
-           fordate = fordate.toLocaleString('en-US', { timeZone: 'America/New_York' });
-            
-          setAddress(address);
-          setitemLists(itemLists)
-          setDate(fordate);
-          
-        });
-      })
-      .catch((error) => {
-        console.log('Error getting documents: ', error);
-      });
-  }, []);
-    return (
-        <div>
-            <div className ={classes.container}>
-            <br />
-                <p style={{ color: 'white', fontSize: 35, marginLeft: '16%', maxWidth: '70%' }}>Address: {address}</p>
-                <br />
-                <p style={{ color: 'white', fontSize: 35, marginLeft: '16%', maxWidth: '70%' }}>ItemLists: {itemLists}</p>
-                <br/>
-                <p style={{ color: 'white', fontSize: 35, marginLeft: '16%', maxWidth: '70%' }}>Date: {date}</p>
-                <br/>
-            
-            </div>
-             
+  if (props.userType === "charity") {
+    url = "/charity-event";
+    urlEditEvents = "/";
+    urlEditDonations = "/appointments";
+    buttonName = "Host an Event";
+  } else if (props.userType === "restaurant") {
+    url = "/restaurant-donation";
+    urlEditDonations = "/appointments";
+    buttonName = "Host an Event";
+    buttonName = "Make a Donation";
+  }
+  console.log(props.user);
+  console.log(props.userType !== "regular" && currentUser.email === props.user);
+  return (
+    <div className={`${classes.postsection} ${classes.font} align-items-center justify-content-center`}>
+      <div className={classes.postings}>
+        {props.events &&
+          props.events.map((rev, index) => (
+            <Row key={index}>
+              <div className={classes.container}></div>
+            </Row>
+          ))}
+      </div>
+      {props.userType === "charity" && currentUser.email === props.user ? (
+        <div className={classes.buttonGroup}>
+          <Link to={url}>
+            <Button className={`w-30 ${classes.profilebutton}`}>{buttonName}</Button>
+          </Link>
+          <Link to={urlEditEvents}>
+            <Button className={`w-30 ${classes.profilebutton}`}>Edit Events</Button>
+          </Link>
+          <Link to={urlEditDonations}>
+            <Button className={`w-30 ${classes.profilebutton}`}>Edit Appointments </Button>
+          </Link>
         </div>
-    )
-}
+      ) : null}
+      {props.userType === "restaurant" && currentUser.email === props.user ? (
+        <div className={classes.buttonGroup}>
+          <Link to={url}>
+            <Button className={`w-20 ${classes.profilebutton}`}>{buttonName}</Button>
+          </Link>
+          <Link to={urlEditDonations}>
+            <Button className={`w-20 ${classes.profilebutton}`}>Edit Appointments </Button>
+          </Link>
+        </div>
+      ) : null}
+    </div>
+  );
+};
 
 export default recentevent;

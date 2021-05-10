@@ -42,14 +42,14 @@ const Description = (props) => {
     setEdit(false);
     alert("Saved!");
   }
-
+  console.log(form);
   return (
     <>
       {canEdit === false ? (
         <>
           <div className={`${classes.postings} ${classes.font}`}>
             <p>Description:</p>
-            <p>{form.description}</p>
+            <p>{props.description}</p>
           </div>
           {props.user === currentUser.email ? (
             <div className={`${classes.postsection} ${classes.font} align-items-center justify-content-center`}>
@@ -70,7 +70,7 @@ const Description = (props) => {
               <p>Description:</p>
               <Row>
                 <InputGroup className="mt-0 mb-3 pr-4 pl-4" style={{ minWidth: "50%" }}>
-                  <FormControl style={{ backgroundColor: "transparent", color: "white" }} defaultValue={form.description} as="textarea" aria-label="With textarea" rows="5" onInput={(e) => setField("description", e.target.value)} required />
+                  <FormControl style={{ backgroundColor: "transparent", color: "white" }} defaultValue={props.description} as="textarea" aria-label="With textarea" rows="5" onInput={(e) => setField("description", e.target.value)} required />
                 </InputGroup>
               </Row>
             </div>
