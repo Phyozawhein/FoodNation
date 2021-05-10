@@ -25,12 +25,13 @@
 .rectangle {
   background: rgba(196, 196, 196, 0.27);
   border-radius: 58px;
+  padding: 20px;
 
   color: #ffffff;
   font-family: Sora;
 }
 
-.date {
+.container {
 }
 
 .cantView {

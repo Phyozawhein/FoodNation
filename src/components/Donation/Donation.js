@@ -2,7 +2,7 @@ import styles from "./Donation.module.css";
 import React, { useState, useRef, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import Fire from "../../firebase.config";
-import { Button, Form, Alert } from "react-bootstrap";
+import { Button, Form, Alert, Container } from "react-bootstrap";
 import sha256 from "js-sha256";
 
 function Donation() {
@@ -91,7 +91,7 @@ function Donation() {
   }
 
   const viewPage = (
-    <div>
+    <Container className={styles.container}>
       <div className={styles.rectangle}>
         <div>
           <h1 className={styles.headline}>Schedule a Donation</h1>
@@ -142,12 +142,12 @@ function Donation() {
             <Form.Control className="date" type="datetime-local" ref={date} required />
           </Form.Group>
           <br />
-          <Button type="post" className={styles.postbutton}>
+          <Button type="post" className={`  w-100 text-center mt-2 ${styles.postbutton}`}>
             Post
           </Button>
         </Form>
       </div>
-    </div>
+    </Container>
   );
 
   const cantViewPage = (
