@@ -8,12 +8,3 @@
   width: 100px;
   height: auto;
 }
-
-.checkBoxLists {
-  border-bottom: 1px grey solid;
-}
-
-.checkBoxLists input {
-  padding: 0px;
-  margin: 0px;
-}
