@@ -8,11 +8,11 @@ import { AuthProvider } from "./context/AuthContext";
 import Navbar from "./layouts/navigation/Navbar";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "./components/Dashboard/Dashboard";
-import Location from "./components/Location/Location";
 import Profile from "./components/Profile/Profile";
 import Contact from "./components/Contact/Contact";
 import CharityDetails from "./components/CharityDetails/CharityDetails";
 import Donation from "./components/Donation/Donation";
+import Map from "./components/Location/Map";
 import SearchBar from "./layouts/search/SearchBar";
 import AppointmentList from "./components/AppointmentList/AppointmentList";
 import Description from "./components/Description/Description";
@@ -35,12 +35,12 @@ function App() {
               <Route exact path="/" component={Dashboard} />
               <PrivateRoute exact path="/profile" component={Profile} />
               <PrivateRoute exact path="/profile/:id" component={Profile} />
-              <Route path="/location" component={Location} />
               <Route path="/charity/:id" children={<CharityDetails />} />
               <PrivateRoute path="/charity-event" component={Event} />
               <PrivateRoute path="/restaurant-donation" component={Donation} />
               <Route path="/contact" component={Contact} />
               <Route path="/search" component={SearchBar} />
+              <Route path="/map" component={Map} />
               <PrivateRoute path ="/appointments" component={AppointmentList} />
               <Route path = "/description/:id" children={<Description/>}/>
               <Route path ="/recentevent/:id" children = {<RecentEvent/>}/>
