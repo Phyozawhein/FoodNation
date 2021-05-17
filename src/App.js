@@ -39,18 +39,11 @@ function App() {
               <PrivateRoute path="/restaurant-donation" component={Donation} />
               <Route path="/contact" component={Contact} />
               <Route path="/search" component={SearchBar} />
-<<<<<<< HEAD
+              <Route path="/map" component={Map} />
               <PrivateRoute path="/appointments" component={AppointmentList} />
               <Route path="/description/:id" children={<Description />} />
               <Route path="/recentevent/:id" children={<RecentEvent />} />
               <Route path="/recentreview/:id" children={<RecentReviews />} />
-=======
-              <Route path="/map" component={Map} />
-              <PrivateRoute path ="/appointments" component={AppointmentList} />
-              <Route path = "/description/:id" children={<Description/>}/>
-              <Route path ="/recentevent/:id" children = {<RecentEvent/>}/>
-              <Route path ="/recentreview/:id" children = {<RecentReviews/>}/> 
->>>>>>> 9eb7ef7269b58a282798b0938b183919f99319cb
             </Switch>
           </div>
         </Router>

@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import Fire from "../../firebase.config";
 import { Button, Form, Alert, Col, Row } from "react-bootstrap";
-import classes from "./AppointmentList.module.css";
 
 function AppointmentList() {
   let db = Fire.db;
@@ -39,6 +38,7 @@ function AppointmentList() {
           .get()
           .then((querySnapshot) => {
             let array = [];
+            console.log(querySnapshot.empty);
             querySnapshot.forEach((doc) => {
               array.push([doc.id, doc.data()]);
             });
@@ -77,14 +77,14 @@ function AppointmentList() {
   }
 
   const viewPage = (
-    <div className={styles.rectangle}>
+    <div>
       <div className={styles.headline}>
         <h1>List of Appointments</h1>
       </div>
 
       <Row>
         <Col>
-          <div className={classes.open}>
+          <div className={styles.open}>
             <h1>Open</h1>
           </div>
 
@@ -139,7 +139,7 @@ function AppointmentList() {
             })}
         </Col>
         <Col>
-          <div className={classes.completed}>
+          <div className={styles.completed}>
             <h1>Completed</h1>
           </div>
           {statusArray
@@ -193,7 +193,7 @@ function AppointmentList() {
             })}
         </Col>
         <Col>
-          <div className={classes.completed}>
+          <div className={styles.completed}>
             <h1>Cancelled</h1>
           </div>
           {statusArray
