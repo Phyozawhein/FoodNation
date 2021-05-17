@@ -147,11 +147,17 @@ function Donation () {
             <Form.Label className={styles.label}>
               Choose a Date
               <br />
-              <br />
             </Form.Label>
             <Form.Control className="date" type="datetime-local" ref={date} required />
           </Form.Group>
           <br />
+          <Form.Group id="expiry">
+            <Form.Label className={styles.label}>
+              Expiration Estimate
+              <br />
+            </Form.Label>
+            <Form.Control className="expiry" type="string" ref={expiry} required />
+          </Form.Group>
           <Button type="post" className={`  w-100 text-center mt-2 ${styles.postbutton}`}>
             Post
           </Button>

@@ -12,14 +12,10 @@ import classes from "./EventList.module.css";
 function AppointmentList() {
   let db = Fire.db;
   const user = useAuth().currentUser.email;
-  const [orgName, setOrgName] = useState(null);
-  const [average, setAverage] = useState(null);
-  const [date, setDate] = useState(null);
   let itemLists = [];
   const [id, setId] = useState(null);
   const [docid, setDocId] = useState("");
   const [view, setView] = useState(false);
-  const [status, setStatus] = useState("");
   const [statusArray, setStatusArray] = useState([]);
   const [error, setError] = useState("");
   const [copyarray, setCopyArray] = useState([]);
