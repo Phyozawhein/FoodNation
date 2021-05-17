@@ -5,50 +5,60 @@ import Fire from "../../firebase.config";
 import { Button, Form, Alert, Container } from "react-bootstrap";
 import sha256 from "js-sha256";
 
-function Donation() {
-  let db = Fire.db;
-  const user = useAuth().currentUser.email;
-  const Address = useRef();
-  const ItemLists = useRef();
-  const date = useRef();
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [view, setView] = useState(false);
-  const [array, setArray] = useState([]);
-  const [charid, setCharId] = useState("");
-  const [resid, setResId] = useState("");
-  const [orgName, setOrgName] = useState("");
-  const [resName, setResName] = useState("");
+function Donation () {
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+    let db = Fire.db
+    const user = useAuth().currentUser.email
+    const Address   = useRef()
+    const date      = useRef()
+    const expiry    = useRef()
+    const ItemLists =  useRef()
+    const [error,setError]=useState('');
+    const [success,setSuccess]=useState('');
+    const [view,setView]=useState(false);
+    const [array,setArray]=useState([]);
+    const [charid, setCharId]=useState('');
+    const [resid, setResId]=useState('');
+    const [orgName, setOrgName]=useState('');
+    const [resName, setResName]=useState('');
 
-    try {
-      db.getCollection("Donation")
-        .doc()
-        .set({
-          resName: resName,
-          orgName: orgName,
-          address: Address.current.value,
-          itemLists: ItemLists.current.value,
-          date: date.current.value,
-          orgid: charid,
-          resid: resid,
-          status: "open",
-        })
-        .then((response) => {
-          setSuccess("Donation appointment created");
-        })
-        .catch((error) => {
-          console.log(error);
-          setError(error.message);
-        });
-    } catch (err) {
-      console.log(err);
-      setError("");
-      setError(err.message);
+
+    async function handleSubmit(e){
+        e.preventDefault();
+   
+        try{
+            let array = ItemLists.current.value
+            array = array.split(',')
+            
+            db.getCollection('Donation').doc().set({
+                
+                resName: resName,
+                orgName: orgName,
+                address: Address.current.value,
+                itemLists:array,
+                expiryEstimate: expiry.current.value,
+                date: date.current.value,
+                orgid: charid,
+                resid: resid,
+                status: "open"
+                
+            }).then(response=>{
+                setSuccess("Donation appointment created");
+                
+                
+            }).catch(error=>{
+
+                console.log(error);
+                 setError(error.message)
+            } 
+                 );
+        }
+        catch(err){
+            console.log(err);
+            setError('');
+            setError(err.message);
+        }
     }
-  }
 
   useEffect(() => {
     db.getCollection("Users")
@@ -137,11 +147,17 @@ function Donation() {
             <Form.Label className={styles.label}>
               Choose a Date
               <br />
-              <br />
             </Form.Label>
             <Form.Control className="date" type="datetime-local" ref={date} required />
           </Form.Group>
           <br />
+          <Form.Group id="expiry">
+            <Form.Label className={styles.label}>
+              Expiration Estimate
+              <br />
+            </Form.Label>
+            <Form.Control className="expiry" type="string" ref={expiry} required />
+          </Form.Group>
           <Button type="post" className={`  w-100 text-center mt-2 ${styles.postbutton}`}>
             Post
           </Button>

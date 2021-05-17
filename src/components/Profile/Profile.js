@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, InputGroup, FormControl, Col, Row, Button, Modal, Form } from "react-bootstrap";
 import ProfileTabsUser from "../ProfileTabs/ProfileTabsUser";
+import Favorites from "../Favorites/Favorites";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Fire, { storage } from "../../firebase.config";
@@ -330,9 +331,11 @@ export default function Profile() {
       </Modal>
 
       <Container className="flex ml-4 align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
+      
         <Row>
           <Col xs={12} md={3}>
             <Row className="d-flex align-items-center justify-content-center">
+              
               <img className={`${classes.accountimage}`} alt="pic" src={user.imgUrl} /> {/* <== replace src */}
             </Row>
             <div className="d-flex align-items-center justify-content-center">
@@ -403,10 +406,11 @@ export default function Profile() {
               </div>
               <div className={`${classes.container} ${classes.font}`}>
                 {/* Insert carousel */}
-                <a className={`m-3 align-items-center m-2 ${classes.favbox}`} href="/profile">
-                  {/* Change href to dynamic */}
-                  <img alt="profile-pic" className={`m-3 rounded-circle d-inline-block ${classes.favimg}`} src={user.imgUrl} />
-                </a>
+                {user.favorites === undefined ? <><div style={{height: '11vh'}} className={`m-3 align-items-center mb-4 ${classes.favbox}`} href="/profile"></div></>  :
+                  <>{/* Change href to dynamic */}
+                  <Favorites favorites={user.favorites}/></>}
+                  {/* <img alt="profile-pic" className={`m-3 rounded-circle d-inline-block ${classes.favimg}`} src={user.imgUrl} /> */}
+                {/* </a> */}
               </div>
             </Row>
             <Row>
@@ -419,7 +423,6 @@ export default function Profile() {
               <div className={`${classes.container} ${classes.font}`} style={{ minHeight: "55vh" }}>
                 {/*<div className={`${classes.postings} ${classes.font}`}>
                 </div>
-
                 <div className={`${classes.postsection} ${classes.font} align-items-center justify-content-center`}>
                   <Row>
                     <InputGroup className="mt-3 pr-4 pl-4" style={{ minWidth: "50%" }}>

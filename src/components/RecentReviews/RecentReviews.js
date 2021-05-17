@@ -9,6 +9,7 @@ import ReactStars from "react-rating-stars-component";
 import firebase from "firebase/app";
 
 const RecentReviews = (props) => {
+  
   return (
     <div>
       <div className={classes.postings}>
