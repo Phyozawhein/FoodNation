@@ -26,7 +26,8 @@ export default function Dashboard() {
 
   return (
     <Container className={classes.cardContainer}>
-      <SearchBar />
+      <SearchBar/>
+      <hr/>
       <CardColumns>
         {charities.map((charity) => {
           const linkUrl = currentUser !== null ? `/profile/${charity.id}` : `charity/${charity.id}`;
