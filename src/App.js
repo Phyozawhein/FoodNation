@@ -18,6 +18,8 @@ import AppointmentList from "./components/AppointmentList/AppointmentList";
 import Description from "./components/Description/Description";
 import RecentReviews from "./components/RecentReviews/RecentReviews";
 import RecentEvent from "./components/RecentEvent/RecentEvent";
+import Donationlist from "./components/DonationList/Donationlist";
+import Restaurantappointments from "./components/RestaurantAppointment/Restaurantappointment";
 
 function App() {
   return (
@@ -39,11 +41,12 @@ function App() {
               <PrivateRoute path="/restaurant-donation" component={Donation} />
               <Route path="/contact" component={Contact} />
               <Route path="/search" component={SearchBar} />
-              <Route path="/map" component={Map} />
               <PrivateRoute path="/appointments" component={AppointmentList} />
               <Route path="/description/:id" children={<Description />} />
               <Route path="/recentevent/:id" children={<RecentEvent />} />
               <Route path="/recentreview/:id" children={<RecentReviews />} />
+              <PrivateRoute path="/donationlist" component={Donationlist} />
+              <PrivateRoute path="/restaurant-appointments" component={Restaurantappointments} />
             </Switch>
           </div>
         </Router>
