@@ -59,13 +59,7 @@ function AppointmentList() {
       .catch((error) => setError(error.message));
   }, [copyarray]);
 
-  const setField = (field, value, index, list) => {
-    list[index] = value;
-    setTagForm({
-      [field]: list,
-    });
-  };
-
+  
   function updateStatus(e) {
     e.preventDefault();
 
@@ -150,7 +144,7 @@ function AppointmentList() {
     <div className={classes.container}>
       <Modal size="lg" contentClassName={styles.custommodal} show={canEditTag} onHide={handleCancel} animation={false}>
         <Modal.Header className={`${styles.custommodaltitle} ${styles.custommodalheader}`} closeButton>
-          <Modal.Title id="example-modal-sizes-title-lg">Write a Review</Modal.Title>
+          <Modal.Title id="example-modal-sizes-title-lg">Change item</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleEdit} className={styles.EditForm}>
