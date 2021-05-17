@@ -17,8 +17,10 @@ import SearchBar from "./layouts/search/SearchBar";
 import AppointmentList from "./components/AppointmentList/AppointmentList";
 import Description from "./components/Description/Description";
 import RecentReviews from "./components/RecentReviews/RecentReviews";
-import RecentEvent from "./components/RecentEvent/RecentEvent"
-
+import RecentEvent from "./components/RecentEvent/RecentEvent";
+import Donationlist from "./components/DonationList/Donationlist";
+import Restaurantappointments from "./components/RestaurantAppointment/Restaurantappointment";
+import EventList from "./components/EventList/EventList"
 
 function App() {
   return (
@@ -36,15 +38,21 @@ function App() {
               <PrivateRoute exact path="/profile" component={Profile} />
               <PrivateRoute exact path="/profile/:id" component={Profile} />
               <Route path="/charity/:id" children={<CharityDetails />} />
+              <Route path="/map" children={<Map/>} />
               <PrivateRoute path="/charity-event" component={Event} />
               <PrivateRoute path="/restaurant-donation" component={Donation} />
               <Route path="/contact" component={Contact} />
               <Route path="/search" component={SearchBar} />
-              <Route path="/map" component={Map} />
-              <PrivateRoute path ="/appointments" component={AppointmentList} />
-              <Route path = "/description/:id" children={<Description/>}/>
-              <Route path ="/recentevent/:id" children = {<RecentEvent/>}/>
-              <Route path ="/recentreview/:id" children = {<RecentReviews/>}/> 
+              <PrivateRoute path="/appointments" component={AppointmentList} />
+              <Route path="/description/:id" children={<Description />} />
+              <Route path="/recentevent/:id" children={<RecentEvent />} />
+              <Route path="/recentreview/:id" children={<RecentReviews />} />
+              <Route path="/map">
+                <Map />
+              </Route>
+              <PrivateRoute path="/donationlist" component={Donationlist} />
+              <PrivateRoute path="/restaurant-appointments" component={Restaurantappointments} />
+              <PrivateRoute path="/events" component={EventList} />
             </Switch>
           </div>
         </Router>

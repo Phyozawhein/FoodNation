@@ -1,4 +1,4 @@
-import styles from "./AppointmentList.module.css";
+import styles from "./Restaurantappointments.module.css";
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import Fire from "../../firebase.config";
@@ -7,9 +7,9 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CancelIcon from "@material-ui/icons/Cancel";
 import { IconButton } from "@material-ui/core";
-import classes from "./AppointmentList.module.css";
+import classes from "./Restaurantappointments.module.css";
 
-function AppointmentList() {
+function Restaurantappointments() {
   let db = Fire.db;
   const user = useAuth().currentUser.email;
   const [orgName, setOrgName] = useState(null);
@@ -36,7 +36,7 @@ function AppointmentList() {
       .then((doc) => {
         const typeCheck = doc.data();
 
-        if (typeCheck.type === "charity") {
+        if (typeCheck.type === "restaurant") {
           setId(typeCheck.id);
         }
 
@@ -44,7 +44,7 @@ function AppointmentList() {
       })
       .then((id) => {
         db.getCollection("Donation")
-          .where("orgid", "==", id)
+          .where("resid", "==", id)
           .get()
           .then((querySnapshot) => {
             let array = [];
@@ -53,13 +53,13 @@ function AppointmentList() {
             });
 
             setStatusArray(array);
+
             setView(true);
           });
       })
       .catch((error) => setError(error.message));
   }, [copyarray]);
 
-  
   function updateStatus(e) {
     e.preventDefault();
 
@@ -84,6 +84,7 @@ function AppointmentList() {
     }
   }
 
+  
   async function showEdit(ItemName, DocID) {
     setEditTag(true);
     setDocId(DocID);
@@ -472,13 +473,14 @@ function AppointmentList() {
     </div>
   );
 
+
   const cantViewPage = (
     <div>
-      <h3>Not authorized to view this page</h3>
+      <h1 className={styles.cantView}>Not authorized to view this page</h1>
     </div>
   );
 
   return <div>{view === true ? viewPage : cantViewPage}</div>;
 }
 
-export default AppointmentList;
+export default Restaurantappointments;

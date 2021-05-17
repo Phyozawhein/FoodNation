@@ -1,39 +1,45 @@
-import styles from './Donation.module.css';
-import React, { useState, useRef, useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext';
-import Fire from '../../firebase.config';
-import {Button,Form, Alert} from 'react-bootstrap';
+import styles from "./Donation.module.css";
+import React, { useState, useRef, useEffect } from "react";
+import { useAuth } from "../../context/AuthContext";
+import Fire from "../../firebase.config";
+import { Button, Form, Alert, Container } from "react-bootstrap";
+import sha256 from "js-sha256";
 
 function Donation () {
 
     let db = Fire.db
     const user = useAuth().currentUser.email
-    const ResName   = useRef()
     const Address   = useRef()
-    const ItemLists = useRef()
     const date      = useRef()
+    const expiry    = useRef()
+    const ItemLists =  useRef()
     const [error,setError]=useState('');
     const [success,setSuccess]=useState('');
     const [view,setView]=useState(false);
     const [array,setArray]=useState([]);
-    const [id, setId]=useState('');
+    const [charid, setCharId]=useState('');
+    const [resid, setResId]=useState('');
     const [orgName, setOrgName]=useState('');
+    const [resName, setResName]=useState('');
 
 
     async function handleSubmit(e){
         e.preventDefault();
    
         try{
+            let array = ItemLists.current.value
+            array = array.split(',')
             
             db.getCollection('Donation').doc().set({
                 
-                resName: ResName.current.value,
-                orgName: orgName,                         
+                resName: resName,
+                orgName: orgName,
                 address: Address.current.value,
-                itemLists:ItemLists.current.value,
+                itemLists:array,
+                expiryEstimate: expiry.current.value,
                 date: date.current.value,
-                orgid: id,
-                resid: ResName.current.value.toString().toLowerCase().replaceAll(" ","-"),
+                orgid: charid,
+                resid: resid,
                 status: "open"
                 
             }).then(response=>{
@@ -53,16 +59,17 @@ function Donation () {
             setError(err.message);
         }
     }
-  
+
   useEffect(() => {
-    db.getCollection('Users')
-      .where('email', '==', user)
+    db.getCollection("Users")
+      .where("email", "==", user)
       .get()
       .then((snapShotQuery) => {
-        let typeCheck = snapShotQuery.docs.filter((doc) => doc.data().type === 'restaurant').length;
-
-        if (typeCheck === 1) {
+        const typeCheck = snapShotQuery.docs.find((doc) => doc.data().type === "restaurant");
+        if (typeCheck) {
           setView(true);
+          setResName(typeCheck.data().username);
+          setResId(typeCheck.data().id);
         }
       })
       .catch((error) => {
@@ -70,89 +77,93 @@ function Donation () {
         setError(error.message);
       });
 
-    let array = [];
-    db.getCollection('Users')
+    db.getCollection("Users")
+      .where("type", "==", "charity")
       .get()
       .then((querySnapshot) => {
+        let array = [];
         querySnapshot.forEach((doc) => {
-          array.push(doc.data().username);
+          array.push([doc.id, doc.data().username]);
         });
         setArray(array);
       });
   }, []);
 
-  function updateId() {
-    let zone = document.getElementById('idselect');
+  function updateId(e) {
+    let zone = e.target.value;
 
-    if (zone && zone.value != null) {
-      setOrgName(zone.value); // FIX ME
-      setId(zone.value.toString().toLowerCase().replaceAll(' ', '-'));
+    let pone = zone.split(",");
+
+    if (zone != null) {
+      setCharId(sha256(pone[0]));
+      setOrgName(pone[1]);
     }
   }
 
   const viewPage = (
-    <div className={styles.rectangle}>
-      <div>
-        <h1 className={styles.headline}>Schedule a Donation</h1>
+    <Container className={styles.container}>
+      <div className={styles.rectangle}>
+        <div>
+          <h1 className={styles.headline}>Schedule a Donation</h1>
+        </div>
+        {success && <Alert variant="success">{success}</Alert>}
+
+        <Form onSubmit={handleSubmit}>
+          <br />
+          <Form.Group id="orgName">
+            <Form.Label className={styles.label}>
+              Organization Name
+              <br />
+            </Form.Label>
+
+            <select id="idselect" className={styles.label1} onChange={updateId}>
+              <option selected>Choose a Charity</option>
+
+              {array.map((item) => (
+                <option value={item}> {item[1]} </option>
+              ))}
+            </select>
+          </Form.Group>
+          <br />
+          <Form.Group id="address">
+            <Form.Label className={styles.label}>
+              Address
+              <br />
+            </Form.Label>
+            <Form.Control className="input" type="text" ref={Address} required />
+          </Form.Group>
+          <br />
+          <Form.Group id="itemLists">
+            <Form.Label className={styles.label}>
+              Item Lists
+              <br />
+            </Form.Label>
+            <Form.Control className="input1" type="textarea" ref={ItemLists} required />
+          </Form.Group>
+          <br />
+          <br />
+
+          <Form.Group id="date">
+            <Form.Label className={styles.label}>
+              Choose a Date
+              <br />
+            </Form.Label>
+            <Form.Control className="date" type="datetime-local" ref={date} required />
+          </Form.Group>
+          <br />
+          <Form.Group id="expiry">
+            <Form.Label className={styles.label}>
+              Expiration Estimate
+              <br />
+            </Form.Label>
+            <Form.Control className="expiry" type="string" ref={expiry} required />
+          </Form.Group>
+          <Button type="post" className={`  w-100 text-center mt-2 ${styles.postbutton}`}>
+            Post
+          </Button>
+        </Form>
       </div>
-      {success && <Alert variant="success">{success}</Alert>}
-
-      <Form onSubmit={handleSubmit}>
-        <Form.Group id="resName">
-          <Form.Label className={styles.label}>
-            Restaurant Name
-            <br />
-          </Form.Label>
-          <Form.Control className="input" type="text" ref={ResName} required />
-        </Form.Group>
-        <br />
-        <Form.Group id="orgName">
-          <Form.Label className={styles.label}>
-            Organization Name
-            <br />
-          </Form.Label>
-
-          <select id="idselect" className={styles.label1} onChange={updateId}>
-            <option selected>Choose a Charity</option>
-
-            {array.map((item) => (
-              <option value={item}>{item}</option>
-            ))}
-          </select>
-        </Form.Group>
-        <br />
-        <Form.Group id="address">
-          <Form.Label className={styles.label}>
-            Address
-            <br />
-          </Form.Label>
-          <Form.Control className="input" type="text" ref={Address} required />
-        </Form.Group>
-        <br />
-        <Form.Group id="itemLists">
-          <Form.Label className={styles.label}>
-            Item Lists
-            <br />
-          </Form.Label>
-          <Form.Control className="input1" type="textarea" ref={ItemLists} required />
-        </Form.Group>
-        <br />
-        <br />
-
-        <Form.Group id="date">
-          <Form.Label className={styles.label}>
-            Choose a Date
-            <br />
-            <br />
-          </Form.Label>
-          <Form.Control className="date" type="datetime-local" ref={date} required />
-        </Form.Group>
-        <br />
-        <Button type="post" className={styles.postbutton}>
-          Post
-        </Button>
-      </Form>
-    </div>
+    </Container>
   );
 
   const cantViewPage = (
@@ -161,15 +172,11 @@ function Donation () {
     </div>
   );
 
+  return (
+    <div>
+      {error && <Alert variant="danger">{error}</Alert>}
 
-
-    return (
-        <div>
-             
-        {error &&<Alert variant="danger">{error}</Alert>}
- 
-        { view === true ?  viewPage   :  cantViewPage }
-
+      {view === true ? viewPage : cantViewPage}
     </div>
   );
 }

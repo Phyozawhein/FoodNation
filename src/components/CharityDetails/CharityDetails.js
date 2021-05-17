@@ -5,14 +5,12 @@ import Fire from "../../firebase.config";
 import { useParams } from "react-router-dom";
 
 function CharityDetails() {
-  // let announcements=[]
-  // let description  =""
 
   const { id } = useParams();
   const { db } = Fire;
 
   const [address, setAddress] = useState([]);
-  const [itemLists, setItemLists] = useState("");
+  const [itemLists, setItemLists] = useState([]);
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [date, setDate] = useState("");
@@ -133,7 +131,12 @@ function CharityDetails() {
       <br />
       <p style={{ color: "white", fontSize: 40, marginLeft: "16%", maxWidth: "70%" }}>Description: {description}</p>
       <br />
-      <p style={{ color: "white", fontSize: 40, marginLeft: "16%", maxWidth: "70%" }}>Event Details: {itemLists}</p>
+      <p style={{ color: "white", fontSize: 40, marginLeft: "16%", maxWidth: "70%" }}>
+        Item Details: 
+        {itemLists.map((stuff) => (
+            <ul>{stuff}</ul>
+          ))}
+      </p>
       <br />
       <Row>
         <Col>

@@ -1,11 +1,47 @@
 .container {
-    background-color: rgba(196, 196, 196, 0.27) !important;
-    padding: 1rem;
-    border-radius: 1rem;
-    overflow-x: hidden;
-    font-family: 'Sora';
-    color: rgb(255, 255, 255);
-    width: 60% !important;
-    margin-left: 20%;
-    margin-top: 8%;
-  }
+  background-color: rgba(196, 196, 196, 0.27) !important;
+  padding: 1rem;
+  border-radius: 1rem;
+  overflow-x: hidden;
+  font-family: "Sora";
+  color: rgb(255, 255, 255);
+  width: 60% !important;
+  margin-left: 20%;
+  margin-top: 8%;
+}
+.postings {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 45vh;
+  margin: 0.5rem;
+  margin-top: -1rem;
+  margin-bottom: 0rem;
+  border-bottom: 1.8px solid rgba(255, 255, 255, 0.692);
+}
+
+.profilebutton {
+  background: #bc0000 !important;
+  border-radius: 0.5rem !important;
+  border: none !important;
+  margin-top: 1rem;
+  font-weight: bolder !important;
+  font-family: "Sora", sans-serif !important;
+}
+
+.profilebutton:hover {
+  background: #b43535 !important;
+  border-radius: 0.5rem !important;
+  border: none !important;
+  margin-top: 1rem;
+  font-weight: bolder;
+  font-family: "Sora", sans-serif !important;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: space-around;
+}
+
+.itemList {
+  list-style: none;
+}

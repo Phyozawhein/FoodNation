@@ -8,13 +8,14 @@
 
 .font {
   color: white;
-  font-family: 'Sora', sans-serif !important;
+  font-family: "Sora", sans-serif !important;
 }
 
 .accountimage {
   width: 10.5rem;
   height: 10.5rem;
   border-radius: 50%;
+  object-fit: "contain";
 }
 
 .profilebutton {
@@ -23,7 +24,7 @@
   border: none !important;
   margin-top: 1rem;
   font-weight: bolder !important;
-  font-family: 'Sora', sans-serif !important;
+  font-family: "Sora", sans-serif !important;
 }
 
 .profilebutton:hover {
@@ -32,7 +33,7 @@
   border: none !important;
   margin-top: 1rem;
   font-weight: bolder;
-  font-family: 'Sora', sans-serif !important;
+  font-family: "Sora", sans-serif !important;
 }
 
 .info {
@@ -44,7 +45,7 @@
   font-size: 0.9rem;
   color: white;
   margin: 1rem;
-  font-family: 'Sora', sans-serif !important;
+  font-family: "Sora", sans-serif !important;
   border-bottom: 1.8px solid rgba(255, 255, 255, 0.692);
 }
 
@@ -52,7 +53,7 @@
   font-size: 0.75rem;
   color: white;
   margin: 1rem;
-  font-family: 'Sora', sans-serif !important;
+  font-family: "Sora", sans-serif !important;
 }
 
 .favbox {
@@ -88,7 +89,7 @@
   border-radius: 0.5rem !important;
   border: none !important;
   font-weight: bolder !important;
-  font-family: 'Sora', sans-serif !important;
+  font-family: "Sora", sans-serif !important;
 }
 
 .postbutton:hover {
@@ -96,7 +97,7 @@
   border-radius: 0.5rem !important;
   border: none !important;
   font-weight: bolder;
-  font-family: 'Sora', sans-serif !important;
+  font-family: "Sora", sans-serif !important;
 }
 
 /*Scrollbar*/
@@ -123,52 +124,39 @@
   border-radius: 10px;
 }
 
-.custommodal{
-    background-color: rgba(70, 63, 63, 0.733) !important;
-    color: white;
-    border-radius: 1rem;
-    box-shadow:
-        
-        0 0 70px rgba(245, 21, 69, 0.452),           
-        -10px 0 100px rgba(177, 0, 9, 0.452),       
-        10px 0 250px rgb(0, 0, 0);  
+.custommodal {
+  background-color: rgba(70, 63, 63, 0.733) !important;
+  color: white;
+  border-radius: 1rem;
+  box-shadow: 0 0 70px rgba(245, 21, 69, 0.452), -10px 0 100px rgba(177, 0, 9, 0.452), 10px 0 250px rgb(0, 0, 0);
 }
 
 .custommodalheader {
-
-    color: white;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.603), 0 0 4px rgba(255, 255, 255, 0.603);
-    border-bottom: .1vh solid  rgba(167, 1, 34, 0);
-    font-weight: bolder !important;
-    font-family: 'Sora', sans-serif !important;
-
+  color: white;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.603), 0 0 4px rgba(255, 255, 255, 0.603);
+  border-bottom: 0.1vh solid rgba(167, 1, 34, 0);
+  font-weight: bolder !important;
+  font-family: "Sora", sans-serif !important;
 }
 
-.custommodaltitle{
-    font-size: 6vh;
-    text-indent:2vmin;
-    font-weight: bolder !important;
-    font-family: 'Sora', sans-serif !important;
+.custommodaltitle {
+  font-size: 6vh;
+  text-indent: 2vmin;
+  font-weight: bolder !important;
+  font-family: "Sora", sans-serif !important;
 }
 
-.custommodal .modal-body{
-    box-shadow:
-        inset 0 0 30px rgb(255, 0, 76),      
-        inset 20px 0 60px rgb(75, 0, 0),  
-        inset -20px 0 60px rgb(80, 0, 0), 
-        inset 20px 0 120px rgb(63, 0, 0),  
-        inset -20px 0 120px rgb(0, 0, 0);
-    
+.custommodal .modal-body {
+  box-shadow: inset 0 0 30px rgb(255, 0, 76), inset 20px 0 60px rgb(75, 0, 0), inset -20px 0 60px rgb(80, 0, 0), inset 20px 0 120px rgb(63, 0, 0), inset -20px 0 120px rgb(0, 0, 0);
 }
 
-.custommodal .close{
-    color: white;
-    font-size: 8vh;
-    font-weight: 4;
-    opacity: 1;   
-    font-family: 'Goldman', cursive;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.603), 0 0 4px rgba(255, 255, 255, 0.603);
-    
+.custommodal .close {
+  color: white;
+  font-size: 8vh;
+  font-weight: 4;
+  opacity: 1;
+  font-family: "Goldman", cursive;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.603), 0 0 4px rgba(255, 255, 255, 0.603);
 }
 
 .EditForm {
@@ -177,8 +165,7 @@
   padding: 2rem;
 }
 
-.EditFormRow{
+.EditFormRow {
   padding-right: 1rem;
-  padding-left: .3rem;
-
+  padding-left: 0.3rem;
 }
