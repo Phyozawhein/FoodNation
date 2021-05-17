@@ -6,6 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 import Fire from "../../firebase.config";
 import classes from "./SignUp.module.css";
 import { ReactComponent as Logo } from "../../assets/FN-Logo.svg";
+import { useHistory } from "react-router-dom";
 import { sha256, sha224 } from "js-sha256";
 
 export default function SignUp() {
@@ -22,6 +23,7 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
   const [optionPage, setOptionPage] = useState(<div />);
   const [userType, setUserType] = useState("");
+  const history = useHistory();
 
   const { db } = Fire;
 
@@ -34,27 +36,36 @@ export default function SignUp() {
     try {
       setLoading(true);
       await signup(email, password);
-      // need to add a measure to prevent duplicate account (using email address)
+
+      let data = {};
+      switch (userType) {
+        case "charity":
+          data = { firstName: fName.trim(), lastName: lName.trim(), CID: CID, reviews: [], foodTag: [] };
+          break;
+        case "restaurant":
+          data = { reviews: [] };
+          break;
+        default:
+          data = {};
+      }
 
       db.getCollection("Users")
         .doc(email)
         .set({
-          CID: CID,
+          ...data,
           description: "About Us (edit me)...",
           id: sha256(email),
           username: userName.trim(),
-          firstName: fName.trim(),
-          lastName: lName.trim(),
           email: email.toLowerCase().trim(),
           phone: phoneNumber.trim(),
-        //   address: address.trim(),
+          address: { street: "", state: "", city: "", zip: "" },
           password: password,
           imgUrl: "https://firebasestorage.googleapis.com/v0/b/food-nation-d70ea.appspot.com/o/profiles%2Fdefault.jpg?alt=media&token=2545aed8-026a-497c-a82f-97abeaf7925f",
           type: userType,
-
         })
         .then((response) => {
           console.log("Success");
+          history.push("/");
         })
         .catch((error) => setError(error.message));
       setLoading(false);

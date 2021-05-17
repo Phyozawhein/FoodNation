@@ -11,27 +11,63 @@ const SearchBar = () => {
   const [show, setShow] = useState(false);
   const [matches, setMatches] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
+  const [filter, setFilter] = useState([]);
+  const [textSearch, setTextSearch] = useState(true);
+  const [buttonName, setButtonName] = useState("Search by Tag");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const toggleSearchType = () => {
+    let txt = textSearch;
+    setTextSearch(!txt);
+    setMatches([]);
+    if (txt) {
+      setButtonName("Search by Text");
+    } else {
+      setButtonName("Search by Tag");
+    }
+  };
+
   const handleChange = (e) => {
     if (errorMsg) {
       setErrorMsg("");
     }
     const searchVal = e.target.value.trim();
+    if (searchVal.length) {
+      db.getCollection("Users")
+        .where("username", ">=", searchVal)
+        .where("username", "<=", searchVal + "\uf8ff")
+        .get()
+        .then((querySnapShot) => {
+          if (!querySnapShot.empty) {
+            let query = [];
+            querySnapShot.forEach((doc) => query.push(doc.data()));
+            setMatches(query);
+          } else {
+            setErrorMsg("No match found");
+          }
+        })
+        .catch((error) => setErrorMsg(error.message));
+    } else {
+      setMatches([]);
+    }
+  };
 
+  const handleRadiokbox = (e) => {
     db.getCollection("Users")
-      .where("username", ">=", searchVal)
-      .where("username", "<=", searchVal + "\uf8ff")
+      .where("foodTag", "array-contains-any", [e.target.value])
       .get()
       .then((querySnapShot) => {
+        let query = [];
+
         if (!querySnapShot.empty) {
-          let query = [];
-          querySnapShot.forEach((doc) => query.push(doc.data()));
-          setMatches(query);
-        } else {
-          setErrorMsg("No match found");
+          querySnapShot.forEach((doc) => {
+            query.push(doc.data());
+          });
         }
+        console.log(query);
+        setMatches(query);
       })
       .catch((error) => setErrorMsg(error.message));
   };
@@ -44,7 +80,18 @@ const SearchBar = () => {
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Form.Control type="text" onChange={handleChange} />
+          {textSearch ? (
+            <Form.Control type="text" onChange={handleChange} />
+          ) : (
+            <>
+              <Form.Check inline type="radio" label="Halal" id="options" value="Halal" name="option" onClick={handleRadiokbox} />
+              <Form.Check inline type="radio" label="Kosher" id="options" value="Kosher" name="option" onClick={handleRadiokbox} />
+              <Form.Check inline type="radio" label="Vegetarian" id="options" value="Vegetarian" name="option" onClick={handleRadiokbox} />
+            </>
+          )}
+        </Modal.Header>
+        <Modal.Header>
+          <Button onClick={toggleSearchType}>{buttonName}</Button>
         </Modal.Header>
         <Modal.Body>
           {matches.map((match) => {
@@ -55,8 +102,8 @@ const SearchBar = () => {
               url = `profile/${match.id}`;
             }
             return (
-              <Link to={url}>
-                <Card key={match.email}>
+              <Link to={url} key={match.email}>
+                <Card>
                   <Card.Body className={classes.results}>
                     <Card.Img src={match.imgUrl} />
                     <Card.Text>{match.username}</Card.Text>
