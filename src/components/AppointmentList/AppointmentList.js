@@ -4,6 +4,10 @@ import {useAuth} from '../../context/AuthContext';
 import Fire from '../../firebase.config';
 import {Button,Form, Alert, Col,Row} from 'react-bootstrap';
 import classes from './AppointmentList.module.css';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CancelIcon from '@material-ui/icons/Cancel';
+import {IconButton} from '@material-ui/core'
 
 function AppointmentList() {
 
@@ -12,6 +16,7 @@ function AppointmentList() {
     const [orgName, setOrgName]=useState(null);
     const [resName, setResName]=useState(null);
     const [date,setDate]=useState(null);
+    let itemLists=[];
     const [id, setId]=useState(null);
     const [docid, setDocId]= useState("");
     const [view,setView]=useState(false);
@@ -20,21 +25,26 @@ function AppointmentList() {
     const [error,setError]=useState('');
     const [copyarray, setCopyArray]=useState([]);
 
+    const [tagForm, setTagForm] = useState([]); //For tag editing form
+    const [canEditTag, setEditTag] = useState(false); //For editing tag display
+
     useEffect(() => {
 
-                db.getCollection("Users").doc(user).get().then((doc) => {
-                   let id;
-                    if(doc.exists){
+                db.getCollection("Users").doc(user).get()
+                .then((doc) => {
 
-                            id = doc.data().id;
-                            
-                           setId(id);
-              
-                }
+                    const typeCheck = doc.data();
                     
-                  return id;
-                }).then((id)=>{
+                    if (typeCheck.type==="charity") {
 
+                        
+                        setId(typeCheck.id);
+                    }
+                    
+                    return typeCheck.id;
+                  }
+                  )
+                  .then((id)=>{
 
                 db.getCollection("Donation").where("orgid", "==", id).get().
                 then((querySnapshot) => {
@@ -46,8 +56,7 @@ function AppointmentList() {
                     );
                     
                    setStatusArray(array);
-
-                    setView(true);    
+                   setView(true);    
                 })
 
                 }).catch(error => setError(error.message))
@@ -55,10 +64,17 @@ function AppointmentList() {
         
     },[copyarray])
 
+    const setField = (field, value, index, list) => {
+
+        list[index] = value
+        setTagForm({
+          [field]: list
+        })
+      }
+
     function updateStatus(e) {
         e.preventDefault();
 
-        let zone = document.getElementById('statusSelect');
         if ((date && orgName && resName) !=null) {
             
             if (status !== "" || status !=="Change Status") {
@@ -82,6 +98,36 @@ function AppointmentList() {
             }
         }
       }
+
+    async function handleEdit(value,docid,index,e){
+        setEditTag(true);
+    }
+    async function handleCancel(e){
+        setEditTag(false);
+    }
+
+    function handleDelete(value,id,e){
+        e.preventDefault();
+
+            let result = itemLists.filter(num => num !==value);
+            console.log(result);
+            
+            db.getCollection("Donation")
+            .doc(id)
+            .update({
+                itemLists : result
+            })
+            .then(()=> {
+                db.getCollection("Donation").doc(id)
+                .onSnapshot((doc)=>{
+
+                    
+                    setCopyArray([doc.id,doc.data()]);
+                    console.log("Updated");
+                })
+                })
+            .catch((error) => setError(error.message));
+    }
 
     const viewPage = (
         <div className={styles.rectangle}>
@@ -109,12 +155,111 @@ function AppointmentList() {
                        Address: {item[1].address}</p>
                    <p id={item[1].id} style={{color: "white"}}>
                         Restaurant: {item[1].resName} </p>
-                    <p id={item[1].id} style={{color: "white"}}>
-                        Items: {item[1].itemLists} </p>
+
+                    <p style={{color: "white"}}>
+                    Items: 
+                    {canEditTag === false ?
+                        <>
+                    {item[1].itemLists.map((stuff, index) => (
+                    
+                    <Row>
+                        
+                        <Col>
+                            <ul id={index}>{ stuff } </ul>
+                        </Col>
+                        <Col>
+                            <div>
+                                <IconButton
+                                    onClick={(e) => {
+                                        itemLists=item[1].itemLists;
+                                        handleEdit(stuff,item[0],index,e);
+                                        console.log(e.target.value);
+                                    }}>
+
+                                <EditIcon style={{margin: "5px"}} /  >
+                                </IconButton>
+                                <IconButton
+                                    onClick={(e) => {
+
+                                    itemLists = item[1].itemLists;
+                                    handleDelete(stuff,item[0],e);
+                                    }}>
+
+                                    <DeleteIcon style={{margin: "15px"}} 
+                                        />
+                                </IconButton>
+                                
+                            </div>
+                        </Col>
+                        
+                        {/* <><IconButton
+                             onClick={(e) => {
+                            handleCancel(e);
+                            console.log(e.target.value);}}>
+                                    <CancelIcon/>
+                                    </IconButton> </> */}
+                        
+                    </Row>
+                        
+                    ))}
+                </>
+                :
+                <>
+                <Form onSubmit={handleSubmit}>
+                {item[1].itemLists.map((stuff, index) => (
+                    
+                    <Row>
+                        
+                        <Col>
+                        <InputGroup className="mt-0 mb-3 pr-4 pl-4" style={{ minWidth: "80%" }}>
+                      <FormControl defaultValue={stuff} as="textarea" aria-label="With textarea" rows="5" 
+                      onInput={e => setField('itemLists', e.target.value, index, item[1].itemLists)} required/>
+                    </InputGroup>
+                            <ul id={index}>{ stuff } </ul>
+                        </Col>
+                        <Col>
+                            <div>
+                                <IconButton
+                                    onClick={(e) => {
+                                        handleEdit(stuff,item[0],index,e);
+                                        console.log(e.target.value);
+                                    }}>
+
+                                <EditIcon style={{margin: "5px"}} /  >
+                                </IconButton>
+                                <IconButton
+                                    onClick={(e) => {
+
+                                    itemLists = item[1].itemLists;
+                                    handleDelete(stuff,item[0],e);
+                                    }}>
+
+                                    <DeleteIcon style={{margin: "15px"}} 
+                                        />
+                                </IconButton>
+                                
+                            </div>
+                        </Col>
+                        
+                        {/* <><IconButton
+                             onClick={(e) => {
+                            handleCancel(e);
+                            console.log(e.target.value);}}>
+                                    <CancelIcon/>
+                                    </IconButton> </> */}
+                        
+                    </Row>
+                        
+                    ))}
+                    </Form>
+                    </>
+                }
+                    </p>
 
                     {item[1].expiryEstimate === undefined ? <></> : 
-                   <> <p id={item[1].id} style={{color: "white"}}>
-                        Expiry Estimate: {item[1].expiryEstimate} </p> </> }
+                    <> <p id={item[1].id} style={{color: "white"}}>
+                        Expiry Estimate: {item[1].expiryEstimate} </p>
+                    </> }
 
                     <p id={item[1].id} style={{color: "white"}}>
                         Charity: {item[1].orgName} </p>
@@ -162,8 +307,39 @@ function AppointmentList() {
                        Address: {item[1].address}</p>
                    <p id={item[1].id} style={{color: "white"}}>
                         Restaurant: {item[1].resName} </p>
-                    <p id={item[1].id} style={{color: "white"}}>
-                        Items: {item[1].itemLists} </p>
+
+                        <p style={{color: "white"}}>
+                        Items: 
+                        {item[1].itemLists.map((stuff,index) => (
+                        <Row>
+                        <Col>
+                            <ul id={index}>{ stuff } </ul>
+                        </Col>
+                        <Col>
+                            <div>
+                                <IconButton
+                                    onClick={(e) => {
+                                        handleEdit(stuff,item[0],index,e);
+                                        console.log(e.target.value);
+                                    }}>
+
+                                    <EditIcon style={{margin: "5px"}} /  >
+                                </IconButton>
+                            <IconButton
+                                onClick={(e) => {
+
+                                itemLists = item[1].itemLists;
+                                handleDelete(stuff,item[0],e);
+                                }}>
+
+                                <DeleteIcon style={{margin: "15px"}} 
+                                    />
+                                </IconButton> 
+                            </div>
+                            </Col>
+                        </Row>
+                        ))}
+                        </p>
 
                     {item[1].expiryEstimate === undefined ? <></> : 
                         <> <p id={item[1].id} style={{color: "white"}}>
@@ -215,8 +391,40 @@ function AppointmentList() {
                             Address: {item[1].address}</p>
                         <p id={item[1].id} style={{color: "white"}}>
                              Restaurant: {item[1].resName} </p>
-                         <p id={item[1].id} style={{color: "white"}}>
-                             Items: {item[1].itemLists} </p>
+
+                        <p style={{color: "white"}}>
+                            Items: 
+                            {item[1].itemLists.map((stuff,index) => (
+                        <Row>
+                            <Col>
+                                <ul id={index}>{ stuff } </ul>
+                            </Col>
+                            <Col>
+                                <div>
+                                    <IconButton
+                                        onClick={(e) => {
+                                            handleEdit(stuff,item[0],index,e);
+                                            console.log(e.target.value);
+                                        }}>
+
+                                    <EditIcon style={{margin: "5px"}} /  >
+                                </IconButton>
+                                <IconButton
+                                 onClick={(e) => {
+
+                                    itemLists = item[1].itemLists;
+                                    handleDelete(stuff,item[0],e);
+                                    }}>
+
+                                    <DeleteIcon style={{margin: "15px"}} 
+                                        />
+                                </IconButton> 
+
+                            </div>
+                            </Col>
+                        </Row>
+                            ))}
+                        </p>
 
                         {item[1].expiryEstimate === undefined ? <></> : 
                             <> <p id={item[1].id} style={{color: "white"}}>

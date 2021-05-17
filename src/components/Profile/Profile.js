@@ -288,9 +288,10 @@ export default function Profile() {
                   <p className={classes.infotext}>{counter}</p> </>  } 
                 </>
                 <>
-                { user.first === undefined || user.last === undefined ? <></>  :            //  if first or last name is not undefined  then renders the name part
+                { (user.firstName === undefined) || (user.lastName === undefined) ||
+                  (user.firstName === "") || (user.lastName === "") ? <></>  :            //  if first or last name is not undefined  then renders the name part
                   <><p className={`${classes.infolabel}`}>Name</p>
-                  <p className={`${classes.infotext}`}>{`${user.first} ${user.last}`}</p>  </>  } 
+                  <p className={`${classes.infotext}`}>{`${user.firstName} ${user.lastName}`}</p>  </>  } 
                 </>
               </>
               : <></>}

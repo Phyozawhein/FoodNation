@@ -10,9 +10,9 @@ function Donation () {
     let db = Fire.db
     const user = useAuth().currentUser.email
     const Address   = useRef()
-    const ItemLists = useRef()
     const date      = useRef()
     const expiry    = useRef()
+    const ItemLists =  useRef()
     const [error,setError]=useState('');
     const [success,setSuccess]=useState('');
     const [view,setView]=useState(false);
@@ -27,13 +27,15 @@ function Donation () {
         e.preventDefault();
    
         try{
+            let array = ItemLists.current.value
+            array = array.split(',')
             
             db.getCollection('Donation').doc().set({
                 
                 resName: resName,
-                orgName: orgName,                         
+                orgName: orgName,
                 address: Address.current.value,
-                itemLists:ItemLists.current.value,
+                itemLists:array,
                 expiryEstimate: expiry.current.value,
                 date: date.current.value,
                 orgid: charid,
@@ -132,7 +134,7 @@ function Donation () {
             Address
             <br />
           </Form.Label>
-          <Form.Control className="input" type="text" ref={Address} required />
+          <Form.Control className={styles.input} type="text" ref={Address} required />
         </Form.Group>
         <br />
         <Form.Group id="itemLists">
@@ -140,7 +142,7 @@ function Donation () {
             Item Lists
             <br />
           </Form.Label>
-          <Form.Control className="input1" type="textarea" ref={ItemLists} required />
+          <Form.Control className={styles.input1} type="textarea" ref={ItemLists} required />
         </Form.Group>
         <br />
         <Form.Group id="expiry">

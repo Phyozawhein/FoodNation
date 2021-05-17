@@ -21,12 +21,15 @@ function Event() {
     e.preventDefault();
 
     try {
+      let array = ItemLists.current.value
+      array = array.split(',')
+      
       db.getCollection("Events")
         .doc()
         .set({
           orgName,
           address: Address.current.value,
-          itemLists: ItemLists.current.value,
+          itemLists: array,
           date: date.current.value,
           average: average.current.value,
           id,
