@@ -53,9 +53,8 @@ function Restaurantappointments() {
   function updateStatus(e) {
     e.preventDefault();
 
-    let zone = document.getElementById("statusSelect");
-    if ((date && orgName && resName) != null) {
-      if (status !== "" || status !== "Change Status") {
+    if ((date && orgName && resName && status) != null) {
+      if (status !== "Change Status") {
         db.getCollection("Donation")
           .doc(docid)
           .update({
@@ -71,6 +70,8 @@ function Restaurantappointments() {
               });
           })
           .catch((error) => setError(error.message));
+      } else {
+        alert("Invalid selection");
       }
     }
   }
