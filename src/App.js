@@ -45,6 +45,9 @@ function App() {
               <Route path="/description/:id" children={<Description />} />
               <Route path="/recentevent/:id" children={<RecentEvent />} />
               <Route path="/recentreview/:id" children={<RecentReviews />} />
+              <Route path="/map">
+                <Map />
+              </Route>
               <PrivateRoute path="/donationlist" component={Donationlist} />
               <PrivateRoute path="/restaurant-appointments" component={Restaurantappointments} />
             </Switch>
