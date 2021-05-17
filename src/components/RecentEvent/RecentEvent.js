@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Row } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
-import classes from "./RecentEvent.module.css";
+import classes from "./recentevent.module.css";
 
 const recentevent = (props) => {
   const { currentUser } = useAuth();
