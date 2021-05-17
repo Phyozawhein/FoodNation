@@ -1,0 +1,49 @@
+.container {
+    color: white;
+    font-family: "Sora";
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+  }
+  
+  .icons {
+    color: white !important;
+  }
+  .lists {
+    list-style: none;
+  }
+  .itemLists {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .statuses {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+  
+  .forms {
+    width: 100%;
+    margin: 0 0 20px 0;
+    padding: 10px;
+    background-color: rgba(196, 196, 196, 0.27) !important;
+  }
+  
+  .open,
+  .completed,
+  .cancelled {
+    overflow-y: auto;
+    height: 100vh;
+  }
+  
+  .button {
+    background: #bc0000 !important;
+    border-radius: 0.5rem !important;
+    border: none !important;
+    font-weight: bolder !important;
+    font-family: "Sora", sans-serif !important;
+  }
+  
