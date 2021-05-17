@@ -1,0 +1,97 @@
+.tiles {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card {
+  width: 5.5rem;
+  height: 5.5rem;
+  background-size: contain;
+  border-radius: 50%;
+  background-position-x: center;
+  background-position-y: center;
+  transition: transform .2s;
+  cursor: pointer;
+  background-color: white;
+  background-repeat:no-repeat;
+
+}
+
+.card h3 {
+  margin: 0 0 0 0;
+  font-size: 2rem;
+  bottom: 10%;
+}
+
+.card p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.swiper-container {
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    display: flex;
+  }
+
+
+.swiper-button-next {
+  background-color: #121417;
+    width: 2rem;
+    height: 2rem;
+    top: 4rem;
+    right: -.5rem;
+    border-radius: 50%;
+    transition: transform 0.25s;
+    --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    margin-top: calc(-1 * var(--swiper-navigation-size) / 2);
+    z-index: 10;
+    cursor: pointer;
+    overflow: visible !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.swiper-button-next::after {
+  content: "next";
+  font-size: 1.1rem;
+  box-sizing: border-box;
+  border: 0 solid #e5e7eb;
+}
+
+
+
+.swiper-button-prev {
+  background-color: #121417;
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    top: 4rem;
+    left: -.5rem;
+    border-radius: 50%;
+    transition: transform 0.25s;
+    --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    margin-top: calc(-1 * var(--swiper-navigation-size) / 2);
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:white;
+}
+
+.swiper-button-prev::after {
+  content: "prev";
+  font-size: 1.1rem;
+  box-sizing: border-box;
+  border: 0 solid #e5e7eb;
+}
