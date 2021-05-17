@@ -18,7 +18,7 @@ const recentevent = (props) => {
     buttonName = "Host an Event";
   } else if (props.userType === "restaurant") {
     url = "/restaurant-donation";
-    urlEditDonations = "/appointments";
+    urlEditDonations = "/restaurant-appointments";
     buttonName = "Host an Event";
     buttonName = "Make a Donation";
   }
