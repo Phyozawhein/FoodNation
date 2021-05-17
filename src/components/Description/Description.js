@@ -7,42 +7,9 @@ import { useAuth } from "../../context/AuthContext";
 import classes from "./description.module.css";
 
 const Description = (props) => {
-  const { db } = Fire;
   const { currentUser } = useAuth();
   const [canEdit, setEdit] = useState(false);
-  const [form, setForm] = useState({});
 
-  useEffect(() => {
-    setForm(props);
-    console.log(props.user);
-  }, []);
-
-  const setField = (field, value) => {
-    setForm({
-      [field]: value,
-    });
-  };
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    // Profile Edit Confirmation
-    db.getCollection("Users")
-      .doc(currentUser.email)
-      .update({ ...form })
-      .then(() => {
-        db.getCollection("Users")
-          .doc(currentUser.email)
-          .onSnapshot((doc) => {
-            const res = doc.data(); // "res" will have all the details of the user with the id parameter we fetched from url
-          });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-    setEdit(false);
-    alert("Saved!");
-  }
-  console.log(form);
   return (
     <>
       {canEdit === false ? (
@@ -65,12 +32,12 @@ const Description = (props) => {
         </>
       ) : (
         <>
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={props.handleUpdateDescription}>
             <div className={`${classes.postings} ${classes.font}`}>
               <p>Description:</p>
               <Row>
                 <InputGroup className="mt-0 mb-3 pr-4 pl-4" style={{ minWidth: "50%" }}>
-                  <FormControl style={{ backgroundColor: "transparent", color: "white" }} defaultValue={props.description} as="textarea" aria-label="With textarea" rows="5" onInput={(e) => setField("description", e.target.value)} required />
+                  <FormControl style={{ backgroundColor: "transparent", color: "white" }} defaultValue={props.description} as="textarea" aria-label="With textarea" rows="5" onInput={(e) => props.setField("description", e.target.value)} required />
                 </InputGroup>
               </Row>
             </div>

@@ -13,7 +13,7 @@ const recentevent = (props) => {
 
   if (props.userType === "charity") {
     url = "/charity-event";
-    urlEditEvents = "/";
+    urlEditEvents = "/events";
     urlEditDonations = "/appointments";
     buttonName = "Host an Event";
   } else if (props.userType === "restaurant") {
@@ -22,15 +22,24 @@ const recentevent = (props) => {
     buttonName = "Host an Event";
     buttonName = "Make a Donation";
   }
-  console.log(props.user);
-  console.log(props.userType !== "regular" && currentUser.email === props.user);
+
   return (
     <div className={`${classes.postsection} ${classes.font} align-items-center justify-content-center`}>
       <div className={classes.postings}>
         {props.events &&
-          props.events.map((rev, index) => (
+          props.events.map((ev, index) => (
             <Row key={index}>
-              <div className={classes.container}></div>
+              <div className={classes.container}>
+                <p>Address : {ev.address}</p>
+                <p>Date : {ev.date}</p>
+                <p>Avg. crowd: {ev.average}</p>
+                <p>Items: </p>
+                <ul className={classes.itemList}>
+                  {ev.itemLists.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
             </Row>
           ))}
       </div>

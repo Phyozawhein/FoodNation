@@ -103,7 +103,7 @@ export default function UserTabs(props) {
         </TabPanel>
         <TabPanel value={value} index={1}>
           <div>
-            <Description user={props.user} description={props.description} />
+            <Description user={props.user} description={props.description} setField={props.setField} handleUpdateDescription={props.handleUpdateDescription} />
           </div>
         </TabPanel>
         <TabPanel value={value} index={2}>

@@ -108,7 +108,21 @@ export default function Profile() {
       alert("Saved!");
     }
   }
-
+  const handleUpdateDescription = async (e) => {
+    e.preventDefault();
+    db.getCollection("Users")
+      .doc(user.email)
+      .update({ description: form.description })
+      .then(() => {
+        db.getCollection("Users")
+          .doc(user.email)
+          .onSnapshot((doc) => {
+            setUser(doc.data());
+          })
+          .catch((error) => setErrors(error.message));
+      })
+      .catch((error) => setErrors(error.message));
+  };
   const handleSubmitReview = async (e) => {
     e.preventDefault();
     await db
@@ -417,7 +431,7 @@ export default function Profile() {
                   </Row>
                   
                 </div>*/}
-                <ProfileTabsUser user={user.email} description={user.description} reviews={user.reviews} events={events} userType={user.type} />
+                <ProfileTabsUser user={user.email} description={user.description} reviews={user.reviews} events={events} userType={user.type} setField={setField} handleUpdateDescription={handleUpdateDescription} />
               </div>
             </Row>
           </Col>
