@@ -37,6 +37,7 @@ function App() {
               <PrivateRoute exact path="/profile" component={Profile} />
               <PrivateRoute exact path="/profile/:id" component={Profile} />
               <Route path="/charity/:id" children={<CharityDetails />} />
+              <Route path="/map" children={<Map/>} />
               <PrivateRoute path="/charity-event" component={Event} />
               <PrivateRoute path="/restaurant-donation" component={Donation} />
               <Route path="/contact" component={Contact} />
