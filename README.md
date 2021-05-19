@@ -112,7 +112,18 @@ There are 3 groups of users in this system:
 - [x] The information inside the url for profile page is encrpyted to secure user information.
 - [x] The profile pages are dynamic according to user type.
 
-#### Tools
+## Development
+
+### Authors
+
+- Phyo Hein
+- Mumtahid Akash
+- Peter Ye
+- MD Hossain
+- Jamesy Exime
+- Shazid Rahman
+
+### Tools
 
 - Frontend : React JS
 - CSS libraries : Material UI, Bootstrap
@@ -122,12 +133,13 @@ There are 3 groups of users in this system:
 - Continuous Deployment : Heroku
 - Linting : ESLint, Prettier (Airbnb standard)
 - Package manager : NPM or Yarn
+- Project management : Jira, Figma
 
-## Authors
+### Process
 
-- Phyo Hein
-- Mumtahid Akash
-- Peter Ye
-- MD Hossain
-- Jamesy Exime
-- Shazid Rahman
+## Sprint (1 week long)
+
+- Planning on Sunday
+- Sprint Monday through Sunday
+- Stand up meeting on Tuesday, Thursday (not considering short meetings)
+- Retro meeting on Sunday
