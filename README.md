@@ -97,12 +97,14 @@ There are 3 groups of users in this system:
 #### Charity
 
 - [x] Charities can write a review and rate restaurants to help them improve their public services.
-- [x] Charities can manage donation appointments from restaurants. -[x] Charities can host and manage donation events.
+- [x] Charities can manage donation appointments from restaurants.
+- [x] Charities can host and manage donation events.
 - [x] Charities can display their favorite restaurant as a show of gratitude.
 
 #### Restaurant
 
-- [x] Restaurant donate food to charities by setting up appointments. -[x] Restaurant can manage appointments by modifying items inside the appointment.
+- [x] Restaurant donate food to charities by setting up appointments.
+- [x] Restaurant can manage appointments by modifying items inside the appointment.
 
 ### System feature
 
@@ -112,14 +114,14 @@ There are 3 groups of users in this system:
 
 #### Tools
 
-Frontend : React JS
-CSS libraries : Material UI, Bootstrap
-Backend : Firebase ( Authentication, Firestore, Firebase Storage)
-Testing : Jest, Enzyme
-Continuous Integration : Circle CI
-Continuous Deployment : Heroku
-Linting : ESLint, Prettier (Airbnb standard)
-Package manager : NPM or Yarn
+- Frontend : React JS
+- CSS libraries : Material UI, Bootstrap
+- Backend : Firebase ( Authentication, Firestore, Firebase Storage)
+- Testing : Jest, Enzyme
+- Continuous Integration : Circle CI
+- Continuous Deployment : Heroku
+- Linting : ESLint, Prettier (Airbnb standard)
+- Package manager : NPM or Yarn
 
 ## Authors
 
