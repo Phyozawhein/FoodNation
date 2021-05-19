@@ -106,7 +106,9 @@ There are 3 groups of users in this system:
 
 ### System feature
 
-- [x] The system offers a geolocation feature to help users navigate to charity donation event. -[x] The information inside the url for profile page is encrpyted to secure user information. -[x] The profile pages are dynamic according to user type.
+- [x] The system offers a geolocation feature to help users navigate to charity donation event.
+- [x] The information inside the url for profile page is encrpyted to secure user information.
+- [x] The profile pages are dynamic according to user type.
 
 #### Tools
 
