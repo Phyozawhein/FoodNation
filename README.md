@@ -137,7 +137,7 @@ There are 3 groups of users in this system:
 
 ### Process
 
-## Sprint (1 week long)
+#### Sprint (1 week long)
 
 - Planning on Sunday
 - Sprint Monday through Sunday
