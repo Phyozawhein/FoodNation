@@ -85,32 +85,23 @@ There are 3 groups of users in this system:
 
 #### Users
 
-[x] Users can rate and write review on a charity organization to help them improve.
-[x] Users can also show their favorite charities as a show of gratitude.
-[x] Users can browse charities, restaurants, and other users to get more information and event details.
+-[x] Users can rate and write review on a charity organization to help them improve. -[x] Users can also show their favorite charities as a show of gratitude. -[x] Users can browse charities, restaurants, and other users to get more information and event details.
 
 #### Surfers
 
-[x] Unregistered users can still browse charity pages to view donation events of charity and other informations.
-[x] Unregistered users can use map feature to navigate to the donation site.
+-[x] Unregistered users can still browse charity pages to view donation events of charity and other informations. -[x] Unregistered users can use map feature to navigate to the donation site.
 
 #### Charity
 
-[x] Charities can write a review and rate restaurants to help them improve their public services.
-[x] Charities can manage donation appointments from restaurants.
-[x] Charities can host and manage donation events.
-[x] Charities can display their favorite restaurant as a show of gratitude.
+-[x] Charities can write a review and rate restaurants to help them improve their public services. -[x] Charities can manage donation appointments from restaurants. -[x] Charities can host and manage donation events. -[x] Charities can display their favorite restaurant as a show of gratitude.
 
 #### Restaurant
 
-[x] Restaurant donate food to charities by setting up appointments.
-[x] Restaurant can manage appointments by modifying items inside the appointment.
+-[x] Restaurant donate food to charities by setting up appointments. -[x] Restaurant can manage appointments by modifying items inside the appointment.
 
 ### System feature
 
-[x] The system offers a geolocation feature to help users navigate to charity donation event.
-[x] The information inside the url for profile page is encrpyted to secure user information.
-[x] The profile pages are dynamic according to user type.
+-[x] The system offers a geolocation feature to help users navigate to charity donation event. -[x] The information inside the url for profile page is encrpyted to secure user information. -[x] The profile pages are dynamic according to user type.
 
 #### Tools
 
