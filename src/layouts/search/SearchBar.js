@@ -6,12 +6,11 @@ import { Link } from "react-router-dom";
 import classes from "./SearchBar.module.css";
 
 const SearchBar = () => {
-  const { currentUser } = useAuth();
+  const currentUser = useAuth();
   const { db } = Fire;
   const [show, setShow] = useState(false);
   const [matches, setMatches] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
-  const [filter, setFilter] = useState([]);
   const [textSearch, setTextSearch] = useState(true);
   const [buttonName, setButtonName] = useState("Search by Tag");
 

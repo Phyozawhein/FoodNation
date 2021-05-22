@@ -79,6 +79,10 @@ The goal of this project is to tackle food crisis in US. One of the main factors
 
 ## Project Requirement
 
+### Live Server
+
+Here is the link to live server : http://food-donation-system.herokuapp.com/
+
 ### System Users
 
 There are 3 groups of users in this system:
@@ -137,7 +141,7 @@ There are 3 groups of users in this system:
 
 ### Process
 
-#### Sprint (1 week long)
+#### Sprint (each 1 week long)
 
 - Planning on Sunday
 - Sprint Monday through Sunday
