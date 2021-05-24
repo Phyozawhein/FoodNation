@@ -73,4 +73,77 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-### Project Requirements
+## Overview
+
+The goal of this project is to tackle food crisis in US. One of the main factors of this crisis is not because people cannot produce enough food for the population but because of the amount of food wasted. In US, 80 billion pounds of food (which accounts for 30 to 40 percent of US food supply) are wasted by major fast food chain restaurants and other organizations. Moreover, it is against restaurant policy to gave the food away at the end of the day as it disincentivize the customers. This project solves this problem by connecting charity organization, restaurant and people. Instead of throwing unsold food away, restaurant can gain good public relation by donating food to the charity. The charity can in turn make more impact by donating food to those in need.
+
+## Project Requirement
+
+### Live Server
+
+Here is the link to live server : http://food-donation-system.herokuapp.com/
+
+### System Users
+
+There are 3 groups of users in this system:
+
+#### Users
+
+- [x] Users can rate and write review on a charity organization to help them improve.
+- [x] Users can also show their favorite charities as a show of gratitude.
+- [x] Users can browse charities, restaurants, and other users to get more information and event details.
+
+#### Surfers
+
+- [x] Unregistered users can still browse charity pages to view donation events of charity and other informations.
+- [x] Unregistered users can use map feature to navigate to the donation site.
+
+#### Charity
+
+- [x] Charities can write a review and rate restaurants to help them improve their public services.
+- [x] Charities can manage donation appointments from restaurants.
+- [x] Charities can host and manage donation events.
+- [x] Charities can display their favorite restaurant as a show of gratitude.
+
+#### Restaurant
+
+- [x] Restaurant donate food to charities by setting up appointments.
+- [x] Restaurant can manage appointments by modifying items inside the appointment.
+
+### System feature
+
+- [x] The system offers a geolocation feature to help users navigate to charity donation event.
+- [x] The information inside the url for profile page is encrpyted to secure user information.
+- [x] The profile pages are dynamic according to user type.
+
+## Development
+
+### Authors
+
+- Phyo Hein
+- Mumtahid Akash
+- Peter Ye
+- MD Hossain
+- Jamesy Exime
+- Shazid Rahman
+
+### Tools
+
+- Frontend : React JS
+- CSS libraries : Material UI, Bootstrap
+- Backend : Firebase ( Authentication, Firestore, Firebase Storage)
+- Testing : Jest, Enzyme
+- Continuous Integration : Circle CI
+- Continuous Deployment : Heroku
+- Linting : ESLint, Prettier (Airbnb standard)
+- Package manager : NPM or Yarn
+- Project management : Jira, Figma
+
+### Process
+
+#### Sprint (each 1 week long)
+
+- Planning on Sunday
+- Sprint Monday through Sunday
+- Stand up meeting on Tuesday, Thursday (not considering short meetings)
+- Retro meeting on Sunday

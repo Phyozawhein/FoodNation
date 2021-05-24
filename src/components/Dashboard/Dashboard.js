@@ -9,7 +9,7 @@ import { useAuth } from "../../context/AuthContext";
 export default function Dashboard() {
   const { db } = Fire;
   const [charities, setCharity] = useState([]);
-  const { currentUser } = useAuth();
+  const currentUser = useAuth();
   useEffect(() => {
     db.getCollection("Users")
       .where("type", "==", "charity")
@@ -26,13 +26,13 @@ export default function Dashboard() {
 
   return (
     <Container className={classes.cardContainer}>
-      <SearchBar/>
-      <hr/>
+      <SearchBar />
+      <hr />
       <CardColumns>
         {charities.map((charity) => {
-          const linkUrl = currentUser !== null ? `/profile/${charity.id}` : `charity/${charity.id}`;
+          const linkUrl = currentUser !== undefined ? `/profile/${charity.id}` : `charity/${charity.id}`;
           return (
-            <Card className={classes.charityCard} key={charity.id}>
+            <Card className={classes.charityCard} key={charity.id} data-testid="card">
               <Link to={linkUrl}>
                 <Card.Img src={charity.imgUrl} />
               </Link>
