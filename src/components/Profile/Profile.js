@@ -220,6 +220,7 @@ export default function Profile() {
           });
       })
       .then(() => {
+        console.log(queryID);
         db.getCollection("Donation")
           .where("resid", "==", queryID)
           .where("status", "==", "completed")
@@ -331,11 +332,9 @@ export default function Profile() {
       </Modal>
 
       <Container className="flex ml-4 align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
-      
         <Row>
           <Col xs={12} md={3}>
             <Row className="d-flex align-items-center justify-content-center">
-              
               <img className={`${classes.accountimage}`} alt="pic" src={user.imgUrl} /> {/* <== replace src */}
             </Row>
             <div className="d-flex align-items-center justify-content-center">
@@ -352,7 +351,7 @@ export default function Profile() {
               <p className={`${classes.infotext}`}>{user.email}</p>
               <p className={`${classes.infolabel}`}>Phone</p>
               <p className={`${classes.infotext}`}>{phoneNumber.substr(0, 3) + "-" + phoneNumber.substr(3, 3) + "-" + phoneNumber.substr(6)}</p>
-              {currentUser.email === user.email ? (
+              {currentUser.email !== undefined ? (
                 <>
                   <>
                     {counter === 0 ? (
@@ -365,7 +364,7 @@ export default function Profile() {
                     )}
                   </>
                   <>
-                    {user.firstName === undefined || user.lastName === undefined ? (
+                    {user.firstName !== undefined && user.lastName !== undefined ? (
                       <></> //  if first or last name is not undefined  then renders the name part
                     ) : (
                       <>
@@ -406,10 +405,17 @@ export default function Profile() {
               </div>
               <div className={`${classes.container} ${classes.font}`}>
                 {/* Insert carousel */}
-                {user.favorites === undefined ? <><div style={{height: '11vh'}} className={`m-3 align-items-center mb-4 ${classes.favbox}`} href="/profile"></div></>  :
-                  <>{/* Change href to dynamic */}
-                  <Favorites favorites={user.favorites}/></>}
-                  {/* <img alt="profile-pic" className={`m-3 rounded-circle d-inline-block ${classes.favimg}`} src={user.imgUrl} /> */}
+                {user.favorites === undefined ? (
+                  <>
+                    <div style={{ height: "11vh" }} className={`m-3 align-items-center mb-4 ${classes.favbox}`} href="/profile"></div>
+                  </>
+                ) : (
+                  <>
+                    {/* Change href to dynamic */}
+                    <Favorites favorites={user.favorites} />
+                  </>
+                )}
+                {/* <img alt="profile-pic" className={`m-3 rounded-circle d-inline-block ${classes.favimg}`} src={user.imgUrl} /> */}
                 {/* </a> */}
               </div>
             </Row>
