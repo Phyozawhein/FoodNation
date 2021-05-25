@@ -9,6 +9,7 @@ import classes from "./Profile.module.css";
 import sha256 from "js-sha256";
 import ReactStars from "react-rating-stars-component";
 import firebase from "firebase/app";
+import FavoriteButton from "../FavoriteButton/FavoriteButton";
 
 export default function Profile() {
   const { db } = Fire;
@@ -27,6 +28,7 @@ export default function Profile() {
   const [events, setEvents] = useState([]);
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
+  const [favby, setFavby] = useState([]);
 
   //Handle inputs for edit profile field
   const setField = (field, value) => {
@@ -124,6 +126,77 @@ export default function Profile() {
       })
       .catch((error) => setErrors(error.message));
   };
+
+  const handleFavorite = async () => {
+        db.getCollection("Users")
+        .doc(currentUser.email)
+        .get()
+        .then((doc) => {
+            if (doc.exists) {
+                db.getCollection("Users")
+                .doc(currentUser.email)
+                .update({ favorites: {...doc.data().favorites, [user.email]: user.imgUrl}})
+            }
+        })
+        .then(
+            db.getCollection("Users")
+            .doc(user.email)
+            .get()
+            .then((doc) => {
+                if (doc.exists) {
+                    db.getCollection("Users")
+                    .doc(user.email)
+                    .update({ favoritedBy: firebase.firestore.FieldValue.arrayUnion(currentUser.email)})
+                }
+            })
+        )
+        .then(() => {
+          db.getCollection("Users")
+            .doc(user.email)
+            .onSnapshot((doc) => {
+              const res = doc.data(); // "res" will have all the details of the user with the id parameter we fetched from url
+              // console.log(res);
+              setUser(res);
+            });
+        })
+        .catch((error) => console.log(error.message));
+  }
+
+  const handleFavoriteDelete = async () => {
+        db.getCollection("Users")
+        .doc(currentUser.email)
+        .get()
+        .then((doc) => {
+            if (doc.exists) {
+                db.getCollection("Users")
+                .doc(currentUser.email)
+                .set({ favorites: {[user.email] : firebase.firestore.FieldValue.delete()}}, {merge: true})
+            }
+        })
+        .then(
+            db.getCollection("Users")
+            .doc(user.email)
+            .get()
+            .then((doc) => {
+                if (doc.exists) {
+                    db.getCollection("Users")
+                    .doc(user.email)
+                    .update({ favoritedBy: firebase.firestore.FieldValue.arrayRemove(currentUser.email)})
+                }
+            })
+        )
+        .then(() => {
+          db.getCollection("Users")
+            .doc(user.email)
+            .onSnapshot((doc) => {
+              const res = doc.data(); // "res" will have all the details of the user with the id parameter we fetched from url
+              // console.log(res);
+              setUser(res);
+            });
+        })
+        .catch((error) => console.log(error.message));
+  }
+
   const handleSubmitReview = async (e) => {
     e.preventDefault();
     await db
@@ -202,7 +275,7 @@ export default function Profile() {
             if (currentUser.email === res.email) {
               setForm(res);
             }
-
+            setFavby(res.favoritedBy);
             setAddressDisplay(res.address);
             setPhoneNumber(res.phone);
           });
@@ -339,6 +412,8 @@ export default function Profile() {
             </Row>
             <div className="d-flex align-items-center justify-content-center">
               <h4 className={`${classes.font} m-1`}>{user.username}</h4>
+              {(currentUser.email === user.email || user.type === "regular") ? <></>: <FavoriteButton handleFavoriteDelete={handleFavoriteDelete} handleFavorite={handleFavorite} favoritedBy={user.favoritedBy} email={user.email} imgUrl={user.imgUrl}/>}
+              
             </div>
             <div>
               <h6 className={`${classes.font} ml-2 mt-2`}>Contact Info</h6>
@@ -387,6 +462,7 @@ export default function Profile() {
             ) : (
               <></>
             )}
+            
             {(currentUserDetails.type === "regular" && user.type === "charity") || (currentUserDetails.type === "charity" && user.type === "restaurant") ? (
               <Button className={`w-100 ${classes.profilebutton}`} onClick={handleShowReview}>
                 Write a Review
@@ -394,6 +470,7 @@ export default function Profile() {
             ) : (
               <></>
             )}
+
           </Col>
           <Col className="ml-3" xs={12} md={7}>
             <Row>
@@ -441,6 +518,7 @@ export default function Profile() {
                   
                 </div>*/}
                 <ProfileTabsUser user={user.email} description={user.description} reviews={user.reviews} events={events} userType={user.type} setField={setField} handleUpdateDescription={handleUpdateDescription} />
+                
               </div>
             </Row>
           </Col>
