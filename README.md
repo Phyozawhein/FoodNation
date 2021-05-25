@@ -124,7 +124,7 @@ There are 3 groups of users in this system:
 - Mumtahid Akash
 - Peter Ye
 - MD Hossain
-- Jamesy Exime
+- Jamescy Exime
 - Shazid Rahman
 
 ### Tools
