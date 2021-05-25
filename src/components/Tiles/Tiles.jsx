@@ -6,6 +6,7 @@ import { sha256, sha224 } from "js-sha256";
 import 'swiper/swiper-bundle.css';
 
 import styles from './Tiles.module.css';
+import { keys } from '@material-ui/core/styles/createBreakpoints';
 
 SwiperCore.use([Navigation]);
 
@@ -36,17 +37,18 @@ const Tiles = ({ slidesPerView, favorites }) => (
     direction="horizontal"
   >
 
-    {favorites && favorites.map((object) => {
-        function linker(object){
-          if(object.email){
-            return '/profile/'+sha256(object.email);
+    {Object.keys(favorites).map((key, i) => {
+        function linker(key){
+          if(key){
+            return '/profile/'+sha256(key);
           }
         }
 
         return (
-          <SwiperSlide style={{padding: '1rem'}} key={object.id} className="d-flex align-items-center justify-content-center">
-            <Link to={linker(object)} replace>
-              <div className={styles.card} style={{backgroundImage: `url('${object.imgUrl}')`}}>
+          <SwiperSlide style={{padding: '1rem'}} key={i} className="d-flex align-items-center justify-content-center">
+            <Link to={linker(key)} replace>
+              <div className={styles.card} style={{backgroundImage: `url('${favorites[key]}')`}}>
+              
               </div>
               {/* <a>
                   <img src={object.imgUrl} className={classes.images}/>

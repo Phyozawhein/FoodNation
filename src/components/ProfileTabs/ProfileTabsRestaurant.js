@@ -1,24 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../../context/AuthContext";
+import RecentReviews from "../RecentReviews/RecentReviews";
+import RecentEvent from "../RecentEvent/RecentEvent";
 import "./Tab.module.css";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import RecentReviews from "../RecentReviews/RecentReviews";
-import RecentEvent from "../RecentEvent/RecentEvent";
-import Description from "../Description/Description";
+import Description from "../Description/Description.js";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
     <div role="tabpanel" hidden={value !== index} id={`full-width-tabpanel-${index}`} aria-labelledby={`full-width-tab-${index}`} {...other}>
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box p={3}>{children}</Box>}
     </div>
   );
 }
@@ -39,6 +35,7 @@ const AntTab = withStyles((theme) => ({
     opacity: 1,
     minWidth: 72,
     fontWeight: "bold",
+    fontSize: "1rem",
     marginRight: theme.spacing(4),
     fontFamily: ["-apple-system", "BlinkMacSystemFont", '"Segoe UI"', "Roboto", '"Helvetica Neue"', "Arial", "sans-serif", '"Apple Color Emoji"', '"Segoe UI Emoji"', '"Segoe UI Symbol"'].join(","),
     "&:hover": {
@@ -89,16 +86,24 @@ export default function RestaurantTabs(props) {
         <AntTabs value={value} onChange={handleChange} aria-label="ant example">
           <AntTab label="Reviews" {...a11yProps(0)} />
           <AntTab label="About" {...a11yProps(1)} />
-          <AntTab label="Donations" {...a11yProps(2)} />
         </AntTabs>
         <TabPanel value={value} index={0}>
-          <RecentReviews reviews={props.reviews} userType={props.userType} user={user.email} />
+          <div className={`${classes.postings} ${classes.font}`}></div>
+
+          {/* REVIEW TAB  */}
+
+          <RecentReviews reviews={props.reviews} users={props.user} userType={props.userType} />
+          {/* <Row><InputGroup className="mt-3 pr-4 pl-4" style={{ minWidth: "50%" }}>
+                <FormControl placeholder="Post Something..." aria-label="Post Something..." aria-describedby="basic-addon2" />
+                <InputGroup.Append>
+                  <Button className={`${classes.postbutton}`}>Post</Button>
+                </InputGroup.Append>
+              </InputGroup></Row> */}
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Description description={props.description} />
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          <RecentEvent events={props.events} userType={props.userType} user={user.email} />
+          <div>
+            <Description user={props.user} description={props.description} setField={props.setField} handleUpdateDescription={props.handleUpdateDescription} />
+          </div>
         </TabPanel>
       </div>
     </div>
