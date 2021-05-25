@@ -84,31 +84,31 @@ export default function UserTabs(props) {
     <div className={classes.root}>
       <div className={classes.demo1}>
         <AntTabs value={value} onChange={handleChange} aria-label="ant example">
-          <AntTab label="Reviews" {...a11yProps(0)} />
-          <AntTab label="About" {...a11yProps(1)} />
-          <AntTab label="Events" {...a11yProps(2)} />
+          {/* <AntTab label="Reviews" {...a11yProps(0)} /> */}
+          <AntTab label="About" {...a11yProps(0)} />
+          {/* <AntTab label="Events" {...a11yProps(2)} /> */}
         </AntTabs>
-        <TabPanel value={value} index={0}>
-          <div className={`${classes.postings} ${classes.font}`}></div>
+        {/* <TabPanel value={value} index={0}> */}
+          {/* <div className={`${classes.postings} ${classes.font}`}></div> */}
 
           {/* REVIEW TAB  */}
 
-          <RecentReviews reviews={props.reviews} users={props.user} userType={props.userType} />
+          {/* <RecentReviews reviews={props.reviews} users={props.user} userType={props.userType} /> */}
           {/* <Row><InputGroup className="mt-3 pr-4 pl-4" style={{ minWidth: "50%" }}>
                 <FormControl placeholder="Post Something..." aria-label="Post Something..." aria-describedby="basic-addon2" />
                 <InputGroup.Append>
                   <Button className={`${classes.postbutton}`}>Post</Button>
                 </InputGroup.Append>
               </InputGroup></Row> */}
-        </TabPanel>
-        <TabPanel value={value} index={1}>
+        {/* </TabPanel> */}
+        <TabPanel value={value} index={0}>
           <div>
             <Description user={props.user} description={props.description} setField={props.setField} handleUpdateDescription={props.handleUpdateDescription} />
           </div>
         </TabPanel>
-        <TabPanel value={value} index={2}>
+        {/* <TabPanel value={value} index={2}>
           <RecentEvent user={props.user} userType={props.userType} events={props.events} />
-        </TabPanel>
+        </TabPanel> */}
       </div>
     </div>
   );

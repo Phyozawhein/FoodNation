@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Container, InputGroup, FormControl, Col, Row, Button, Modal, Form } from "react-bootstrap";
 import ProfileTabsUser from "../ProfileTabs/ProfileTabsUser";
+import ProfileTabsCharity from "../ProfileTabs/ProfileTabsCharity";
+import ProfileTabsRestaurant from "../ProfileTabs/ProfileTabsRestaurant";
 import Favorites from "../Favorites/Favorites";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
@@ -517,8 +519,11 @@ export default function Profile() {
                   </Row>
                   
                 </div>*/}
-                <ProfileTabsUser user={user.email} description={user.description} reviews={user.reviews} events={events} userType={user.type} setField={setField} handleUpdateDescription={handleUpdateDescription} />
-                
+                {user.type === "regular" ? <ProfileTabsUser user={user.email} description={user.description} reviews={user.reviews} events={events} userType={user.type} setField={setField} handleUpdateDescription={handleUpdateDescription} />: <></>}
+                {user.type === "charity" ? <ProfileTabsCharity user={user.email} description={user.description} reviews={user.reviews} events={events} userType={user.type} setField={setField} handleUpdateDescription={handleUpdateDescription} />: <></>}
+                {user.type === "restaurant" ? <ProfileTabsRestaurant user={user.email} description={user.description} reviews={user.reviews} events={events} userType={user.type} setField={setField} handleUpdateDescription={handleUpdateDescription} />
+                : <></>}
+    
               </div>
             </Row>
           </Col>
